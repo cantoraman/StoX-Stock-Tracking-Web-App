@@ -9,7 +9,7 @@ AppData.prototype.bindEvents = function () {
 
   PubSub.subscribe('UserData:data-loaded', (event) => {
 
-    
+
     } );
 
 };
@@ -18,7 +18,7 @@ AppData.prototype.getData = function () {
   this.request = new Request(this.url);
   this.request.get()
     .then((userData) => {
-      console.log(userData);
+
       PubSub.publish('AppData:data-loaded', userData);
     })
     .catch(console.error);
