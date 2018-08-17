@@ -22,6 +22,7 @@ Object.keys(priceData).forEach(function(day) {
   //console.log(day);
   listOfDates.push(day);
   listOfPrices.push(parseFloat(priceData[day]["4. close"]));
+  // listOfPrices.reverse();
 })
 console.log(listOfDates);
 console.log(listOfPrices);
@@ -49,7 +50,7 @@ console.log(listOfPrices);
       }],
       series: [{
         type: 'line',
-        data: listOfPrices,
+        data: listOfPrices.reverse(),
         name: 'y axis data'
       }]
     }
