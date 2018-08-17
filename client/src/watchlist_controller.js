@@ -6,10 +6,11 @@ const WatchlistController = function (){
 
 WatchlistController.prototype.initializePage = function () {
 
-   const example = document.createElement('div#example-watchlist');
+   const example = document.createElement('div');
    example.textContent= "Watchlist Display";
 
-
+   const pageBody = document.querySelector('#pageBody');
+   pageBody.appendChild(example);
 
 
 };

@@ -6,9 +6,11 @@ const HoldingsController = function (){
 
 HoldingsController.prototype.initializePage = function () {
 
-   const example = document.createElement('div#example-holdings');
+   const example = document.createElement('div');
    example.textContent= "Holdings Display";
 
+   const pageBody = document.querySelector('#pageBody');
+   pageBody.appendChild(example);
 
 
 

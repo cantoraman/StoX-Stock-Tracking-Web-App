@@ -1,5 +1,7 @@
 const AppData = require('./models/app_data.js');
 const HomeController = require('./home_controller.js');
+const WatchlistController = require('./watchlist_controller.js');
+const HoldingsController = require('./holdings_controller.js');
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -8,16 +10,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const appData = new AppData(dataUrl);
   appData.getData();
 
+  const pageBody = document.querySelector('#pageBody');
+
   const homeController = new HomeController();
   homeController.initializePage();
 
-  //
-  // homeButton.addEventListener('submit', (event) => {
-  //     event.preventDefault();
-  //     RESET INNER HTML
-  //     load homeController(userData)
-  //   });
-  //
+  const watchlistController = new WatchlistController();
+  const holdingsController = new HoldingsController();
+
+
+  const homeButton = document.querySelector('button#home-button');
+  console.log(homeButton);
+
+  homeButton.addEventListener('click', (event) => {
+    console.log("asdasd");
+      event.preventDefault();
+      pageBody.innerHTML = '';
+      homeController.initializePage();
+    });
+
+    const watchlistButton = document.querySelector('button#watchlist-button');
+
+  watchlistButton.addEventListener('click', (event) => {
+    console.log("zxzxzzzzz");
+      event.preventDefault();
+      pageBody.innerHTML = '';
+      watchlistController.initializePage();
+    });
+
+const holdingsButton = document.querySelector('button#holdings-button');
+  holdingsButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      pageBody.innerHTML = '';
+      holdingsController.initializePage();
+    });
+
+
   // watchListButton.addEventListener('submit', (event) => {
   //     event.preventDefault();
   //     RESET INNER HTML

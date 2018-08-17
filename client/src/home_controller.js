@@ -6,11 +6,12 @@ const HomeController = function (){
 
 HomeController.prototype.initializePage = function () {
 
-   const example = document.createElement('div#example-home');
+   const example = document.createElement('div');
    example.textContent= "Home Display";
 
 
-
+   const pageBody = document.querySelector('#pageBody');
+   pageBody.appendChild(example);
 
 };
 
