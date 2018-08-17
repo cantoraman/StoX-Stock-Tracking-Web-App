@@ -2,3 +2,4 @@ node_modules
 npm-debug.log
 bundle.js
 api_key_news.js
+api_key_stock_charts.js
