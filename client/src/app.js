@@ -1,4 +1,12 @@
+const AppData = require('./models/app_data.js');
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
+  const dataUrl = 'http://localhost:3000/api/user';
+  const appData = new AppData(dataUrl);
+  appData.getData();
+  console.log(appData);
 });
 
 // const userData = new UserData()
