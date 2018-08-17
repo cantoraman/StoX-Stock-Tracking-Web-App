@@ -3,7 +3,6 @@ const Request = function (url) {
 };
 
 Request.prototype.get = function () {
-  console.log(this.url);
   return fetch(this.url)
   .then((response) => response.json())
   .catch(error => console.log('error:', error));

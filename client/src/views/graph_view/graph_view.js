@@ -24,12 +24,10 @@ Object.keys(priceData).forEach(function(day) {
   listOfPrices.push(parseFloat(priceData[day]["4. close"]));
   // listOfPrices.reverse();
 })
-console.log(listOfDates);
-console.log(listOfPrices);
 
 
 
-  console.log("graph rendering complete:", graphdata);
+
   var chart = new Highcharts.Chart(
     {
       chart: {
