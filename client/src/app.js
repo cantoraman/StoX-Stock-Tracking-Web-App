@@ -20,10 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const homeButton = document.querySelector('button#home-button');
-  console.log(homeButton);
+
 
   homeButton.addEventListener('click', (event) => {
-    console.log("asdasd");
       event.preventDefault();
       pageBody.innerHTML = '';
       homeController.initializePage();

@@ -3,6 +3,7 @@ const CommoditiesView = require('./views/home_view/commodities_view.js');
 const ChartView = require('./views/home_view/chart_view.js');
 const ForexView = require('./views/home_view/forex_view.js');
 const NewsfeedView = require('./views/home_view/newsfeed_view.js');
+const NewsfeedModel = require('./models/newsfeed_model.js');
 
 const HomeController = function (){
 
@@ -16,7 +17,7 @@ HomeController.prototype.initializePage = function () {
    // pageBody.appendChild(example);
 
    const forexList = document.querySelector('#forex-list');
-   
+
    const forexListView = new ForexView(forexList);
    forexListView.bindEvents();
 
@@ -32,6 +33,8 @@ HomeController.prototype.initializePage = function () {
    const newsfeedView = new NewsfeedView(newsfeedList);
    newsfeedView.bindEvents();
 
+   const newsfeedModel = new NewsfeedModel();
+   newsfeedModel.initializeList();
 };
 
   // const formView = new FormView(form);
