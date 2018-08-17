@@ -37,7 +37,7 @@ console.log(listOfPrices);
         renderTo: container
       },
       title: {
-        text: "test"
+        text: "MSFT"
       },
       series: listOfDates,
       xAxis: {
@@ -45,13 +45,13 @@ console.log(listOfPrices);
       },
       yAxis: [{
         title: {
-          text: "Y axis"
+          text: "$"
         }
       }],
       series: [{
         type: 'line',
         data: listOfPrices.reverse(),
-        name: 'y axis data'
+        name: 'Price'
       }]
     }
   )
