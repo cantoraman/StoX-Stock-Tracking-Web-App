@@ -1,9 +1,10 @@
 const HomeView = require('./views/home_view/home_view.js');
 const CommoditiesView = require('./views/home_view/commodities_view.js');
-const ChartView = require('./views/home_view/chart_view.js');
+const GraphView = require('./views/graph_view/graph_view.js');
 const ForexView = require('./views/home_view/forex_view.js');
 const NewsfeedView = require('./views/home_view/newsfeed_view.js');
 const NewsfeedModel = require('./models/newsfeed_model.js');
+const Graph = require('./models/graph.js');
 
 const HomeController = function (){
 
@@ -25,9 +26,9 @@ HomeController.prototype.initializePage = function () {
    const commoditiesListView = new CommoditiesView(forexList);
    commoditiesListView.bindEvents();
 
-   const chartNode = document.querySelector('#chart');
-   const chartView = new ChartView(chartNode);
-   chartView.bindEvents();
+   const graphNode = document.querySelector('#graph');
+   const graphView = new GraphView(graphNode);
+   graphView.bindEvents();
 
    const newsfeedList = document.querySelector('#newsfeed-list');
    const newsfeedView = new NewsfeedView(newsfeedList);
@@ -35,6 +36,9 @@ HomeController.prototype.initializePage = function () {
 
    const newsfeedModel = new NewsfeedModel();
    newsfeedModel.initializeList();
+
+   const graph = new Graph();
+   graph.initializeGraph();
 };
 
   // const formView = new FormView(form);

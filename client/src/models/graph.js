@@ -1,8 +1,9 @@
 const Request = require('../helpers/request.js');
 const PubSub = require('../helpers/pub_sub.js');
 const API_KEY_STOCK_CHART = require('../api_key_stock_charts.js');
-const ChartData = function (url) {
-  this.url = url;
+
+const Graph = function (url) {
+  this.url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=${API_KEY_STOCK_CHART}`;
   this.request = new Request(this.url);
 };
 
@@ -14,3 +15,20 @@ Graph.prototype.bindEvents = function () {
   });
 
 };
+
+
+
+
+Graph.prototype.initializeGraph = function () {
+  const request = new Request(this.url);
+  request.get().then((data) => {
+    this.publishInitialGraph(data);
+  });
+};
+
+Graph.prototype.publishInitialGraph = function (data) {
+  PubSub.publish('Graph:publish-graphdata', data);
+};
+
+
+module.exports = Graph;
