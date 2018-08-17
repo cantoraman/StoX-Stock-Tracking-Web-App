@@ -21,7 +21,7 @@ Object.keys(priceData).forEach(function(day) {
   // console.log(priceData[day]["4. close"]);
   //console.log(day);
   listOfDates.push(day);
-  listOfPrices.push(priceData[day]["4. close"]);
+  listOfPrices.push(parseFloat(priceData[day]["4. close"]));
 })
 console.log(listOfDates);
 console.log(listOfPrices);
@@ -38,7 +38,7 @@ console.log(listOfPrices);
       title: {
         text: "test"
       },
-      series: [1, 2, 3, 4, 5, 6],
+      series: listOfDates,
       xAxis: {
         categories: []
       },
@@ -49,7 +49,7 @@ console.log(listOfPrices);
       }],
       series: [{
         type: 'line',
-        data: [1, 2, 3, 4, 5, 6],
+        data: listOfPrices,
         name: 'y axis data'
       }]
     }
