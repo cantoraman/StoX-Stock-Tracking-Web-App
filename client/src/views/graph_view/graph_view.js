@@ -13,6 +13,20 @@ GraphView.prototype.bindEvents = function () {
 GraphView.prototype.render = function (graphdata) {
   this.container.innerHTML = '';
   const container = document.createElement('div');
+  const listOfDates = [];
+  const listOfPrices = [];
+const priceData = graphdata["Time Series (Daily)"];
+Object.keys(priceData).forEach(function(day) {
+  // closingPriceData[day];
+  // console.log(priceData[day]["4. close"]);
+  //console.log(day);
+  listOfDates.push(day);
+  listOfPrices.push(priceData[day]["4. close"]);
+})
+console.log(listOfDates);
+console.log(listOfPrices);
+
+
 
   console.log("graph rendering complete:", graphdata);
   var chart = new Highcharts.Chart(

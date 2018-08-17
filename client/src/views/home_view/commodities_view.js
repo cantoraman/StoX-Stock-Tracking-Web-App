@@ -12,7 +12,7 @@ CommoditiesView.prototype.bindEvents = function () {
 
 CommoditiesView.prototype.render = function (games) {
   this.container.innerHTML = '';
-  console.log("chartview rendering complete");
+  console.log("commodities rendering complete");
   // const newsfeedView = new NewsfeedviewView(this.container);
   // games.forEach((game) => gameView.render(game));
 };
