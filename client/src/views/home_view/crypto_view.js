@@ -14,7 +14,9 @@ CryptoView.prototype.bindEvents = function () {
 };
 
 CryptoView.prototype.renderList = function (cryptoData) {
-  const cryptoTable = document.getElementById('crypto-table');
+  const cryptoTable = document.createElement('table');
+  cryptoTable.classList.add('crypto-table');
+  this.container.appendChild(cryptoTable);
   const tableHeader = cryptoTable.insertRow(0);
   const nameHeader = tableHeader.insertCell(0);
   const priceHeader = tableHeader.insertCell(1);

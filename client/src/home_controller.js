@@ -19,20 +19,28 @@ HomeController.prototype.initializePage = function () {
    const pageBody = document.querySelector('#pageBody');
    // pageBody.appendChild(example);
 
-   const forexList = document.querySelector('#forex-list');
+   const forexList = document.createElement('div');
+   forexList.id = 'forex-list';
+   pageBody.appendChild(forexList);
 
    const forexListView = new ForexView(forexList);
    forexListView.bindEvents();
 
-   const cryptoList = document.querySelector('#crypto-list');
+   const cryptoList = document.createElement('div');
+   cryptoList.id = 'crypto-list';
+   pageBody.appendChild(cryptoList);
    const cryptoListView = new CryptoView(cryptoList);
    cryptoListView.bindEvents();
 
-   const graphNode = document.querySelector('#graph');
+   const graphNode = document.createElement('div');
+   pageBody.appendChild(graphNode);
+   graphNode.id = 'graph';
    const graphView = new GraphView(graphNode);
    graphView.bindEvents();
 
-   const newsfeedList = document.querySelector('#newsfeed-list');
+   const newsfeedList = document.createElement('div');
+   newsfeedList.id = 'newsfeed-list';
+   pageBody.appendChild(newsfeedList);
    const newsfeedView = new NewsfeedView(newsfeedList);
    newsfeedView.bindEvents();
 
@@ -52,7 +60,7 @@ HomeController.prototype.initializePage = function () {
 
   // const formView = new FormView(form);
   // formView.bindEvents();
-  // const bucketList = document.querySelector('div#bucket-list');
+  // const bucketList = document.createElement('div#iv#bucket-list');
   // const listView = new ListView(bucketList);
   // listView.bindEvents();
   //
