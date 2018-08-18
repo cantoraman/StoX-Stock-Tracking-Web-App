@@ -20,7 +20,6 @@ CryptoData.prototype.initialize = function () {
   const request = new Request(this.url);
   request.get().then((data) => {
     this.publishCryptoData(data);
-    console.log(data);
   });
 };
 

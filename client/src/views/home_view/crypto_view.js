@@ -15,7 +15,6 @@ CryptoView.prototype.bindEvents = function () {
 
 
 CryptoView.prototype.render = function (graphdata) {
-  console.log(graphdata);
   this.container.innerHTML = '';
   const container = document.createElement('div');
   const listOfDates = [];
