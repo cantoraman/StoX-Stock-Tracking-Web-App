@@ -3,7 +3,7 @@ const PubSub = require('../helpers/pub_sub.js');
 const API_CRYPTO_KEY = require('../api_crypto_key.js');
 
 const CryptoData = function (url) {
-  this.url =`https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=BTC&market=USD&apikey=${API_CRYPTO_KEY}`;
+  this.url = 'https://api.iextrading.com/1.0/stock/market/crypto'
 };
 
 CryptoData.prototype.bindEvents = function () {

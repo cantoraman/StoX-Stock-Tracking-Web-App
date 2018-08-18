@@ -11,19 +11,18 @@ GraphView.prototype.bindEvents = function () {
 };
 
 GraphView.prototype.render = function (graphdata) {
+
   this.container.innerHTML = '';
   const container = document.createElement('div');
   const listOfDates = [];
   const listOfPrices = [];
-const priceData = graphdata["Time Series (Daily)"];
-Object.keys(priceData).forEach(function(day) {
-  // closingPriceData[day];
-  // console.log(priceData[day]["4. close"]);
-  //console.log(day);
-  listOfDates.push(day);
-  listOfPrices.push(parseFloat(priceData[day]["4. close"]));
-  // listOfPrices.reverse();
-})
+  const priceData = graphdata["MSFT"];
+  let i = 0;
+  priceData.chart.forEach(function(day) {
+    listOfDates.push(day.date);
+    listOfPrices.push(parseFloat(day.close));
+    i++;
+  })
 
 
 
@@ -48,7 +47,7 @@ Object.keys(priceData).forEach(function(day) {
       }],
       series: [{
         type: 'line',
-        data: listOfPrices.reverse(),
+        data: listOfPrices,
         name: 'Price'
       }]
     }
@@ -56,7 +55,7 @@ Object.keys(priceData).forEach(function(day) {
   this.container.appendChild(container);
 
 
-  };
+};
 
 
 
