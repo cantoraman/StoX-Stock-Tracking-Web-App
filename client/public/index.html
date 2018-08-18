@@ -4,21 +4,38 @@
   <meta charset="utf-8">
   <title>StoX: </title>
   <script src="/js/bundle.js"></script>
-  <link href="https://fonts.googleapis.com/css?family=Skranji|Source+Serif+Pro" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Abel|BenchNine|Cuprum|Didact+Gothic|Pontano+Sans" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
   <script src="http://code.highcharts.com/stock/highstock.js"></script>
 </head>
 <body>
   <div class="navbar">
-    <div class="button-holder">
-      <button type="submit" id="home-button">Home</button>
+    <div class="svg-wrapper">
+      <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+        <rect id="shape" height="40" width="150" />
+        <div id="text">
+          <span class="spot"></span><a href="/home" id="home-button">Home</a>
+        </div>
+      </svg>
     </div>
-    <div class="button-holder">
-      <button type="submit" id="watchlist-button">Watchlist</button>
+    <div class="svg-wrapper">
+      <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+        <rect id="shape" height="40" width="150" />
+        <div id="text">
+          <span class="spot"></span><a href="/watchlist" id="watchlist-button">Watchlist</a>
+        </div>
+      </svg>
     </div>
-    <div class="button-holder">
-      <button type="submit" id="holdings-button">Holdings</button>
+    <div class="svg-wrapper">
+      <svg height="40" width="150" xmlns="http://www.w3.org/2000/svg">
+        <rect id="shape" height="40" width="150" />
+        <div id="text">
+          <span class="spot"></span><a href="/holdings" id="holdings-button">Holdings</a>
+        </div>
+      </svg>
     </div>
+
+
   </div>
   <div id="pageBody">
     <div id="forex-list">

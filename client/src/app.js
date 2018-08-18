@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const homeController = new HomeController();
   homeController.initializePage();
 
-  const homeButton = document.querySelector('button#home-button');
+  const homeButton = document.querySelector('#home-button');
 
   homeButton.addEventListener('click', (event) => {
     event.preventDefault();
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     homeController.initializePage();
   });
 
-  const watchlistButton = document.querySelector('button#watchlist-button');
+  const watchlistButton = document.querySelector('#watchlist-button');
 
   watchlistButton.addEventListener('click', (event) => {
     console.log("zxzxzzzzz");
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     watchlistController.initializePage();
   });
 
-  const holdingsButton = document.querySelector('button#holdings-button');
+  const holdingsButton = document.querySelector('#holdings-button');
   holdingsButton.addEventListener('click', (event) => {
     event.preventDefault();
     pageBody.innerHTML = '';
