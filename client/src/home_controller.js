@@ -45,8 +45,8 @@ HomeController.prototype.initializePage = function () {
    const crypto = new Crypto();
    crypto.initialize();
 
-   // const forex = new Forex();
-   // forex.initialize();
+   const forex = new Forex();
+   forex.initialize();
 
  };
 
