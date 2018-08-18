@@ -7,14 +7,27 @@ const CryptoView = function (container) {
 CryptoView.prototype.bindEvents = function () {
 
   PubSub.subscribe('Crypto:publish-data', (evt) => {
-    this.render(evt.detail);
+    this.renderList(evt.detail);
+    // this.renderCryptoGraph(evt.detail);
   });
 
 };
 
+CryptoView.prototype.renderList = function (cryptoData) {
+  const cryptoList = document.createElement('ul');
+  this.container.appendChild(cryptoList);
+  const todaysOpen = []
+  const cryptoPriceData = cryptoData["Time Series (Digital Currency Daily)"]
+  Object.keys(cryptoPriceData).forEach(function(day) {
+    todaysOpen.push(parseFloat(cryptoPriceData[day]["4a. close (USD)"]));
+  });
+  const caughtOpenPrice = todaysOpen[0];
+  console.log(caughtOpenPrice);
+};
 
 
-CryptoView.prototype.render = function (graphdata) {
+
+CryptoView.prototype.renderCryptoGraph = function (graphdata) {
   this.container.innerHTML = '';
   const container = document.createElement('div');
   const listOfDates = [];
