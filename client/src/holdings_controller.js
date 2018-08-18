@@ -18,12 +18,7 @@ HoldingsController.prototype.initializePage = function () {
 
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
-
-
-
   });
-
-
 };
 
 //get a list of all holdings

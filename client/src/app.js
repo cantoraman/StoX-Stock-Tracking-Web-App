@@ -3,50 +3,45 @@ const HomeController = require('./home_controller.js');
 const WatchlistController = require('./watchlist_controller.js');
 const HoldingsController = require('./holdings_controller.js');
 
-
 document.addEventListener('DOMContentLoaded', () => {
 
   const holdingsController = new HoldingsController();
-
 
   const dataUrl = 'http://localhost:3000/api/user';
   const appData = new AppData(dataUrl);
   appData.getData();
 
-
   const pageBody = document.querySelector('#pageBody');
 
   const watchlistController = new WatchlistController();
 
-
-    const homeController = new HomeController();
-    homeController.initializePage();
+  const homeController = new HomeController();
+  homeController.initializePage();
 
   const homeButton = document.querySelector('button#home-button');
 
-
   homeButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      pageBody.innerHTML = '';
-      homeController.initializePage();
-    });
+    event.preventDefault();
+    pageBody.innerHTML = '';
+    homeController.initializePage();
+  });
 
-    const watchlistButton = document.querySelector('button#watchlist-button');
+  const watchlistButton = document.querySelector('button#watchlist-button');
 
   watchlistButton.addEventListener('click', (event) => {
     console.log("zxzxzzzzz");
-      event.preventDefault();
-      pageBody.innerHTML = '';
-      watchlistController.initializePage();
-    });
+    event.preventDefault();
+    pageBody.innerHTML = '';
+    watchlistController.initializePage();
+  });
 
-const holdingsButton = document.querySelector('button#holdings-button');
+  const holdingsButton = document.querySelector('button#holdings-button');
   holdingsButton.addEventListener('click', (event) => {
-      event.preventDefault();
-      pageBody.innerHTML = '';
-      holdingsController.initializePage();
-      appData.getData();
-    });
+    event.preventDefault();
+    pageBody.innerHTML = '';
+    holdingsController.initializePage();
+    appData.getData();
+  });
 
 
   // watchListButton.addEventListener('submit', (event) => {

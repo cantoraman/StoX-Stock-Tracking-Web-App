@@ -55,7 +55,6 @@ HomeController.prototype.initializePage = function () {
 
    const forex = new Forex();
    forex.initialize();
-
  };
 
   // const formView = new FormView(form);

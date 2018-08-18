@@ -10,11 +10,9 @@ ChartView.prototype.bindEvents = function () {
   });
 };
 
-ChartView.prototype.render = function (games) {
+ChartView.prototype.render = function (data) {
   this.container.innerHTML = '';
   console.log("newsfeed rendering complete");
-  // const newsfeedView = new NewsfeedviewView(this.container);
-  // games.forEach((game) => gameView.render(game));
 };
 
 module.exports = ChartView;

@@ -10,23 +10,7 @@ ForexView.prototype.bindEvents = function () {
   });
 };
 
-// ForexView.prototype.render = function (data) {
-//   this.container.innerHTML = '';
-//   data.forEach((item) => {
-//     this.container.appendChild(this.createItem(item));
-//   })
-
-// };
-
 ForexView.prototype.createTable = function (data) {
-
-  // const itemNode = document.createElement('ul');
-  // const pairNode = document.createElement('p');
-  // itemNode.classList.add('forex-item');
-  // itemNode.textContent = item.price;
-  // pairNode.textContent = item.symbol;
-  // itemNode.appendChild(pairNode);
-  // return itemNode;
 
   const forexTable = document.createElement('table');
   forexTable.classList.add('forex-table');
@@ -51,8 +35,6 @@ ForexView.prototype.createTable = function (data) {
     priceCell.innerHTML = data[i].price.toFixed(2);
     i++
   });
-
-
   nameHeader.innerHTML = "Forex";
   priceHeader.innerHTML = "Price";
 };

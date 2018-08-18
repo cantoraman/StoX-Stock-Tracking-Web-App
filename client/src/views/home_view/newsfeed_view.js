@@ -5,17 +5,12 @@ const NewsfeedView = function (container) {
 }
 
 NewsfeedView.prototype.bindEvents = function () {
-
   PubSub.subscribe('Newsfeed:publish-news', (evt) => {
     this.render(evt.detail);
   });
-
 };
 
-
-
 NewsfeedView.prototype.render = function (news) {
-
   this.container.innerHTML = '';
   news.articles.forEach((article) => {
     this.container.appendChild(this.createArticleItem(article));
