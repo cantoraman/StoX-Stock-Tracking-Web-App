@@ -1,4 +1,5 @@
 const PubSub = require('../../helpers/pub_sub.js');
+const CryptoData = require('../../models/crypto.js')
 
 const CryptoView = function (container) {
   this.container = container;
@@ -7,27 +8,47 @@ const CryptoView = function (container) {
 CryptoView.prototype.bindEvents = function () {
 
   PubSub.subscribe('Crypto:publish-data', (evt) => {
-    this.render(evt.detail);
+    this.renderList(evt.detail);
+    // this.renderCryptoGraph(evt.detail);
   });
+
+};
+
+CryptoView.prototype.renderList = function (cryptoData) {
+
+  const cryptoList = document.createElement('ul');
+  this.container.appendChild(cryptoList);
+
+  const todaysOpen = []
+  const cryptoPriceData = cryptoData["Time Series (Digital Currency Daily)"]
+  Object.keys(cryptoPriceData).forEach(function(day) {
+    todaysOpen.push(parseFloat(cryptoPriceData[day]["4a. close (USD)"]).toFixed(2));
+  });
+  const caughtOpenPrice = todaysOpen[0];
+  const currencyCode = cryptoData["Meta Data"]["2. Digital Currency Code"]
+
+  const cryptoListItem = document.createElement('li');
+  cryptoListItem.textContent = `${currencyCode}: ${caughtOpenPrice}`;
+  cryptoList.appendChild(cryptoListItem);
 
 };
 
 
 
-CryptoView.prototype.render = function (graphdata) {
+CryptoView.prototype.renderCryptoGraph = function (graphdata) {
   this.container.innerHTML = '';
   const container = document.createElement('div');
   const listOfDates = [];
   const listOfPrices = [];
-const priceData = graphdata["Time Series (Digital Currency Daily)"];
-Object.keys(priceData).forEach(function(day) {
-  // closingPriceData[day];
-  // console.log(priceData[day]["4. close"]);
-  //console.log(day);
-  listOfDates.push(day);
-  listOfPrices.push(parseFloat(priceData[day]["4a. close (USD)"]));
-  // listOfPrices.reverse();
-});
+  const priceData = graphdata["Time Series (Digital Currency Daily)"];
+  Object.keys(priceData).forEach(function(day) {
+    // closingPriceData[day];
+    // console.log(priceData[day]["4. close"]);
+    //console.log(day);
+    listOfDates.push(day);
+    listOfPrices.push(parseFloat(priceData[day]["4a. close (USD)"]));
+    // listOfPrices.reverse();
+  });
 };
 
 

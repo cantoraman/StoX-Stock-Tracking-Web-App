@@ -24,7 +24,7 @@ HomeController.prototype.initializePage = function () {
    const forexListView = new ForexView(forexList);
    forexListView.bindEvents();
 
-   const cryptoList = document.querySelector('#commodities-list');
+   const cryptoList = document.querySelector('#crypto-list');
    const cryptoListView = new CryptoView(cryptoList);
    cryptoListView.bindEvents();
 
