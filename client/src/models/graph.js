@@ -10,11 +10,14 @@ const Graph = function (url) {
 Graph.prototype.bindEvents = function () {
 
   PubSub.subscribe('HomeView:selected-stock', (evt) => {
-    this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=MSFT&types=chart&range=1m&last=5`;
-
-    //TODO be able to click stock to get graph 
-
+    this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.symbol}&types=chart&range=1m&last=5`;
+    this.initializeGraph();
   });
+  PubSub.subscribe('HomeView:selected-forex', (evt) => {
+    // this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.symbol}&types=chart&range=1m&last=5`;
+    // this.initializeGraph();
+  });
+
 
 };
 

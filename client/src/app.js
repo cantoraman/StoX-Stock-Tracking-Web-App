@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const watchlistButton = document.querySelector('#watchlist-button');
 
   watchlistButton.addEventListener('click', (event) => {
-    console.log("zxzxzzzzz");
     event.preventDefault();
     pageBody.innerHTML = '';
     watchlistController.initializePage();

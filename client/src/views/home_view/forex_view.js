@@ -27,8 +27,11 @@ ForexView.prototype.createTable = function (data) {
     forexName.push(data[i].symbol);
     tradingPrice.push(data[i].price);
     const row = forexTable.insertRow(1);
+    console.log(data[i]);
+    row.addEventListener('click', (event) => {
+        PubSub.publish('HomeView:selected-forex', nameCell.textContent);
+    });
     tableHeader.classList.add('forex-header');
-
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = data[i].symbol;
