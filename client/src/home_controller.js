@@ -6,6 +6,7 @@ const NewsfeedView = require('./views/home_view/newsfeed_view.js');
 const NewsfeedModel = require('./models/newsfeed_model.js');
 const Graph = require('./models/graph.js');
 const Crypto = require('./models/crypto.js');
+const Forex = require('./models/forex.js');
 
 const HomeController = function (){
 
@@ -43,6 +44,9 @@ HomeController.prototype.initializePage = function () {
 
    const crypto = new Crypto();
    crypto.initialize();
+
+   const forex = new Forex();
+   forex.initialize();
 
  };
 
