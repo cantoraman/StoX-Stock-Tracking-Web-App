@@ -9,34 +9,42 @@ CryptoView.prototype.bindEvents = function () {
 
   PubSub.subscribe('Crypto:publish-data', (evt) => {
     this.renderList(evt.detail);
-    // this.renderCryptoGraph(evt.detail);
   });
 
 };
 
 CryptoView.prototype.renderList = function (cryptoData) {
-  const cryptoList = document.createElement('ul');
-  this.container.appendChild(cryptoList);
+  const cryptoTable = document.getElementById('crypto-table');
+  const tableHeader = cryptoTable.insertRow(0);
+  const nameHeader = tableHeader.insertCell(0);
+  const priceHeader = tableHeader.insertCell(1);
+
 
   const tradingPrice = [];
   const companyNames = [];
-
-
 
   i = 0;
   cryptoData.forEach(function(day) {
     companyNames.push(cryptoData[i]['companyName']);
     tradingPrice.push(cryptoData[i]['close']);
-    const cryptoListItem = document.createElement('li');
-    cryptoListItem.textContent = cryptoData[i]['companyName']+": "+ (cryptoData[i]['close'].toFixed(2));
-    cryptoList.appendChild(cryptoListItem);
+    const row = cryptoTable.insertRow(1);
+    tableHeader.classList.add('crypto-header');
+
+    const nameCell = row.insertCell(0);
+    const priceCell = row.insertCell(1);
+    nameCell.innerHTML = cryptoData[i]['companyName'];
+    priceCell.innerHTML = cryptoData[i]['close'].toFixed(2)
+
+    // cryptoTableName.textContent = cryptoData[i]['companyName'];
+    // cryptoTablePrice.textContent = cryptoData[i]['close'].toFixed(2);
+
     i++
   });
 
+
+  nameHeader.innerHTML = "Crypto Currency";
+  priceHeader.innerHTML = "Closing Price";
 };
-
-
-
 CryptoView.prototype.renderCryptoGraph = function (graphdata) {
   this.container.innerHTML = '';
   const container = document.createElement('div');
