@@ -4,8 +4,7 @@ const API_KEY_STOCK_CHART = require('../api_key_stock_charts.js');
 
 
 const Forex = function (url) {
-  this.url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=JPY&apikey=${API_KEY_STOCK_CHART}`;
-  this.request = new Request(this.url);
+  this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=MSFT&types=chart&range=1m&last=5`;
 };
 
 Forex.prototype.bindEvents = function () {
@@ -23,26 +22,16 @@ Forex.prototype.initialize = function () {
   var secondCurrency = ["USD", "USD", "JPY", "USD", "CHF", "GBP", "CAD", "PGK"];
   var exchangePrices = [];
 
-  for (var i = 0; i < 8; i++) {
-
-  let request = new Request(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${firstCurrency[i]}&to_currency=${secondCurrency[i]}&apikey=${API_KEY_STOCK_CHART}`);
+  let request = new Request(`https://forex.1forge.com/1.0.3/quotes?pairs=EURUSD,GBPUSD,USDJPY,AUDUSD,USDCHF,EURGBP,USDCAD,TRYUSD&api_key=${API_KEY_STOCK_CHART}`);
   request.get().then((data) => {
-    console.log(data);
-    exchangePrices.push(data["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
+  this.publishExchangeRates(data)
   });
-  this.publishExchangeRates(exchangePrices);
-  };
 
   };
-
-
-
-
 
 
 Forex.prototype.publishExchangeRates = function (data) {
-  console.log(data);
-//  PubSub.publish('Forex:publish-listOfPrices', data);
+ PubSub.publish('Forex:publish-listOfPrices', data);
   };
 
 
