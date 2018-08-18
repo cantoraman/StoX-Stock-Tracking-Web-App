@@ -1,17 +1,21 @@
 const HoldingView = require('./views/stockholdings_view/stock_holdings_view.js');
-
+const PubSub = require('./helpers/pub_sub.js');
 const HoldingsController = function (){
-
 };
 
 HoldingsController.prototype.initializePage = function () {
 
-   const example = document.createElement('div');
-   example.textContent= "Holdings Display";
+  PubSub.subscribe('AppData:data-loaded', (evt)=>{
+    console.log(evt.detail);
+    const userData = evt.detail;
+    const example = document.createElement('div');
+    example.textContent= "Holdings Display";
 
-   const pageBody = document.querySelector('#pageBody');
-   pageBody.appendChild(example);
+    const pageBody = document.querySelector('#pageBody');
+    pageBody.appendChild(example);
 
+
+  });
 
 
 };

@@ -6,18 +6,21 @@ const HoldingsController = require('./holdings_controller.js');
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const holdingsController = new HoldingsController();
+
+
   const dataUrl = 'http://localhost:3000/api/user';
   const appData = new AppData(dataUrl);
   appData.getData();
 
+
   const pageBody = document.querySelector('#pageBody');
 
-  const homeController = new HomeController();
-  homeController.initializePage();
-
   const watchlistController = new WatchlistController();
-  const holdingsController = new HoldingsController();
 
+
+    const homeController = new HomeController();
+    homeController.initializePage();
 
   const homeButton = document.querySelector('button#home-button');
 
@@ -42,6 +45,7 @@ const holdingsButton = document.querySelector('button#holdings-button');
       event.preventDefault();
       pageBody.innerHTML = '';
       holdingsController.initializePage();
+      appData.getData();
     });
 
 

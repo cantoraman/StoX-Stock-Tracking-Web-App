@@ -21,7 +21,6 @@ CryptoView.prototype.renderList = function (cryptoData) {
   const nameHeader = tableHeader.insertCell(0);
   const priceHeader = tableHeader.insertCell(1);
 
-
   const tradingPrice = [];
   const companyNames = [];
 
@@ -35,11 +34,7 @@ CryptoView.prototype.renderList = function (cryptoData) {
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = cryptoData[i]['companyName'];
-    priceCell.innerHTML = cryptoData[i]['close'].toFixed(2)
-
-    // cryptoTableName.textContent = cryptoData[i]['companyName'];
-    // cryptoTablePrice.textContent = cryptoData[i]['close'].toFixed(2);
-
+    priceCell.innerHTML = cryptoData[i]['close'].toFixed(2);
     i++
   });
 
