@@ -15,21 +15,23 @@ CryptoView.prototype.bindEvents = function () {
 };
 
 CryptoView.prototype.renderList = function (cryptoData) {
-  // 
-  // const cryptoList = document.createElement('ul');
-  // this.container.appendChild(cryptoList);
-  //
-  // const todaysOpen = []
-  // const cryptoPriceData = cryptoData["Time Series (Digital Currency Daily)"]
-  // Object.keys(cryptoPriceData).forEach(function(day) {
-  //   todaysOpen.push(parseFloat(cryptoPriceData[day]["4a. close (USD)"]).toFixed(2));
-  // });
-  // const caughtOpenPrice = todaysOpen[0];
-  // const currencyCode = cryptoData["Meta Data"]["2. Digital Currency Code"]
-  //
-  // const cryptoListItem = document.createElement('li');
-  // cryptoListItem.textContent = `${currencyCode}: ${caughtOpenPrice}`;
-  // cryptoList.appendChild(cryptoListItem);
+  const cryptoList = document.createElement('ul');
+  this.container.appendChild(cryptoList);
+
+  const tradingPrice = [];
+  const companyNames = [];
+
+
+
+  i = 0;
+  cryptoData.forEach(function(day) {
+    companyNames.push(cryptoData[i]['companyName']);
+    tradingPrice.push(cryptoData[i]['close']);
+    const cryptoListItem = document.createElement('li');
+    cryptoListItem.textContent = cryptoData[i]['companyName']+": "+ (cryptoData[i]['close'].toFixed(2));
+    cryptoList.appendChild(cryptoListItem);
+    i++
+  });
 
 };
 
