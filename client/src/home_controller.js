@@ -19,6 +19,12 @@ HomeController.prototype.initializePage = function () {
    const pageBody = document.querySelector('#pageBody');
    // pageBody.appendChild(example);
 
+   const graphNode = document.createElement('div');
+   pageBody.appendChild(graphNode);
+   graphNode.id = 'graph';
+   const graphView = new GraphView(graphNode);
+   graphView.bindEvents();
+
    const forexList = document.createElement('div');
    forexList.id = 'forex-list';
    pageBody.appendChild(forexList);
@@ -32,11 +38,7 @@ HomeController.prototype.initializePage = function () {
    const cryptoListView = new CryptoView(cryptoList);
    cryptoListView.bindEvents();
 
-   const graphNode = document.createElement('div');
-   pageBody.appendChild(graphNode);
-   graphNode.id = 'graph';
-   const graphView = new GraphView(graphNode);
-   graphView.bindEvents();
+
 
    const newsfeedList = document.createElement('div');
    newsfeedList.id = 'newsfeed-list';
