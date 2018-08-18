@@ -1,6 +1,6 @@
 *{
   color: white;
-font-family: 'Abel', sans-serif;
+  font-family: 'Abel', sans-serif;
 }
 html {
     height: 100%;
@@ -24,6 +24,34 @@ body {
  align-items: flex-start;
  justify-content: space-evenly;
 }
+table {
+  padding-top: 10%;
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 10%;
+}
+td {
+  border-bottom: 2px solid #009FFD;
+  padding: 5px;
+  min-width: 200px;
+}
+
+#pageBody {
+ padding: 2%;
+ display: flex;
+ flex-direction: row;
+ align-items: flex-start;
+ flex-wrap: wrap;
+ justify-content: space-around;
+ flex-flow: row wrap;
+
+  /* Then we define how is distributed the remaining space */
+  justify-content: space-around;
+}
+
+#highcharts-gmpwdp9-0{
+  max-width: 40%;
+}
 /*
 font-family: 'Abel', sans-serif;
 font-family: 'Cuprum', sans-serif;
@@ -41,12 +69,6 @@ font-family: 'Pontano Sans', sans-serif; */
   margin-left: 5px;
   margin-right: 5px
 }
-/*
-  This is where we define the fill, color, thickness,
-  and stroke pattern of the SVG when there is no hover.
-  The dasharray and offset together define the line position
-  under the words. Here's also where the transition speed is set.
-*/
 
 #shape {
   stroke-width: 6px;
@@ -56,10 +78,6 @@ font-family: 'Pontano Sans', sans-serif; */
   stroke-dashoffset: -220;
   transition: 1s all ease;
 }
-/*
-    Pushing the text up into the SVG. Without this the
-    text would be below the div's.
-*/
 
 #text {
   margin-top: -35px;
@@ -72,10 +90,6 @@ font-family: 'Pontano Sans', sans-serif; */
   font-weight: 100;
   font-size: 1.1em;
 }
-/*
-    Changing the shape on hover. I change the color of the stroke,
-make it thinner, then set it to again wrap around the entire parent element.
-*/
 
 .svg-wrapper:hover #shape {
   stroke-dasharray: 50 0;

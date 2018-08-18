@@ -31,7 +31,8 @@ GraphView.prototype.render = function (graphdata) {
     {
       chart: {
         type: 'line',
-        renderTo: container
+        renderTo: container,
+        width: 600
       },
       title: {
         text: "MSFT"
@@ -53,10 +54,7 @@ GraphView.prototype.render = function (graphdata) {
     }
   )
   this.container.appendChild(container);
-
-
 };
-
 
 
 module.exports = GraphView;
