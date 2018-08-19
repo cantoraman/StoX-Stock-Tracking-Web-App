@@ -31,17 +31,12 @@ CryptoData.prototype.callCryptoPairs = function () {
 };
 
 CryptoData.prototype.callHistoricalCrypto = function (symbol) {
-  console.log(symbol);
-
   const newURL = `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol.substring(0,3)}&tsym=${symbol.substring(3,6)}&limit=30&aggregate=3&e=CCCAGG`;
   const request = new Request(newURL);
   request.get().then((data) => {
-    PubSub.publish('Crypto:publish-graph', data);
+    PubSub.publish('Graph:publish-crypto', data);
   });
 };
 
-CryptoData.prototype.symbolParser = function (symbol) {
-
-};
 
 module.exports = CryptoData;

@@ -1,32 +1,48 @@
 const PubSub = require('../../helpers/pub_sub.js');
 const Highcharts = require('highcharts');
+
 const GraphView = function (container) {
   this.container = container;
 }
 
 GraphView.prototype.bindEvents = function () {
   PubSub.subscribe('Graph:publish-graphdata', (evt) => {
-    this.render(evt.detail);
+    this.arrangeStockToRender(evt.detail);
   });
+  PubSub.subscribe('Graph:publish-crypto', (evt) => {
+    this.arrangeCryptoToRender(evt.detail);
+  });
+
 };
-
-GraphView.prototype.render = function (graphdata) {
-
-  this.container.innerHTML = '';
-  const container = document.createElement('div');
+GraphView.prototype.arrangeStockToRender = function (graphdata) {
   const listOfDates = [];
   const listOfPrices = [];
-  const priceData = graphdata["MSFT"];
-  let i = 0;
+  const priceData = graphdata[Object.keys(graphdata)[0]];
   priceData.chart.forEach(function(day) {
     listOfDates.push(day.date);
     listOfPrices.push(parseFloat(day.close));
-    i++;
   })
+  const arrangedData = {
+    "chartTitle": Object.keys(graphdata)[0],
+    "listOfDates": listOfDates,
+    "yTitle": "$",
+    "listOfPrices": listOfPrices
+  };
+  this.render(arrangedData);
+};
 
+GraphView.prototype.render = function (graphData) {
+  this.container.innerHTML = '';
+  const container = document.createElement('div');
+  const listOfDates = graphData.listOfDates;
+  const listOfPrices = graphData.listOfPrices;
+  const chartTitle = graphData.chartTitle;
+  const yTitle = graphData.yTitle;
+  var chart = this.summonChart(container, chartTitle, listOfDates, yTitle, listOfPrices);
+  this.container.appendChild(container);
+};
 
-
-
+GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, yTitle, listOfPrices) {
   var chart = new Highcharts.Chart(
     {
       chart: {
@@ -35,7 +51,7 @@ GraphView.prototype.render = function (graphdata) {
         width: 600
       },
       title: {
-        text: "MSFT"
+        text: chartTitle
       },
       series: listOfDates,
       xAxis: {
@@ -43,7 +59,7 @@ GraphView.prototype.render = function (graphdata) {
       },
       yAxis: [{
         title: {
-          text: "$"
+          text: yTitle
         }
       }],
       series: [{
@@ -53,8 +69,6 @@ GraphView.prototype.render = function (graphdata) {
       }]
     }
   )
-  this.container.appendChild(container);
+  return chart;
 };
-
-
 module.exports = GraphView;
