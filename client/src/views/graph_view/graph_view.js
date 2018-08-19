@@ -98,7 +98,10 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
       },
       series: listOfDates,
       xAxis: {
-        categories: []
+        categories: [],
+        title: {
+          text: "Time"
+        }
       },
       yAxis: [{
         title: {
@@ -108,7 +111,7 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
       series: [{
         type: 'line',
         data: listOfPrices,
-        name: 'Time'
+        name: 'Price'
       }]
     }
   )
