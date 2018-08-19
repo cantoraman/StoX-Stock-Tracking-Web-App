@@ -52,25 +52,19 @@ GraphView.prototype.arrangeCryptoToRender = function (rawData) {
 };
 
 GraphView.prototype.arrangeForexToRender = function (rawData) {
-  console.log("RawData:",rawData);
   const listOfDates = [];
   const listOfPrices = [];
   const bulkData = rawData["Time Series FX (Daily)"];
-
   for (var key in bulkData){
     listOfDates.push(key);
     listOfPrices.push(parseFloat(bulkData[key]["4. close"]));
   }
-  console.log("list of dates", listOfDates);
-  console.log("list of prices", listOfPrices);
-
   const arrangedData = {
     "chartTitle": `${rawData["Meta Data"]["2. From Symbol"]}/${rawData["Meta Data"]["3. To Symbol"]}`,
     "listOfDates": listOfDates,
     "yTitle": `${rawData["Meta Data"]["3. To Symbol"]}`,
     "listOfPrices": listOfPrices
   };
-  console.log("arranged data:", arrangedData);
   this.render(arrangedData);
 };
 

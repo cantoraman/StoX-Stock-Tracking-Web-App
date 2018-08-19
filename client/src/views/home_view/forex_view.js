@@ -23,6 +23,7 @@ ForexView.prototype.createTable = function (data) {
   const forexName = [];
 
   i = 0;
+  data.reverse();
   data.forEach(function(day) {
     forexName.push(data[i].symbol);
     tradingPrice.push(data[i].price);
