@@ -34,6 +34,13 @@ CryptoData.prototype.callSingleCrypto = function (symbol) {
   });
 };
 
+CryptoData.prototype.callHistoricalCrypto = function (symbol) {
+  const newURL = `https://data.gate.io/api2/1/tradeHistory/${symbol}`;
+  const request = new Request(newURL);
+  request.get().then((data) => {
+    this.publishCryptoData(data);
+  });
+};
 
 
 module.exports = CryptoData;

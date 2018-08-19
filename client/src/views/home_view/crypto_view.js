@@ -30,7 +30,10 @@ CryptoView.prototype.renderList = function (cryptoData) {
     tradingPrice.push(cryptoData[i]['close']);
     const row = cryptoTable.insertRow(1);
     tableHeader.classList.add('crypto-header');
-
+    row.addEventListener('click', (event) => {
+      //  PubSub.publish('HomeView:selected-forex', nameCell.textContent);
+      ??? calisiyor mu apisi bi bak
+    });
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = cryptoData[i]['companyName'];
