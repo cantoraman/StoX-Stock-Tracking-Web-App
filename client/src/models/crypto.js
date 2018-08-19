@@ -8,39 +8,35 @@ const CryptoData = function (url) {
 
 CryptoData.prototype.bindEvents = function () {
 
-  PubSub.subscribe('Crypto:request-data', (evt) => {
-    this.url = 'https://api.iextrading.com/1.0/stock/market/crypto';
+  PubSub.subscribe('Crypto:request-singledata', (evt) => {
+    this.callSingleCrypto(evt.detail);
   });
 
+  PubSub.subscribe('Crypto:request-historicaldata', (evt) => {
+    this.callHistoricalCrypto(evt.detail);
+  });
 };
 
 CryptoData.prototype.initialize = function () {
-  const request = new Request(this.url);
-  request.get().then((data) => {
-    this.publishCryptoData(data);
-  });
+  this.bindEvents();
+  this.callCryptoPairs();
 };
 
-
-CryptoData.prototype.publishCryptoData = function (data) {
-  PubSub.publish('Crypto:publish-data', data);
-};
-
-CryptoData.prototype.callSingleCrypto = function (symbol) {
+CryptoData.prototype.callCryptoPairs = function () {
   const newURL = 'https://api.iextrading.com/1.0/stock/market/crypto';
   const request = new Request(newURL);
   request.get().then((data) => {
-    this.publishCryptoData(data);
+    PubSub.publish('Crypto:publish-pairs', data);
   });
 };
 
 CryptoData.prototype.callHistoricalCrypto = function (symbol) {
+  console.log(symbol);
   const newURL = `https://data.gate.io/api2/1/tradeHistory/${symbol}`;
   const request = new Request(newURL);
-  request.get().then((data) => {
-    this.publishCryptoData(data);
-  });
+  // request.get().then((data) => {
+  //   PubSub.publish('Crypto:publish-graph', data);
+  // });
 };
-
 
 module.exports = CryptoData;

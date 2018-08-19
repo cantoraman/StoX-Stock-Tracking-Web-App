@@ -38,8 +38,6 @@ HomeController.prototype.initializePage = function () {
    const cryptoListView = new CryptoView(cryptoList);
    cryptoListView.bindEvents();
 
-
-
    const newsfeedList = document.createElement('div');
    newsfeedList.id = 'newsfeed-list';
    pageBody.appendChild(newsfeedList);

@@ -7,7 +7,7 @@ const CryptoView = function (container) {
 
 CryptoView.prototype.bindEvents = function () {
 
-  PubSub.subscribe('Crypto:publish-data', (evt) => {
+  PubSub.subscribe('Crypto:publish-pairs', (evt) => {
     this.renderList(evt.detail);
   });
 
@@ -25,14 +25,14 @@ CryptoView.prototype.renderList = function (cryptoData) {
   const companyNames = [];
 
   i = 0;
+  cryptoData.reverse();
   cryptoData.forEach(function(day) {
     companyNames.push(cryptoData[i]['companyName']);
     tradingPrice.push(cryptoData[i]['close']);
     const row = cryptoTable.insertRow(1);
     tableHeader.classList.add('crypto-header');
     row.addEventListener('click', (event) => {
-      //  PubSub.publish('HomeView:selected-forex', nameCell.textContent);
-      ??? calisiyor mu apisi bi bak
+      PubSub.publish('Crypto:request-historicaldata', nameCell.textContent);
     });
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
