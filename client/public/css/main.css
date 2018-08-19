@@ -94,3 +94,8 @@ font-family: 'Pontano Sans', sans-serif; */
   stroke-dashoffset: 0;
   stroke: #06D6A0;
 }
+
+#headline-image {
+  width:15em;
+  height:10em;
+}

@@ -4,3 +4,4 @@ bundle.js
 api_key_news.js
 api_key_stock_charts.js
 api_crypto_key.js
+api_news2_key.js
