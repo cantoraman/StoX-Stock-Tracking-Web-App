@@ -1,23 +1,24 @@
 const Request = require('../helpers/request.js');
 const PubSub = require('../helpers/pub_sub.js');
 const API_KEY_STOCK_CHART = require('../api_key_stock_charts.js');
-
+const API_KEY_ALPHAVANTAGE = require('../api_key_alphavantage.js');
 
 const Forex = function (url) {
-  this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=MSFT&types=chart&range=1m&last=5`;
+  this.url =url;
 };
 
 Forex.prototype.bindEvents = function () {
 
-  PubSub.subscribe('', (evt) => {
-    this.url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${evt.detail.firstCurrency}to_currency=${evt.detail.secondCurrency}&apikey=${API_KEY_STOCK_CHART}`;
+  PubSub.subscribe('Forex:request-historicaldata', (evt) => {
+    this.url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${evt.detail.firstCurrency}to_currency=${evt.detail.secondCurrency}&apikey=${API_KEY_ALPHAVANTAGE}`;
       const request = new Request(this.url);
-      console.log("RECEIVED FOREX REQUEST");
+      console.log("RECEIVED FOREX REQUEST:", request);
   });
 
 };
 
 Forex.prototype.initialize = function () {
+  this.bindEvents();
   var firstCurrency = ["EUR", "GBP", "USD", "AUD", "USD", "EUR", "USD", "TRY"];
   var secondCurrency = ["USD", "USD", "JPY", "USD", "CHF", "GBP", "CAD", "PGK"];
   var exchangePrices = [];

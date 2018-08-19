@@ -28,6 +28,10 @@ ForexView.prototype.createTable = function (data) {
     tradingPrice.push(data[i].price);
     const row = forexTable.insertRow(1);
     tableHeader.classList.add('forex-header');
+    row.addEventListener('click', (event) => {
+      console.log(day.symbol);
+      //PubSub.publish('Forex:request-historicaldata', day.symbol);
+    });
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = data[i].symbol;
