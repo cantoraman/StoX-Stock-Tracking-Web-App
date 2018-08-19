@@ -35,6 +35,7 @@ CryptoView.prototype.renderList = function (cryptoData) {
       PubSub.publish('Crypto:request-historicaldata', day.symbol);
     });
     const nameCell = row.insertCell(0);
+    nameCell.classList.add("indicator");
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = cryptoData[i]['companyName'];
     priceCell.innerHTML = cryptoData[i]['close'];

@@ -33,8 +33,9 @@ ForexView.prototype.createTable = function (data) {
       PubSub.publish('Forex:request-historicaldata', day.symbol);
     });
     const nameCell = row.insertCell(0);
-    const priceCell = row.insertCell(1);
+    nameCell.classList.add("indicator");
     nameCell.innerHTML = data[i].symbol;
+    const priceCell = row.insertCell(1);
     priceCell.innerHTML = data[i].price.toFixed(2);
     i++
   });

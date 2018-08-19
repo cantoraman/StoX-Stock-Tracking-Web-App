@@ -99,3 +99,43 @@ font-family: 'Pontano Sans', sans-serif; */
   width:15em;
   height:10em;
 }
+
+/* .indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -86px;
+    margin-left: -89px;
+    text-align: center;
+} */
+.indicator{
+  color:#fff;
+  position:relative;
+  cursor:pointer;
+  transition:800ms ease all;
+  outline:none;
+}
+.indicator:hover{
+  background:#fff;
+  color:#0fa0e8;
+}
+.indicator:before,.indicator:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #0fa0e8;
+  transition:400ms ease all;
+}
+.indicator:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.indicator:hover:before,.indicator:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
