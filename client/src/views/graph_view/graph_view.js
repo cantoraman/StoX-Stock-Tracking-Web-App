@@ -14,16 +14,33 @@ GraphView.prototype.bindEvents = function () {
   });
 
 };
-GraphView.prototype.arrangeStockToRender = function (graphdata) {
+GraphView.prototype.arrangeStockToRender = function (rawData) {
   const listOfDates = [];
   const listOfPrices = [];
-  const priceData = graphdata[Object.keys(graphdata)[0]];
+  const priceData = rawData[Object.keys(rawData)[0]];
   priceData.chart.forEach(function(day) {
     listOfDates.push(day.date);
     listOfPrices.push(parseFloat(day.close));
   })
   const arrangedData = {
-    "chartTitle": Object.keys(graphdata)[0],
+    "chartTitle": Object.keys(rawData)[0],
+    "listOfDates": listOfDates,
+    "yTitle": "$",
+    "listOfPrices": listOfPrices
+  };
+  this.render(arrangedData);
+};
+
+GraphView.prototype.arrangeCryptoToRender = function (rawData) {
+  const listOfDates = [];
+  const listOfPrices = [];
+  const priceData = rawData.Data;
+  priceData.forEach(function(day) {
+    listOfDates.push(day.time);
+    listOfPrices.push(parseFloat(day.close));
+  });
+  const arrangedData = {
+    "chartTitle": rawData.title,
     "listOfDates": listOfDates,
     "yTitle": "$",
     "listOfPrices": listOfPrices
@@ -65,7 +82,7 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
       series: [{
         type: 'line',
         data: listOfPrices,
-        name: 'Price'
+        name: 'Time'
       }]
     }
   )

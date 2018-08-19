@@ -34,6 +34,7 @@ CryptoData.prototype.callHistoricalCrypto = function (symbol) {
   const newURL = `https://min-api.cryptocompare.com/data/histoday?fsym=${symbol.substring(0,3)}&tsym=${symbol.substring(3,6)}&limit=30&aggregate=3&e=CCCAGG`;
   const request = new Request(newURL);
   request.get().then((data) => {
+    data.title=`${symbol.substring(0,3)}`
     PubSub.publish('Graph:publish-crypto', data);
   });
 };
