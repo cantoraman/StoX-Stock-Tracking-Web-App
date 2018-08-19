@@ -8,17 +8,10 @@ const Forex = function (url) {
 };
 
 Forex.prototype.bindEvents = function () {
-
   PubSub.subscribe('Forex:request-historicaldata', (evt) => {
-        this.callHistoricalCrypto(evt.detail);
-  //    console.log("RECEIVED FOREX REQUEST:", request);
+        this.callHistoricalForex(evt.detail);
   });
 };
-
-
-
-
-
 
 Forex.prototype.initialize = function () {
   this.bindEvents();
@@ -40,7 +33,8 @@ Forex.prototype.publishExchangeRates = function (data) {
 
 
 Forex.prototype.callHistoricalForex = function (symbol) {
-  const newURL = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${symbol.substring(0,3)}&to_currency=${symbol.substring(3,6)}&apikey=${API_KEY_ALPHAVANTAGE}`;
+  const newURL = `  https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=${symbol.substring(0,3)}&to_symbol=${symbol.substring(3,6)}&outputsize=compact&apikey=${API_KEY_ALPHAVANTAGE}`;
+
   const request = new Request(newURL);
   request.get().then((data) => {
     PubSub.publish('Graph:publish-forex', data);
