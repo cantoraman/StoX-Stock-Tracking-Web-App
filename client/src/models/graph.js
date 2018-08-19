@@ -9,15 +9,10 @@ const Graph = function (url) {
 
 Graph.prototype.bindEvents = function () {
 
-  PubSub.subscribe('HomeView:selected-stock', (evt) => {
-    this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.symbol}&types=chart&range=1m&last=5`;
+  PubSub.subscribe('Graph:request-graphdata', (evt) => {
+    this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.detail}&types=chart&range=1m&last=5`;
     this.initializeGraph();
   });
-  PubSub.subscribe('HomeView:selected-forex', (evt) => {
-    // this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.symbol}&types=chart&range=1m&last=5`;
-    // this.initializeGraph();
-  });
-
 
 };
 
@@ -25,13 +20,14 @@ Graph.prototype.bindEvents = function () {
 
 
 Graph.prototype.initializeGraph = function () {
+  this.bindEvents();
   const request = new Request(this.url);
   request.get().then((data) => {
-    this.publishInitialGraph(data);
+    this.publishGraphData(data);
   });
 };
 
-Graph.prototype.publishInitialGraph = function (data) {
+Graph.prototype.publishGraphData = function (data) {
   PubSub.publish('Graph:publish-graphdata', data);
 };
 

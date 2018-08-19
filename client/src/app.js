@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     pageBody.innerHTML = '';
     watchlistController.initializePage();
+    appData.getData();
   });
 
 
