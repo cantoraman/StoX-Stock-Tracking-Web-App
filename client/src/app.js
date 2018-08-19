@@ -15,11 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const holdingsButton = document.querySelector('#holdings-button');
   const pageBody = document.querySelector('#pageBody');
 
-
   appData.getData();
 
   homeController.initializePage();
-
 
   homeButton.addEventListener('click', (event) => {
     event.preventDefault();

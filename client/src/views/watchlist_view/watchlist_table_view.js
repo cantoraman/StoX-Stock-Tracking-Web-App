@@ -19,7 +19,6 @@ WatchlistTableView.prototype.initializeTable = function (userData) {
 
 WatchlistTableView.prototype.renderWatchlist = function (userData, pageBody) {
 
-  console.log(userData);
   const watchlistTable = document.createElement('table');
   watchlistTable.classList.add('watchlist-table');
   this.container.appendChild(watchlistTable);
@@ -41,15 +40,7 @@ userData.forEach(function(stock) {
   stockNamesCell.classList.add("indicator");
 });
 
-  //
-  //
-  // nameHeader.innerHTML = "Stock";
-  // valueHeader.innerHTML = "Invested Value";
-  // sharesHeldHeader.innerHTML = "Volume";
-  // profitLossHeader.innerHTML = "Profit/Loss";
-  //
-  //
-  //
+
 
 };
 
