@@ -6,27 +6,41 @@ const NewsfeedView = function (container) {
 
 NewsfeedView.prototype.bindEvents = function () {
   PubSub.subscribe('Newsfeed:publish-news', (evt) => {
-    this.render(evt.detail);
+    this.createArticleTable(evt.detail);
+  });
+}
+
+  NewsfeedView.prototype.createArticleTable = function (articles) {
+    const newsTable = document.createElement('table');
+    newsTable.classList.add('news-table');
+    this.container.appendChild(newsTable);
+
+    const tableHeader = newsTable.insertRow(0);
+    tableHeader.innerHTML = "Latest Financial News";
+
+    const newsHeadlines = [];
+    const newsImages = [];
+
+    i = 0;
+    articles.articles.forEach(function(article) {
+      const headlineLink = document.createElement('a');
+      const headline = document.createTextNode(article.title);
+      headlineLink.appendChild(headline);
+      headlineLink.title = article.title;
+      headlineLink.href = article.url;
+      newsImages.push(article.urlToImage);
+      const row = newsTable.insertRow(1);
+      tableHeader.classList.add('news-header');
+
+      const headlineCell = row.insertCell(0);
+      const imageCell = row.insertCell(1);
+      // headlineCell.innerHTML = article.title;
+      const image = document.createElement('img');
+      image.id = 'headline-image'
+      image.src = article.urlToImage;
+      imageCell.appendChild(image);
+      headlineCell.appendChild(headlineLink);
+      i++
   });
 };
-
-NewsfeedView.prototype.render = function (news) {
-  this.container.innerHTML = '';
-  news.articles.forEach((article) => {
-    this.container.appendChild(this.createArticleItem(article));
-  })
-};
-
-NewsfeedView.prototype.createArticleItem = function (article) {
-  const articleItemNode = document.createElement('ul');
-  articleItemNode.classList.add('article-item');
-
-  const title = document.createElement('a');
-  title.textContent=article.title;
-  title.href = article.url;
-  articleItemNode.appendChild(title);
-
-  return articleItemNode;
-};
-
 module.exports = NewsfeedView;
