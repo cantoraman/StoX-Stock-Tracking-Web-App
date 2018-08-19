@@ -32,7 +32,7 @@ CryptoView.prototype.renderList = function (cryptoData) {
     const row = cryptoTable.insertRow(1);
     tableHeader.classList.add('crypto-header');
     row.addEventListener('click', (event) => {
-      PubSub.publish('Crypto:request-historicaldata', nameCell.textContent);
+      PubSub.publish('Crypto:request-historicaldata', day.symbol);
     });
     const nameCell = row.insertCell(0);
     const priceCell = row.insertCell(1);
