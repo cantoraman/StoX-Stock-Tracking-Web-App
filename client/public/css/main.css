@@ -109,20 +109,15 @@ font-family: 'Pontano Sans', sans-serif; */
     text-align: center;
 } */
 .indicator{
-  background:#1AAB8A;
   color:#fff;
-  border:none;
   position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
   cursor:pointer;
   transition:800ms ease all;
   outline:none;
 }
 .indicator:hover{
   background:#fff;
-  color:#1AAB8A;
+  color:#0fa0e8;
 }
 .indicator:before,.indicator:after{
   content:'';
@@ -131,7 +126,7 @@ font-family: 'Pontano Sans', sans-serif; */
   right:0;
   height:2px;
   width:0;
-  background: #1AAB8A;
+  background: #0fa0e8;
   transition:400ms ease all;
 }
 .indicator:after{
