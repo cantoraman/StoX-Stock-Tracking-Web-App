@@ -9,7 +9,6 @@ AppData.prototype.bindEvents = function () {
 
   PubSub.subscribe('UserData:data-loaded', (event) => {
     } );
-
 };
 
 AppData.prototype.getData = function () {

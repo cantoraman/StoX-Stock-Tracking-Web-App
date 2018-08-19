@@ -9,13 +9,12 @@ HoldingsController.prototype.initializePage = function () {
     console.log(evt.detail);
     const userData = evt.detail;
     const pageBody = document.querySelector('#pageBody');
-
     const holdingsTable = document.createElement('div');
     holdingsTable.id = 'holdings-table';
+    pageBody.innerHTML = '';
     pageBody.appendChild(holdingsTable);
 
     const holdingsTableView = new HoldingsTableView(holdingsTable);
-
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
   });
