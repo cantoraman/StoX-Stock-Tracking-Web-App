@@ -1,5 +1,7 @@
 const WatchlistView = require('./views/watchlist_view/watchlist_view.js');
 const Watchlist = require('./models/watchlist.js');
+const GraphView = require('./views/graph_view/graph_view.js');
+const Graph = require('./models/graph.js');
 
 const WatchlistController = function (){
 
