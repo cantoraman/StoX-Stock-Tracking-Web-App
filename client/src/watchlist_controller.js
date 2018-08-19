@@ -34,6 +34,10 @@ WatchlistController.prototype.initializePage = function () {
     const graph = new Graph();
     graph.initializeGraph();
 
+    const addToWatchButton = document.createElement('div');
+    addToWatchButton.textContent="Add New Stock";
+    addToWatchButton.classList.add("indicator");
+    watchlistNode.appendChild(addToWatchButton);
 
   });
 
