@@ -76,7 +76,12 @@ GraphView.prototype.render = function (graphData) {
   const chartTitle = graphData.chartTitle;
   const yTitle = graphData.yTitle;
   var chart = this.summonChart(container, chartTitle, listOfDates, yTitle, listOfPrices);
+  const date = new Date();
+  const dateHead = document.createElement('p')
+  dateHead.innerHTML = date;
+  this.container.appendChild(dateHead);
   this.container.appendChild(container);
+
 };
 
 GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, yTitle, listOfPrices) {
