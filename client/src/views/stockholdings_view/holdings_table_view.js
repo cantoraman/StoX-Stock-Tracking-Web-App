@@ -42,6 +42,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const namesArray = [];
   const percentArray = [];
 
+  this.generatePopupForm();
+
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
