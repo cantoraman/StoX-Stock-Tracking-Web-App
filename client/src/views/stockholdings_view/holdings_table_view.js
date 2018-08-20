@@ -6,6 +6,7 @@ const Highcharts = require('highcharts');
 const HoldingsTableView = function (container, pieContainer) {
   this.container = container;
   this.pieContainer = pieContainer;
+  this.isAdding= null;
 };
 
 HoldingsTableView.prototype.bindEvents = function () {
@@ -44,6 +45,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
   this.generatePopupForm();
 
+
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
@@ -74,29 +76,27 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
       removeCell.classList.add("indicator");
 
       addCell.addEventListener('click', (event) => {
-        console.log("add button pressed");
         this.isAdding = "true";
-        console.log(this.isAdding);
         togglePopup();
       });
       removeCell.addEventListener('click', (event) => {
-        console.log("remove button pressed");
         this.isAdding = "false";
-        console.log(this.isAdding);
+
         togglePopup();
       });
       function togglePopup(){
         const popup = document.getElementById("myPopup");
-        popup.classList.toggle("show")
+        popup.classList.toggle("show");
       };
       const calculatedpercentage = ((stock.noOfSharesHeld/totalVolume)*100).toFixed(2);
       percentageCell.innerHTML = calculatedpercentage;
       namesArray.push(stock.stock);
       percentArray.push(calculatedpercentage);
-    });
+
+    }, this);
 
 
-      this.renderPieChart(namesArray, percentArray, this.pieContainer);
+    this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
     nameHeader.textContent = "Stock";
     valueHeader.textContent = "Invested Value";
@@ -107,7 +107,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     addHeader.textContent = "Bought";
     removeHeader.textContent = "Sold";
   };
-
 
 
   HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
@@ -132,12 +131,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     const form = document.createElement('form');
 
     const sharesBoughtText = document.createElement('div');
-    sharesBoughtText.classList.add("input-text");
-    if(this.isAdding === "true")
-    sharesBoughtText.textContent = "Shares Bought";
-    else
-    sharesBoughtText.textContent = "Shares Sold";
-
+    sharesBoughtText.classList.add("shares-bought-text");
+    sharesBoughtText.textContent="Share Bought";
     form.appendChild(sharesBoughtText);
 
     const sharesBoughtInput = document.createElement('input');
@@ -180,10 +175,9 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   };
 
   HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
-    console.log(this.isAdding);
     if(this.isAdding === "false")
     priceInput = (-1 * priceInput);
-    console.log(priceInput, sharesBoughtInput);
+    console.log(priceInput);
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
