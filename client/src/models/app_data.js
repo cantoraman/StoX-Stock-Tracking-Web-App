@@ -21,7 +21,7 @@ AppData.prototype.getData = function () {
     .catch(console.error);
 };
 
-<<<<<<< HEAD
+
 AppData.prototype.postData = function (appData) {
   this.request.post(appData)
   .then((wishes) => {
@@ -47,7 +47,7 @@ AppData.prototype.putData = function (appData) {
   })
   .catch(console.error);
 };
-=======
+
 
 
 // AppData.prototype.postData = function (appData) {
@@ -75,6 +75,6 @@ AppData.prototype.putData = function (appData) {
 //   })
 //   .catch(console.error);
 // };
->>>>>>> features/piechart
+
 
 module.exports = AppData;
