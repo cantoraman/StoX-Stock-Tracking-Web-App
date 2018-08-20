@@ -10,11 +10,6 @@ const HoldingsTableView = function (container, pieContainer) {
 
 HoldingsTableView.prototype.bindEvents = function () {
 
-  // PubSub.subscribe('AppData:data-loaded', (evt) => {
-  //   console.log(evt.detail[0]);
-  //   this.renderHoldings(evt.detail[0].holdings, this.container);
-  // });
-
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
@@ -75,7 +70,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
   this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
-
   nameHeader.innerHTML = "Stock";
   valueHeader.innerHTML = "Invested Value";
   sharesHeldHeader.innerHTML = "Volume";
@@ -98,30 +92,13 @@ HoldingsTableView.prototype.getTotalVolume = function (rawData) {
   return total;
 };
 
-// [{
-//      name: `${name}`,
-//      y: `${percentage}`
-//  }, {
-//      name: 'Internet Explorer',
-//      y: 11.84
-//  }, {
-// }]
-
 HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
-
+  
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })
 
 console.log(finalDataArray);
-
-  // names.forEach((name) => {
-  //   `${name}`
-  // });
-  //
-  // percentages.forEach((percentage) => {
-  //   `${percentage}`
-  // })
 
   var pieChart = new Highcharts.Chart(
     {
