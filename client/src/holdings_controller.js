@@ -1,5 +1,7 @@
 const HoldingsTableView = require('./views/stockholdings_view/holdings_table_view.js');
+const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js');
 const PubSub = require('./helpers/pub_sub.js');
+
 const HoldingsController = function (){
 };
 
@@ -13,10 +15,21 @@ HoldingsController.prototype.initializePage = function () {
     holdingsTable.id = 'holdings-table';
     pageBody.innerHTML = '';
     pageBody.appendChild(holdingsTable);
+    // pageBody.appendChild();<--- add cahrt
+
+    const pieChartNode = document.createElement('div');
+    pageBody.appendChild(pieChartNode);
+    pieChartNode.id = 'pieChart';
+    const pieChartView = new PieChartView(pieChartNode);
+    pieChartView.initializePieChart(userData);
+    pieChartView.bindEvents();
+
+
 
     const holdingsTableView = new HoldingsTableView(holdingsTable);
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
+
   });
 };
 

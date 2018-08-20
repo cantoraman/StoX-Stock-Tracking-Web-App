@@ -20,6 +20,8 @@ AppData.prototype.getData = function () {
     .catch(console.error);
 };
 
+
+
 // AppData.prototype.postData = function (appData) {
 //   this.request.post(appData)
 //   .then((wishes) => {
