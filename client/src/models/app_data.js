@@ -16,7 +16,7 @@ AppData.prototype.getData = function () {
   this.request = new Request(this.url);
   this.request.get()
     .then((userData) => {
-      //PubSub.publish('AppData:data-loaded', userData);
+      PubSub.publish('AppData:data-loaded', userData);
       this.data = userData;
     })
     .catch(console.error);
