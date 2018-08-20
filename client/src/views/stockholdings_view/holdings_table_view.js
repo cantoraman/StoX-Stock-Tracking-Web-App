@@ -7,14 +7,15 @@ const HoldingsTableView = function (container) {
 
 HoldingsTableView.prototype.bindEvents = function () {
 
-  PubSub.subscribe('AppData:data-loaded', (evt) => {
-    this.renderHoldings(evt.detail[0], this.container);
-  });
+  // PubSub.subscribe('AppData:data-loaded', (evt) => {
+  //   console.log(evt.detail[0]);
+  //   this.renderHoldings(evt.detail[0].holdings, this.container);
+  // });
 
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
-  console.log(userData[0]);
+
 this.renderHoldings(userData[0].holdings, this.container);
 };
 
@@ -36,6 +37,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const profitLoss = [];
 
   i = 0;
+
+
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
