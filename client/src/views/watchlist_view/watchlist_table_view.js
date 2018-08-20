@@ -6,11 +6,6 @@ const WatchlistTableView = function (container) {
 }
 
 WatchlistTableView.prototype.bindEvents = function () {
-  //
-  // PubSub.subscribe('AppData:data-loaded', (evt) => {
-  //   console.log(evt.detail[0]);
-  //   this.renderWatchlist(evt.detail[0].watchlist, this.container);
-  // });
 
 };
 

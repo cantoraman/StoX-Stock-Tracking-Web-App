@@ -116,4 +116,6 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
   )
   return chart;
 };
+
+
 module.exports = GraphView;
