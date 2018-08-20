@@ -13,11 +13,9 @@ const HomeController = function (){
 };
 
 HomeController.prototype.initializePage = function () {
-   //
-   // const example = document.createElement('div');
-   // example.textContent= "Home Display";
+
    const pageBody = document.querySelector('#pageBody');
-   // pageBody.appendChild(example);
+   
 
    const graphNode = document.createElement('div');
    pageBody.appendChild(graphNode);
@@ -57,13 +55,5 @@ HomeController.prototype.initializePage = function () {
    forex.initialize();
  };
 
-  // const formView = new FormView(form);
-  // formView.bindEvents();
-  // const bucketList = document.createElement('div#iv#bucket-list');
-  // const listView = new ListView(bucketList);
-  // listView.bindEvents();
-  //
-  // const wishes = new Wishes();
-  // wishes.bindEvents();
 
 module.exports = HomeController;

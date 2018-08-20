@@ -9,15 +9,9 @@ const HoldingsTableView = function (container) {
 
 HoldingsTableView.prototype.bindEvents = function () {
 
-  // PubSub.subscribe('AppData:data-loaded', (evt) => {
-  //   console.log(evt.detail[0]);
-  //   this.renderHoldings(evt.detail[0].holdings, this.container);
-  // });
-
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
-
 this.renderHoldings(userData[0].holdings, this.container);
 };
 
@@ -28,8 +22,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
   this.container.appendChild(holdingsTable);
-  const tableHeader = holdingsTable.insertRow(0);
 
+  const tableHeader = holdingsTable.insertRow(0);
   const nameHeader = tableHeader.insertCell(0);
   const valueHeader = tableHeader.insertCell(1);
   const currentValueHeader = tableHeader.insertCell(2);
@@ -37,7 +31,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const profitLossHeader = tableHeader.insertCell(4);
   const addHeader = tableHeader.insertCell(5);
   const removeHeader = tableHeader.insertCell(6);
-  // stock, invested value, shares held, profit/loss
+
   const stockNames = [];
   const stockValues = [];
   const stockCurrentValue = [];
@@ -74,13 +68,13 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     removeCell.classList.add("indicator");
     addCell.addEventListener('click', (event) => {
       console.log("add button pressed");
-      this.isAdding="true";
+      this.isAdding = "true";
       console.log(this.isAdding);
       togglePopup();
     });
     removeCell.addEventListener('click', (event) => {
       console.log("remove button pressed");
-      this.isAdding="false";
+      this.isAdding = "false";
       console.log(this.isAdding);
       togglePopup();
 
@@ -113,15 +107,15 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
   body.appendChild(container);
 
   const span = document.createElement('span');
-  span.id="myPopup";
+  span.id = "myPopup";
   span.classList.add("popuptext");
   span.textContent = "Please Register Your Stock Transaction";
   container.appendChild(span);
 
   const closeButton = document.createElement('button');
   closeButton.id = "close-button";
-  closeButton.textContent="X";
-  closeButton.style.backgroundColor="black";
+  closeButton.textContent = "X";
+  closeButton.style.backgroundColor = "black";
   span.appendChild(closeButton);
 
 
@@ -130,7 +124,7 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const sharesBoughtText = document.createElement('div');
   sharesBoughtText.classList.add("input-text");
-  if(this.isAdding==="true")
+  if(this.isAdding === "true")
     sharesBoughtText.textContent = "Shares Bought";
   else
     sharesBoughtText.textContent = "Shares Sold";
@@ -139,7 +133,7 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const sharesBoughtInput = document.createElement('input');
   sharesBoughtInput.setAttribute("type", "text");
-  sharesBoughtInput.style.backgroundColor="navy";
+  sharesBoughtInput.style.backgroundColor = "navy";
   sharesBoughtText.appendChild(sharesBoughtInput);
 
 
@@ -150,27 +144,27 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const priceInput = document.createElement('input');
   priceInput.setAttribute("type", "text");
-  priceInput.style.backgroundColor="navy";
+  priceInput.style.backgroundColor = "navy";
   pricePaid.appendChild(priceInput);
 
   const submitButton = document.createElement('button');
   submitButton.id = "submit-button";
-  submitButton.textContent="Submit";
-  submitButton.style.backgroundColor="navy";
+  submitButton.textContent = "Submit";
+  submitButton.style.backgroundColor = "navy";
   span.appendChild(submitButton);
 
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
     this.submitNewStock(parseInt(priceInput.value), parseInt(sharesBoughtInput.value));
     span.classList.toggle("show")
-    priceInput.value="";
-    sharesBoughtInput.value="";
+    priceInput.value = "";
+    sharesBoughtInput.value = "";
   });
 
   closeButton.addEventListener('click', (event) => {
     span.classList.toggle("show")
-    priceInput.value="";
-    sharesBoughtInput.value="";
+    priceInput.value = "";
+    sharesBoughtInput.value = "";
   });
 
   span.appendChild(form);
@@ -181,8 +175,8 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
 HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
 console.log(this.isAdding);
-if(this.isAdding==="false")
-  priceInput=(-1*priceInput);
+if(this.isAdding === "false")
+  priceInput = (-1 * priceInput);
 console.log(priceInput, sharesBoughtInput);
 };
 
