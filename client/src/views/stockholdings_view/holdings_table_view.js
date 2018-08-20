@@ -3,6 +3,8 @@ const AppData = require('../../models/app_data.js');
 
 const HoldingsTableView = function (container) {
   this.container = container;
+  this.isAdding = null;
+
 }
 
 HoldingsTableView.prototype.bindEvents = function () {
@@ -21,7 +23,7 @@ this.renderHoldings(userData[0].holdings, this.container);
 
 HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
-        generatePopupForm();
+  this.generatePopupForm();
 
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
@@ -43,7 +45,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const profitLoss = [];
 
 
-  i = 0;
+
 
 
   userData.forEach(function(stock) {
@@ -61,29 +63,48 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     const profitLossCell = row.insertCell(4);
     const addCell = row.insertCell(5);
     const removeCell = row.insertCell(6);
-    stockNamesCell.innerHTML = stock.stock;
-    stockValuesCell.innerHTML = stock.investedValue;
-    stockCurrentValueCell.innerHTML = 100;
-    sharesHeldCell.innerHTML = stock.noOfSharesHeld;
-    profitLossCell.innerHTML = stock.profitLoss;
-    addCell.innerHTML = "Add";
+    stockNamesCell.textContent = stock.stock;
+    stockValuesCell.textContent = stock.investedValue;
+    stockCurrentValueCell.textContent = 100;
+    sharesHeldCell.textContent = stock.noOfSharesHeld;
+    profitLossCell.textContent = stock.profitLoss;
+    addCell.textContent = "Add";
     addCell.classList.add("indicator");
-    removeCell.innerHTML = "Remove";
+    removeCell.textContent = "Remove";
     removeCell.classList.add("indicator");
     addCell.addEventListener('click', (event) => {
       console.log("add button pressed");
-      popThePopup();
+      this.isAdding=true;
+      togglePopup();
     });
     removeCell.addEventListener('click', (event) => {
       console.log("remove button pressed");
+      this.isAdding=false;
+      togglePopup();
+
     });
-    i++
   });
 
+  function togglePopup(){
+    const popup = document.getElementById("myPopup");
+    popup.classList.toggle("show")
+  };
+
+    nameHeader.textContent = "Stock";
+    valueHeader.textContent = "Invested Value";
+    currentValueHeader.textContent = "Current Price";
+    sharesHeldHeader.textContent = "Volume";
+    profitLossHeader.textContent = "Profit/Loss";
+    addHeader.textContent = "Bought";
+    removeHeader.textContent = "Sold";
+
+
+};
 
 
 
-function generatePopupForm() {
+HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
+
   const container = document.createElement('div');
   container.classList.add("popup");
   const body = document.querySelector("#pageBody");
@@ -95,41 +116,20 @@ function generatePopupForm() {
   span.textContent = "HELLO WORLD";
   container.appendChild(span);
 
+  const form = document.createElement('form');
+  const inputText = document.createElement('div');
+  inputText.classList.add("input-text");
+  const input = document.createElement('input');
+  input.setAttribute("type", "text");
+
+
+
   const closeButton = document.createElement('button');
   closeButton.id = "close-button";
   span.appendChild(closeButton);
   closeButton.addEventListener('click', (event) => {
-  togglePopup();
-});
-  //
-  // const form = document.createElement('form');
-  // const input = document.createElement('input');
-  //
-  //
-  // //
-  // form.classList.add = "myPopup" ;
-  // var popup = document.querySelector("myPopup");
-    //popup.classList.toggle("show");
+    span.classList.toggle("show")
+  });
 };
-
-function togglePopup(){
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-
-}
-
-  nameHeader.innerHTML = "Stock";
-  valueHeader.innerHTML = "Invested Value";
-  currentValueHeader.innerHTML = "Current Price";
-  sharesHeldHeader.innerHTML = "Volume";
-  profitLossHeader.innerHTML = "Profit/Loss";
-  addHeader.innerHTML = "Bought";
-  removeHeader.innerHTML = "Sold";
-
-
-
-};
-
-
 
 module.exports = HoldingsTableView;

@@ -75,7 +75,7 @@ GraphView.prototype.render = function (graphData) {
   const listOfPrices = graphData.listOfPrices;
   const chartTitle = graphData.chartTitle;
   const yTitle = graphData.yTitle;
-  var chart = this.summonChart(container, chartTitle, listOfDates, yTitle, listOfPrices);
+  const chart = this.summonChart(container, chartTitle, listOfDates, yTitle, listOfPrices);
   const date = new Date();
   const dateHead = document.createElement('p')
   dateHead.innerHTML = date;
@@ -85,7 +85,7 @@ GraphView.prototype.render = function (graphData) {
 };
 
 GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, yTitle, listOfPrices) {
-  var chart = new Highcharts.Chart(
+  const chart = new Highcharts.Chart(
     {
       chart: {
         type: 'line',

@@ -21,7 +21,7 @@ NewsfeedView.prototype.bindEvents = function () {
     const newsHeadlines = [];
     const newsImages = [];
 
-    i = 0;
+
     articles.articles.forEach(function(article) {
       const headlineLink = document.createElement('a');
       const headline = document.createTextNode(article.title);
@@ -40,7 +40,6 @@ NewsfeedView.prototype.bindEvents = function () {
       image.src = article.urlToImage;
       imageCell.appendChild(image);
       headlineCell.appendChild(headlineLink);
-      i++
   });
 };
 module.exports = NewsfeedView;

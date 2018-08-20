@@ -22,9 +22,9 @@ ForexView.prototype.createTable = function (data) {
   const tradingPrice = [];
   const forexName = [];
 
-  i = 0;
+
   data.reverse();
-  data.forEach(function(day) {
+  data.forEach(function(day, i) {
     forexName.push(data[i].symbol);
     tradingPrice.push(data[i].price);
     const row = forexTable.insertRow(1);
@@ -37,7 +37,6 @@ ForexView.prototype.createTable = function (data) {
     nameCell.innerHTML = data[i].symbol;
     const priceCell = row.insertCell(1);
     priceCell.innerHTML = data[i].price.toFixed(2);
-    i++
   });
   nameHeader.innerHTML = "Forex";
   priceHeader.innerHTML = "Price";

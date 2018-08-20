@@ -24,9 +24,9 @@ CryptoView.prototype.renderList = function (cryptoData) {
   const tradingPrice = [];
   const companyNames = [];
 
-  i = 0;
+
   cryptoData.reverse();
-  cryptoData.forEach(function(day) {
+  cryptoData.forEach(function(day, i) {
     companyNames.push(cryptoData[i]['companyName']);
     tradingPrice.push(cryptoData[i]['close']);
     const row = cryptoTable.insertRow(1);
@@ -39,7 +39,6 @@ CryptoView.prototype.renderList = function (cryptoData) {
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = cryptoData[i]['companyName'];
     priceCell.innerHTML = cryptoData[i]['close'];
-    i++
   });
 
 
