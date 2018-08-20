@@ -74,12 +74,14 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     removeCell.classList.add("indicator");
     addCell.addEventListener('click', (event) => {
       console.log("add button pressed");
-      this.isAdding=true;
+      this.isAdding="true";
+      console.log(this.isAdding);
       togglePopup();
     });
     removeCell.addEventListener('click', (event) => {
       console.log("remove button pressed");
-      this.isAdding=false;
+      this.isAdding="false";
+      console.log(this.isAdding);
       togglePopup();
 
     });
@@ -128,7 +130,11 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const sharesBoughtText = document.createElement('div');
   sharesBoughtText.classList.add("input-text");
-  sharesBoughtText.textContent = "Shares Bought";
+  if(this.isAdding==="true")
+    sharesBoughtText.textContent = "Shares Bought";
+  else
+    sharesBoughtText.textContent = "Shares Sold";
+
   form.appendChild(sharesBoughtText);
 
   const sharesBoughtInput = document.createElement('input');
@@ -139,7 +145,7 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const pricePaid = document.createElement('div');
   pricePaid.classList.add("input-text");
-  pricePaid.textContent = "Price Paid";
+  pricePaid.textContent = "Stock Price";
   form.appendChild(pricePaid);
 
   const priceInput = document.createElement('input');
@@ -155,8 +161,8 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log();
-    this.submitNewStock(priceInput.value, sharesBoughtInput.value);
+    console.log(this.isAdding);
+    this.submitNewStock(parseInt(priceInput.value), parseInt(sharesBoughtInput.value));
     span.classList.toggle("show")
     priceInput.value="";
     sharesBoughtInput.value="";
@@ -175,6 +181,9 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 };
 
 HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
+console.log(this.isAdding);
+if(this.isAdding==="false")
+  priceInput=(-1*priceInput);
 console.log(priceInput, sharesBoughtInput);
 };
 
