@@ -22,6 +22,7 @@ AppData.prototype.getData = function () {
     .catch(console.error);
 };
 
+
 AppData.prototype.postData = function (appData) {
   this.request.post(appData)
   .then((wishes) => {
@@ -47,5 +48,34 @@ AppData.prototype.putData = function (appData) {
   })
   .catch(console.error);
 };
+
+
+
+// AppData.prototype.postData = function (appData) {
+//   this.request.post(appData)
+//   .then((wishes) => {
+//     PubSub.publish('AppData:data-loaded',wishes);
+//   })
+//   .catch(console.error);
+// };
+//
+// AppData.prototype.deleteData = function (appDataId) {
+//   this.request.delete(appDataId)
+//     .then((wishes) => {
+//       PubSub.publish('AppData:data-loaded', wishes);
+//     })
+//     .catch(console.error);
+// };
+//
+//
+// AppData.prototype.putData = function (appData) {
+//   this.request.put(appData)
+//   .then((wishes) => {
+//     console.log("AppData after Put:", wishes);
+//     PubSub.publish('AppData:data-loaded', wishes);
+//   })
+//   .catch(console.error);
+// };
+
 
 module.exports = AppData;
