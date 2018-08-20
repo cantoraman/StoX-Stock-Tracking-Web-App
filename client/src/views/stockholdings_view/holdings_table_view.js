@@ -28,11 +28,13 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
   const nameHeader = tableHeader.insertCell(0);
   const valueHeader = tableHeader.insertCell(1);
-  const sharesHeldHeader = tableHeader.insertCell(2);
-  const profitLossHeader = tableHeader.insertCell(3);
+  const currentValueHeader = tableHeader.insertCell(2);
+  const sharesHeldHeader = tableHeader.insertCell(3);
+  const profitLossHeader = tableHeader.insertCell(4);
   // stock, invested value, shares held, profit/loss
   const stockNames = [];
   const stockValues = [];
+  const stockCurrentValue = [];
   const sharesHeld = [];
   const profitLoss = [];
 
@@ -49,10 +51,12 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
     const stockNamesCell = row.insertCell(0);
     const stockValuesCell = row.insertCell(1);
-    const sharesHeldCell = row.insertCell(2);
-    const profitLossCell = row.insertCell(3);
+    const stockCurrentValueCell = row.insertCell(2);
+    const sharesHeldCell = row.insertCell(3);
+    const profitLossCell = row.insertCell(4);
     stockNamesCell.innerHTML = stock.stock;
     stockValuesCell.innerHTML = stock.investedValue;
+    stockCurrentValueCell.innerHTML = 100;
     sharesHeldCell.innerHTML = stock.noOfSharesHeld;
     profitLossCell.innerHTML = stock.profitLoss;
 
@@ -62,6 +66,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
   nameHeader.innerHTML = "Stock";
   valueHeader.innerHTML = "Invested Value";
+  currentValueHeader.innerHTML = "Current Price";
   sharesHeldHeader.innerHTML = "Volume";
   profitLossHeader.innerHTML = "Profit/Loss";
 
