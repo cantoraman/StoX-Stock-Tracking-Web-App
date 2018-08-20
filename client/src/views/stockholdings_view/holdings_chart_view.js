@@ -21,7 +21,16 @@ PieChartView.prototype.bindEvents = function () {
 }
 
 PieChartView.prototype.arrangePieChartToRender = function (rawData) {
-  const
+  const individualHoldings = rawData[0].holdings;
+  const totalStockVolumeInArray = [];
+
+  individualHoldings.forEach((holding) => {
+    totalStockVolume.push(parseInt(holding.noOfSharesHeld));
+  })
+//TOTAL IS TOTAL VOLUME OF ALL STOCKS OWNED BY USER
+const total = totalStockVolumeInArray.reduce(function(sum, volume) {
+  return sum += volume;
+}, 0)
 
 };
 
@@ -31,6 +40,7 @@ PieChartView.prototype.summonChart = function (container) {
   //         plotBackgroundColor: null,
   //         plotBorderWidth: null,
   //         plotShadow: false,
+  //         renderTo: container,
   //         type: 'pie'
   //     },
   //     title: {

@@ -13,7 +13,7 @@ db.user_data.insertOne(
 
       stock: "GOOGL",
       investedValue: "50",
-      noOfSharesHeld: "0",
+      noOfSharesHeld: "10",
       profitLoss:+25 //This is X-Y
     },
     {
