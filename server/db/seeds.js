@@ -21,6 +21,12 @@ db.user_data.insertOne(
       investedValue: "300",
       noOfSharesHeld: "20",
       profitLoss:+25
+    },
+    {
+      stock: "MSFT",
+      investedValue: "10000",
+      noOfSharesHeld: "120",
+      profitLoss:+25
     }
   ]
   }

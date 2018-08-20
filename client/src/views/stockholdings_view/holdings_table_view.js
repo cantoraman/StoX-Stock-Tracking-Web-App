@@ -1,5 +1,7 @@
 const PubSub = require('../../helpers/pub_sub.js');
 const AppData = require('../../models/app_data.js');
+const Highcharts = require('highcharts');
+const PieChartView = require('./holdings_chart_view.js');
 
 const HoldingsTableView = function (container) {
   this.container = container;
@@ -17,7 +19,7 @@ HoldingsTableView.prototype.bindEvents = function () {
 HoldingsTableView.prototype.initializeTable = function (userData) {
   this.getTotalVolume(userData[0].holdings);
 
-this.renderHoldings(userData[0].holdings, this.container);
+  this.renderHoldings(userData[0].holdings, this.container);
 };
 
 HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
@@ -41,14 +43,15 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
   const totalVolume = this.getTotalVolume(userData);
   // const holdingsPercentageByStock = (stock.noOfSharesHeld/totalVolume)*100;
-
+  const namesArray = [];
+  const percentArray = [];
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
     sharesHeld.push(stock.noOfSharesHeld);
     profitLoss.push(stock.profitLoss);
     holdingsPercent.push((stock.noOfSharesHeld/totalVolume)*100)
-     console.log("holdingsPercent", holdingsPercent);
+    console.log("holdingsPercent", holdingsPercent);
 
 
     const row = holdingsTable.insertRow(1);
@@ -63,10 +66,13 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     stockValuesCell.innerHTML = stock.investedValue;
     sharesHeldCell.innerHTML = stock.noOfSharesHeld;
     profitLossCell.innerHTML = stock.profitLoss;
-    percentageCell.innerHTML = ((stock.noOfSharesHeld/totalVolume)*100).toFixed(2);
-
+    const calculatedpercentage = ((stock.noOfSharesHeld/totalVolume)*100).toFixed(2);
+    percentageCell.innerHTML = calculatedpercentage;
+    namesArray.push(stock.stock);
+    percentArray.push(calculatedpercentage);
   });
 
+  this.renderPieChart(namesArray, percentArray, this.container);
 
 
   nameHeader.innerHTML = "Stock";
@@ -74,9 +80,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   sharesHeldHeader.innerHTML = "Volume";
   profitLossHeader.innerHTML = "Profit/Loss";
   holdingsPercentHeader.innerHTML = "% of total holdings"
-
-
-
 };
 
 HoldingsTableView.prototype.getTotalVolume = function (rawData) {
@@ -94,5 +97,65 @@ HoldingsTableView.prototype.getTotalVolume = function (rawData) {
   return total;
 };
 
+// [{
+//      name: `${name}`,
+//      y: `${percentage}`
+//  }, {
+//      name: 'Internet Explorer',
+//      y: 11.84
+//  }, {
+// }]
 
-module.exports = HoldingsTableView;
+HoldingsTableView.prototype.renderPieChart = function (names,percentages, container) {
+
+const finalDataArray = names.map((name, index) => {
+  return {name: name, y: (parseInt(percentages[index]))}
+})
+
+console.log(finalDataArray);
+
+  // names.forEach((name) => {
+  //   `${name}`
+  // });
+  //
+  // percentages.forEach((percentage) => {
+  //   `${percentage}`
+  // })
+
+  var pieChart = new Highcharts.Chart(
+    {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        renderTo: container,
+        type: 'pie'
+      },
+      title: {
+        text: 'Browser market shares in January, 2018'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          }
+        }
+      },
+      series: [{
+        name: 'Stock Holdings',
+        colorByPoint: true,
+        data: finalDataArray
+    }]
+  });
+};
+
+  module.exports = HoldingsTableView;
