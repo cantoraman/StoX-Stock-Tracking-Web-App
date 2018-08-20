@@ -3,8 +3,9 @@ const AppData = require('../../models/app_data.js');
 const Highcharts = require('highcharts');
 const PieChartView = require('./holdings_chart_view.js');
 
-const HoldingsTableView = function (container) {
+const HoldingsTableView = function (container, pieContainer) {
   this.container = container;
+  this.pieContainer = pieContainer;
 }
 
 HoldingsTableView.prototype.bindEvents = function () {
@@ -72,7 +73,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     percentArray.push(calculatedpercentage);
   });
 
-  this.renderPieChart(namesArray, percentArray, this.container);
+  this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
 
   nameHeader.innerHTML = "Stock";
@@ -106,7 +107,7 @@ HoldingsTableView.prototype.getTotalVolume = function (rawData) {
 //  }, {
 // }]
 
-HoldingsTableView.prototype.renderPieChart = function (names,percentages, container) {
+HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
 
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
@@ -128,7 +129,7 @@ console.log(finalDataArray);
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
-        renderTo: container,
+        renderTo: pieContainer,
         type: 'pie'
       },
       title: {
