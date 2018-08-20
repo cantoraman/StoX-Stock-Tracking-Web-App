@@ -126,14 +126,19 @@ console.log(finalDataArray);
   var pieChart = new Highcharts.Chart(
     {
       chart: {
-        plotBackgroundColor: null,
+        plotBackgroundColor: 'transparent',
         plotBorderWidth: null,
         plotShadow: false,
         renderTo: pieContainer,
-        type: 'pie'
+        type: 'pie',
+        spacingBottom: 0,
+       spacingTop: 0,
+       spacingLeft: 0,
+       spacingRight: 0,
+
       },
       title: {
-        text: 'Browser market shares in January, 2018'
+        text: 'Total Shares %'
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
