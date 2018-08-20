@@ -113,23 +113,46 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
   const span = document.createElement('span');
   span.id="myPopup";
   span.classList.add("popuptext");
-  span.textContent = "HELLO WORLD";
+  span.textContent = "Please Register Your Stock Transaction";
   container.appendChild(span);
-
-  const form = document.createElement('form');
-  const inputText = document.createElement('div');
-  inputText.classList.add("input-text");
-  const input = document.createElement('input');
-  input.setAttribute("type", "text");
-
-
 
   const closeButton = document.createElement('button');
   closeButton.id = "close-button";
+  closeButton.textContent="X";
+  closeButton.style.backgroundColor="black";
   span.appendChild(closeButton);
   closeButton.addEventListener('click', (event) => {
     span.classList.toggle("show")
   });
+
+
+  const form = document.createElement('form');
+
+  const sharesBoughtText = document.createElement('div');
+  sharesBoughtText.classList.add("input-text");
+  sharesBoughtText.textContent = "Shares Bought";
+  form.appendChild(sharesBoughtText);
+
+  const sharesBoughtInput = document.createElement('input');
+  sharesBoughtInput.setAttribute("type", "text");
+  sharesBoughtText.appendChild(sharesBoughtInput);
+
+
+  const pricePaid = document.createElement('div');
+  pricePaid.classList.add("input-text");
+  pricePaid.textContent = "Price Paid";
+  form.appendChild(pricePaid);
+
+  const priceInput = document.createElement('input');
+  priceInput.setAttribute("type", "text");
+  pricePaid.appendChild(priceInput);
+
+
+
+  span.appendChild(form);
+
+
+
 };
 
 module.exports = HoldingsTableView;
