@@ -6,14 +6,16 @@ const WatchlistTableView = function (container) {
 }
 
 WatchlistTableView.prototype.bindEvents = function () {
-
-  PubSub.subscribe('AppData:data-loaded', (evt) => {
-    this.renderWatchlist(evt.detail[0], this.container);
-  });
+  // 
+  // PubSub.subscribe('AppData:data-loaded', (evt) => {
+  //   console.log(evt.detail[0]);
+  //   this.renderWatchlist(evt.detail[0].watchlist, this.container);
+  // });
 
 };
 
 WatchlistTableView.prototype.initializeTable = function (userData) {
+
   this.renderWatchlist(userData[0].watchList, this.container);
 };
 
@@ -26,7 +28,6 @@ WatchlistTableView.prototype.renderWatchlist = function (userData, pageBody) {
   const nameHeader = tableHeader.insertCell(0);
 
   const stockNames = [];
-
 
 userData.forEach(function(stock) {
   stockNames.push(stock);
