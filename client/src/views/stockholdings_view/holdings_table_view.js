@@ -15,6 +15,7 @@ HoldingsTableView.prototype.bindEvents = function () {
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
+  this.getTotalVolume(userData[0].holdings);
 
 this.renderHoldings(userData[0].holdings, this.container);
 };
@@ -30,13 +31,15 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const valueHeader = tableHeader.insertCell(1);
   const sharesHeldHeader = tableHeader.insertCell(2);
   const profitLossHeader = tableHeader.insertCell(3);
+  const holdingsPercentHeader = tableHeader.insertCell(4);
   // stock, invested value, shares held, profit/loss
   const stockNames = [];
   const stockValues = [];
   const sharesHeld = [];
   const profitLoss = [];
+  const holdingsPercent = [];
 
-  i = 0;
+  const totalVolume = this.getTotalVolume(userData);
 
 
   userData.forEach(function(stock) {
@@ -44,6 +47,12 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     stockNames.push(stock.stock);
     sharesHeld.push(stock.noOfSharesHeld);
     profitLoss.push(stock.profitLoss);
+    //
+    //
+     holdingsPercent.push((stock.noOfSharesHeld/totalVolume)*100)
+     console.log("holdingsPercent", holdingsPercent);
+
+
     const row = holdingsTable.insertRow(1);
     tableHeader.classList.add('holdings-header');
 
@@ -56,8 +65,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     sharesHeldCell.innerHTML = stock.noOfSharesHeld;
     profitLossCell.innerHTML = stock.profitLoss;
 
-    i++
   });
+
 
 
   nameHeader.innerHTML = "Stock";
@@ -67,7 +76,22 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
 
 
-
 };
+
+HoldingsTableView.prototype.getTotalVolume = function (rawData) {
+  console.log("rawData", rawData);
+  const individualHoldings = rawData;
+  const totalStockVolumeInArray = [];
+
+  individualHoldings.forEach((holding) => {
+    totalStockVolumeInArray.push(parseInt(holding.noOfSharesHeld));
+  })
+  const total = totalStockVolumeInArray.reduce(function(sum, volume) {
+    return sum += volume;
+  }, 0)
+  console.log(total);
+  return total;
+};
+
 
 module.exports = HoldingsTableView;

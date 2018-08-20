@@ -25,12 +25,16 @@ PieChartView.prototype.arrangePieChartToRender = function (rawData) {
   const totalStockVolumeInArray = [];
 
   individualHoldings.forEach((holding) => {
-    totalStockVolume.push(parseInt(holding.noOfSharesHeld));
+    totalStockVolumeInArray.push(parseInt(holding.noOfSharesHeld));
   })
-//TOTAL IS TOTAL VOLUME OF ALL STOCKS OWNED BY USER
-const total = totalStockVolumeInArray.reduce(function(sum, volume) {
-  return sum += volume;
-}, 0)
+  //TOTAL IS TOTAL VOLUME OF ALL STOCKS OWNED BY USER
+  const total = totalStockVolumeInArray.reduce(function(sum, volume) {
+    return sum += volume;
+  }, 0)
+
+};
+
+PieChartView.prototype.returnTotalVolume = function () {
 
 };
 
