@@ -6,11 +6,6 @@ const WatchlistTableView = function (container) {
 }
 
 WatchlistTableView.prototype.bindEvents = function () {
-  // 
-  // PubSub.subscribe('AppData:data-loaded', (evt) => {
-  //   console.log(evt.detail[0]);
-  //   this.renderWatchlist(evt.detail[0].watchlist, this.container);
-  // });
 
 };
 
@@ -37,7 +32,7 @@ userData.forEach(function(stock) {
   });
   tableHeader.classList.add('watchlist-header');
   const stockNamesCell = row.insertCell(0);
-  stockNamesCell.innerHTML = stock;
+  stockNamesCell.textContent = stock;
   stockNamesCell.classList.add("indicator");
 });
 
