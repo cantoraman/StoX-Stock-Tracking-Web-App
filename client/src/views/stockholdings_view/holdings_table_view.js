@@ -161,7 +161,6 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    console.log(this.isAdding);
     this.submitNewStock(parseInt(priceInput.value), parseInt(sharesBoughtInput.value));
     span.classList.toggle("show")
     priceInput.value="";
