@@ -40,16 +40,14 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const holdingsPercent = [];
 
   const totalVolume = this.getTotalVolume(userData);
-
+  // const holdingsPercentageByStock = (stock.noOfSharesHeld/totalVolume)*100;
 
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
     sharesHeld.push(stock.noOfSharesHeld);
     profitLoss.push(stock.profitLoss);
-    //
-    //
-     holdingsPercent.push((stock.noOfSharesHeld/totalVolume)*100)
+    holdingsPercent.push((stock.noOfSharesHeld/totalVolume)*100)
      console.log("holdingsPercent", holdingsPercent);
 
 
@@ -60,10 +58,12 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     const stockValuesCell = row.insertCell(1);
     const sharesHeldCell = row.insertCell(2);
     const profitLossCell = row.insertCell(3);
+    const percentageCell = row.insertCell(4);
     stockNamesCell.innerHTML = stock.stock;
     stockValuesCell.innerHTML = stock.investedValue;
     sharesHeldCell.innerHTML = stock.noOfSharesHeld;
     profitLossCell.innerHTML = stock.profitLoss;
+    percentageCell.innerHTML = ((stock.noOfSharesHeld/totalVolume)*100).toFixed(2);
 
   });
 
@@ -73,6 +73,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   valueHeader.innerHTML = "Invested Value";
   sharesHeldHeader.innerHTML = "Volume";
   profitLossHeader.innerHTML = "Profit/Loss";
+  holdingsPercentHeader.innerHTML = "% of total holdings"
 
 
 
