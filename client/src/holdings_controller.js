@@ -9,12 +9,15 @@ HoldingsController.prototype.initializePage = function () {
     console.log(evt.detail);
     const userData = evt.detail;
     const pageBody = document.querySelector('#pageBody');
+    const pieContainer = document.createElement('div');
+    pieContainer.id = 'pie-chart';
     const holdingsTable = document.createElement('div');
     holdingsTable.id = 'holdings-table';
     pageBody.innerHTML = '';
     pageBody.appendChild(holdingsTable);
+    holdingsTable.appendChild(pieContainer);
 
-    const holdingsTableView = new HoldingsTableView(holdingsTable);
+    const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
   });
