@@ -121,9 +121,7 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
   closeButton.textContent="X";
   closeButton.style.backgroundColor="black";
   span.appendChild(closeButton);
-  closeButton.addEventListener('click', (event) => {
-    span.classList.toggle("show")
-  });
+
 
 
   const form = document.createElement('form');
@@ -135,6 +133,7 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const sharesBoughtInput = document.createElement('input');
   sharesBoughtInput.setAttribute("type", "text");
+  sharesBoughtInput.style.backgroundColor="navy";
   sharesBoughtText.appendChild(sharesBoughtInput);
 
 
@@ -145,14 +144,40 @@ HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
   const priceInput = document.createElement('input');
   priceInput.setAttribute("type", "text");
+  priceInput.style.backgroundColor="navy";
   pricePaid.appendChild(priceInput);
 
+  const submitButton = document.createElement('button');
+  submitButton.id = "submit-button";
+  submitButton.textContent="Submit";
+  submitButton.style.backgroundColor="navy";
+  span.appendChild(submitButton);
 
+  submitButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log();
+    this.submitNewStock(priceInput.value, sharesBoughtInput.value);
+    span.classList.toggle("show")
+    priceInput.value="";
+    sharesBoughtInput.value="";
+  });
+
+  closeButton.addEventListener('click', (event) => {
+    span.classList.toggle("show")
+    priceInput.value="";
+    sharesBoughtInput.value="";
+  });
 
   span.appendChild(form);
 
 
 
 };
+
+HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
+console.log(priceInput, sharesBoughtInput);
+};
+
+
 
 module.exports = HoldingsTableView;
