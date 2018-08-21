@@ -5,31 +5,20 @@ const PieChartView = function (container) {
   this.container = container;
 }
 
-PieChartView.prototype.initializePieChart = function (userData) {
-  this.bindEvents();
-  this.publishPieChart(userData);
-};
-
-PieChartView.prototype.publishPieChart = function (data) {
-  PubSub.publish('PieChart:publish-chart-data', data);
-};
-
 PieChartView.prototype.bindEvents = function () {
-  PubSub.subscribe('AppData:data-loaded', (evt) => {
-    this.arrangePieChartToRender(evt.detail);
+  PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
+    console.log("HoldingsSubscribedData:",evt.detail);
   });
-}
-
-PieChartView.prototype.arrangePieChart = function (name, percentage) {
-  // console.log("hi");
-  // console.log("name",name);
-  // const arrangedData = {
-  //             "name": `${name}`,
-  //             "y": `${percentage}`
-  //         }
-  //         this.renderPieChart(arrangedData, container);
 };
 
+PieChartView.prototype.initializePieChart = function (userData) {
+  console.log(userData);
+  this.renderHoldings(userData[0].holdings, this.container, userData[0]);
 
+};
+
+PieChartView.prototype.renderHoldings = function () {
+
+};
 
 module.exports = PieChartView;
