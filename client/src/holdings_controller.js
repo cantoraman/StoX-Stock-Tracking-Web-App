@@ -31,10 +31,11 @@ HoldingsController.prototype.initializePage = function () {
     holdingsTableView.bindEvents();
 
     const searchFormView = new SearchFormView(searchForm);
+    searchFormView.initializeSearchView();
     searchFormView.bindEvents();
 
     const search = new Search();
-    search.initializeSearch();
+    search.bindEvents();
 
   });
 };

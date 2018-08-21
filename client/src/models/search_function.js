@@ -19,12 +19,15 @@ SearchModel.prototype.initializeSearch = function () {
   console.log(request);
   request.get().then((data) => {
     console.log(data);
-    this.publishSearchData(data);
+    this.verifySearch(data);
   });
 };
 
-SearchModel.prototype.publishSearchData = function (data) {
-  PubSub.publish('Search:publish-search-data', data);
+SearchModel.prototype.verifySearch = function (data) {
+  if(Object.keys(data).length > 0){
+    console.log(data);
+    PubSub.publish('Search:publish-search-data', data);
+};
 };
 
 module.exports = SearchModel;

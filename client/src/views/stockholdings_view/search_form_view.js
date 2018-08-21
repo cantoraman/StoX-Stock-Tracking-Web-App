@@ -5,13 +5,16 @@ const SearchView = function (container){
 }
 
 SearchView.prototype.bindEvents = function () {
-  PubSub.subscribe('Search:publish-search-data', (evt) => {
-    this.arrangeSearchFormToRender(evt.detail);
-
-  })
+  // PubSub.subscribe('Search:publish-search-data', (evt) => {
+  //   // this.arrangeSearchFormToRender(evt.detail);
+  // })
 };
 
-SearchView.prototype.arrangeSearchFormToRender = function (data) {
+SearchView.prototype.initializeSearchView = function () {
+  this.arrangeSearchFormToRender();
+};
+
+SearchView.prototype.arrangeSearchFormToRender = function () {
 
   const container = document.createElement('div');
   container.classList.add('search');
@@ -56,14 +59,5 @@ SearchView.prototype.arrangeSearchFormToRender = function (data) {
   });
 
 };
-
-// SearchView.prototype.submitNewSymbol = function (symbol) {
-//   console.log(this.isAdding);
-//   if(this.isAdding === "false")
-//   priceInput = (-1 * priceInput);
-//   console.log(priceInput, sharesBoughtInput);
-// };
-
-
 
 module.exports = SearchView;
