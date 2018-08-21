@@ -1,6 +1,7 @@
 const PubSub = require('../../helpers/pub_sub.js');
 const AppData = require('../../models/app_data.js');
 const Highcharts = require('highcharts');
+const Request = require('../../helpers/request.js');
 
 
 const HoldingsTableView = function (container, pieContainer) {
@@ -12,10 +13,12 @@ HoldingsTableView.prototype.bindEvents = function () {
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
-  this.renderHoldings(userData[0].holdings, this.container);
+  console.log("whole user data", userData);
+  this.renderHoldings(userData[0].holdings, this.container, userData[0]);
+
 };
 
-HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
+HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, wholeUserObject) {
 
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
@@ -30,6 +33,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const holdingsPercentHeader = tableHeader.insertCell(5);
   const addHeader = tableHeader.insertCell(6);
   const removeHeader = tableHeader.insertCell(7);
+  const deleteHeader = tableHeader.insertCell(8);
 
   const stockNames = [];
   const stockValues = [];
@@ -45,6 +49,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   this.generatePopupForm();
 
   userData.forEach(function(stock) {
+      console.log(stock);
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
     sharesHeld.push(stock.noOfSharesHeld);
@@ -63,6 +68,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
       const percentageCell = row.insertCell(5);
       const addCell = row.insertCell(6);
       const removeCell = row.insertCell(7);
+      const deleteCell = row.insertCell(8);
       stockNamesCell.textContent = stock.stock;
       stockValuesCell.textContent = stock.investedValue;
       stockCurrentValueCell.textContent = 100;
@@ -72,6 +78,16 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
       addCell.classList.add("indicator");
       removeCell.textContent = "Remove";
       removeCell.classList.add("indicator");
+      deleteCell.textContent = "Delete";
+      deleteCell.id = "delete-button";
+      deleteCell.classList.add("indicator");
+
+      deleteCell.addEventListener('click', (event) => {
+      this.deleteStock(userData, stock, wholeUserObject)
+
+      })
+
+
 
       addCell.addEventListener('click', (event) => {
         console.log("add button pressed");
@@ -93,8 +109,18 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
       percentageCell.innerHTML = calculatedpercentage;
       namesArray.push(stock.stock);
       percentArray.push(calculatedpercentage);
-    });
+    }, this);
 
+
+
+    HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
+      const stockId = userData.indexOf(stock)
+      userData.splice(stockId, 1);
+      wholeUserObject.holdings = userData;
+      request = new Request('http://localhost:3000/api/user')
+      request.update(wholeUserObject);
+      PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject)
+    };
 
       this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
