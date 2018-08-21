@@ -47,6 +47,10 @@ HoldingsController.prototype.initializePage = function () {
     searchFormView.initializeSearchView();
     searchFormView.bindEvents();
 
+
+    const stockHoldings = new StockHoldings(userData);
+    stockHoldings.bindEvents();
+
     const search = new Search();
     search.bindEvents();
 
