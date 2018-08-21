@@ -36,9 +36,10 @@ CryptoView.prototype.renderList = function (cryptoData) {
     });
     const nameCell = row.insertCell(0);
     nameCell.classList.add("indicator");
+    nameCell.id = ('crypto-name');
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = cryptoData[i]['companyName'];
-    priceCell.innerHTML = cryptoData[i]['close'];
+    priceCell.innerHTML = cryptoData[i]['close'].toFixed(2);
   });
 
 

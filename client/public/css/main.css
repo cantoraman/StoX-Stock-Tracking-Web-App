@@ -33,6 +33,7 @@ table {
 td {
   border-bottom: 2px solid #009FFD;
   padding: 5px;
+  text-align: center;
 
 }
 
@@ -217,4 +218,8 @@ font-family: 'Pontano Sans', sans-serif; */
 
 .negative {
     background-color: red;
+}
+
+#crypto-name {
+  text-align: left;
 }
