@@ -28,6 +28,7 @@ NewsfeedView.prototype.bindEvents = function () {
       headlineLink.appendChild(headline);
       headlineLink.title = article.title;
       headlineLink.href = article.url;
+      headlineLink.setAttribute('target', '_blank');
       newsImages.push(article.urlToImage);
       const row = newsTable.insertRow(1);
       tableHeader.classList.add('news-header');
