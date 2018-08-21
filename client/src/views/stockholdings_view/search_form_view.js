@@ -28,17 +28,23 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
 
   const symbolInput = document.createElement('input');
   symbolInput.setAttribute("type", "text");
-  symbolInput.style.backgroundColor = "navy";
+  symbolInput.style.backgroundColor = "white";
+  symbolInput.style.color = "black";
+  symbolInput.placeholder = "Enter Symbol";
   searchForm.appendChild(symbolInput);
 
   const priceInput = document.createElement('input');
   priceInput.setAttribute("type", "text");
-  priceInput.style.backgroundColor = "navy";
+  priceInput.style.backgroundColor = "white";
+  priceInput.style.color = "black";
+  priceInput.placeholder = "Enter Price Paid"
   searchForm.appendChild(priceInput);
 
   const sharesInput = document.createElement('input');
   sharesInput.setAttribute("type", "text");
-  sharesInput.style.backgroundColor = "navy";
+  sharesInput.style.backgroundColor = "white";
+  sharesInput.style.color = "black";
+  sharesInput.placeholder = "No of shares bought"
   searchForm.appendChild(sharesInput);
 
   const submitButton = document.createElement('button');

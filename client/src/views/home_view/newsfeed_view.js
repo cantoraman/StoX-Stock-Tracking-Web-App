@@ -32,7 +32,7 @@ NewsfeedView.prototype.bindEvents = function () {
       newsImages.push(article.urlToImage);
       const row = newsTable.insertRow(1);
       tableHeader.classList.add('news-header');
-
+``
       const headlineCell = row.insertCell(0);
       const imageCell = row.insertCell(1);
       // headlineCell.innerHTML = article.title;
