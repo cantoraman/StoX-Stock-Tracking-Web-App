@@ -7,7 +7,6 @@ const PieChartView = function (container) {
 
 PieChartView.prototype.bindEvents = function () {
   PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
-    console.log("HoldingsSubscribedData:",evt.detail);
   });
 };
 
@@ -29,6 +28,7 @@ return total;
 };
 
 PieChartView.prototype.getPercentagesForEachStock = function (userData) {
+
   const totalInvestmentForEachShare = this.getTotalInvestment(userData);
   const percentageOfInvestedValueByHolding = [];
   const namesArray = [];
@@ -40,12 +40,54 @@ PieChartView.prototype.getPercentagesForEachStock = function (userData) {
   userData.forEach((holding) => {
     percentageOfInvestedValueByHolding.push(parseInt(holding.investedValue));
 });
-console.log(namesArray);
 
 const arrayOfPercentages = percentageOfInvestedValueByHolding.map(value => ((value/totalInvestmentForEachShare)*100).toFixed(2));
 parseInt(arrayOfPercentages);
 
-this.renderNewPieChart(namesArray, arrayOfPercentages);
-}
+this.renderNewPieChart(namesArray, arrayOfPercentages, this.container);
+};
+
+PieChartView.prototype.renderNewPieChart = function (names,percentages,container) {
+const finalDataArray = names.map((name, index) => {
+  return {name: name, y: (parseInt(percentages[index]))}
+})
+
+  var pieChart = new Highcharts.Chart(
+    {
+      chart: {
+        plotBackgroundColor: 'transparent',
+        plotBorderWidth: 600,
+        plotShadow: false,
+        renderTo: container,
+        type: 'pie'
+
+      },
+      title: {
+        text: 'Total Value %'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            }
+          }
+        }
+      },
+      series: [{
+        name: 'Stock Holdings',
+        colorByPoint: true,
+        data: finalDataArray
+    }]
+  });
+};
+
 
 module.exports = PieChartView;

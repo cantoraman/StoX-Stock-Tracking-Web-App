@@ -29,11 +29,12 @@ HoldingsController.prototype.initializePage = function () {
     pageBody.innerHTML = '';
     pageBody.appendChild(searchForm);
     pageBody.appendChild(holdingsTable);
-    pageBody.appendChild(newPieChartContainer);
+    holdingsTable.appendChild(newPieChartContainer);
     holdingsTable.appendChild(pieContainer);
 
     const pieChartView = new PieChartView(newPieChartContainer)
     pieChartView.initializePieChart(userData);
+
 
     const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
     holdingsTableView.initializeTable(userData);
