@@ -7,8 +7,8 @@ const SearchModel = function (url) {
 };
 
 SearchModel.prototype.bindEvents = function () {
+
   PubSub.subscribe('Search:request-search-data', (evt) => {
-    console.log(evt.detail.stock);
     this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.detail.stock}&types=chart&range=1m&last=5`;
     this.userData=evt.detail;
     this.initializeSearch();
@@ -16,7 +16,7 @@ SearchModel.prototype.bindEvents = function () {
 };
 
 SearchModel.prototype.initializeSearch = function () {
-  this.bindEvents();
+  
   const request = new Request(this.url);
   request.get().then((data) => {
     this.verifySearch(data);
