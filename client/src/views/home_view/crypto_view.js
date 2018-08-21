@@ -51,6 +51,7 @@ CryptoView.prototype.renderCryptoGraph = function (graphdata) {
   const listOfDates = [];
   const listOfPrices = [];
   const priceData = graphdata["Time Series (Digital Currency Daily)"];
+  console.log("priceData", priceData);
   Object.keys(priceData).forEach(function(day) {
     // closingPriceData[day];
     // console.log(priceData[day]["4. close"]);

@@ -7,7 +7,6 @@ const HoldingsController = function (){
 HoldingsController.prototype.initializePage = function () {
 
   PubSub.subscribe('AppData:data-loaded', (evt)=>{
-    console.log(evt.detail);
     const userData = evt.detail;
     const pageBody = document.querySelector('#pageBody');
     const pieContainer = document.createElement('div');

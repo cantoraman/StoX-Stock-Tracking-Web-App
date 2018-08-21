@@ -13,12 +13,12 @@ HoldingsTableView.prototype.bindEvents = function () {
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
-  console.log("whole user data", userData);
-  this.renderHoldings(userData[0].holdings, this.container, userData[0]);
-
+  PubSub.subscribe("HoldingsTableView:prices-array-loaded", (evt) => {
+    this.renderHoldings(userData[0].holdings, this.container, userData[0], evt.detail);
+  });
 };
 
-HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, wholeUserObject) {
+HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, wholeUserObject, arrayOfNamesAndPrices) {
 
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
@@ -49,7 +49,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   this.generatePopupForm();
 
   userData.forEach(function(stock) {
-      console.log(stock);
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
     sharesHeld.push(stock.noOfSharesHeld);
@@ -71,7 +70,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       const deleteCell = row.insertCell(8);
       stockNamesCell.textContent = stock.stock;
       stockValuesCell.textContent = stock.investedValue;
-      stockCurrentValueCell.textContent = 100;
+      stockCurrentValueCell.textContent = this.passCurrentValue(stock.stock, arrayOfNamesAndPrices);
       sharesHeldCell.textContent = stock.noOfSharesHeld;
       profitLossCell.textContent = stock.profitLoss;
       addCell.textContent = "Add";
@@ -84,7 +83,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
 
       deleteCell.addEventListener('click', (event) => {
       this.deleteStock(userData, stock, wholeUserObject)
-
       })
 
       addCell.addEventListener('click', (event) => {
@@ -111,18 +109,11 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
 
 
 
-    HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
-      const stockId = userData.indexOf(stock);
-      userData.splice(stockId, 1);
-      wholeUserObject.holdings = userData;
-      request = new Request('http://localhost:3000/api/user');
-      request.update(wholeUserObject);
-      PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
-      location.reload();
 
-    };
 
-      this.renderPieChart(namesArray, percentArray, this.pieContainer);
+
+
+    this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
     nameHeader.textContent = "Stock";
     valueHeader.textContent = "Invested Value";
@@ -134,6 +125,31 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
     removeHeader.textContent = "Sold";
   };
 
+  HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
+    const stockId = userData.indexOf(stock);
+    userData.splice(stockId, 1);
+    wholeUserObject.holdings = userData;
+    request = new Request('http://localhost:3000/api/user');
+    request.update(wholeUserObject);
+    PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
+    location.reload();
+
+  };
+
+HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAndPrices) {
+    console.log(arrayOfNamesAndPrices[1]);
+    var result=0;
+    arrayOfNamesAndPrices[1].forEach(function(arraySymbol, index){
+      // console.log("symbol,", symbol);
+      if(arraySymbol==symbol){
+        console.log("arraysymbol,", arraySymbol, "index:", index);
+        console.log(arrayOfNamesAndPrices[0][index]);
+        result = arrayOfNamesAndPrices[0][index];
+      };
+    });
+
+    return result;
+};
 
 
   HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
@@ -213,7 +229,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
-  console.log("rawData", rawData);
   const individualHoldings = rawData;
   const totalStockVolumeInArray = [];
 
@@ -223,18 +238,18 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   const total = totalStockVolumeInArray.reduce(function(sum, volume) {
     return sum += volume;
   }, 0)
-  console.log(total);
+
   return total;
 };
 
 HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
-  console.log(pieContainer);
+
 
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })
 
-console.log(finalDataArray);
+
 
   var pieChart = new Highcharts.Chart(
     {
