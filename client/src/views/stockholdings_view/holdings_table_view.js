@@ -214,14 +214,10 @@ console.log(finalDataArray);
     {
       chart: {
         plotBackgroundColor: 'transparent',
-        plotBorderWidth: null,
+        plotBorderWidth: 600,
         plotShadow: false,
         renderTo: pieContainer,
-        type: 'pie',
-        spacingBottom: 0,
-       spacingTop: 0,
-       spacingLeft: 0,
-       spacingRight: 0,
+        type: 'pie'
 
       },
       title: {

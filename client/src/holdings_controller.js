@@ -1,5 +1,9 @@
 const HoldingsTableView = require('./views/stockholdings_view/holdings_table_view.js');
 const PubSub = require('./helpers/pub_sub.js');
+const Search = require('./models/search_function.js');
+
+
+
 
 const HoldingsController = function (){
 };
@@ -21,6 +25,9 @@ HoldingsController.prototype.initializePage = function () {
     const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
+
+    const search = new Search();
+    search.initializeSearch();
 
   });
 };
