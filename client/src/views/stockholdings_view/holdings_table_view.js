@@ -86,7 +86,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
       });
       removeCell.addEventListener('click', (event) => {
         this.isAdding = "false";
-
+        this.stockToAdd=stock.stock;
         togglePopup();
       });
       function togglePopup(){
