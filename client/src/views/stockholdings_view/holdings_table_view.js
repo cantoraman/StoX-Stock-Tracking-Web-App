@@ -18,6 +18,7 @@ HoldingsTableView.prototype.bindEvents = function () {
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
+
   this.renderHoldings(userData[0].holdings, this.container, userData[0]);
 
 };

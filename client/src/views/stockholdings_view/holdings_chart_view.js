@@ -12,13 +12,40 @@ PieChartView.prototype.bindEvents = function () {
 };
 
 PieChartView.prototype.initializePieChart = function (userData) {
-  console.log(userData);
-  this.renderHoldings(userData[0].holdings, this.container, userData[0]);
-
+  this.getTotalInvestment(userData[0].holdings, this.container);
+  this.getPercentagesForEachStock(userData[0].holdings);
 };
 
-PieChartView.prototype.renderHoldings = function () {
+PieChartView.prototype.getTotalInvestment = function (userData) {
 
+const totalInvestedValueInArray = [];
+userData.forEach((holding) => {
+  totalInvestedValueInArray.push(parseInt(holding.investedValue));
+});
+const total = totalInvestedValueInArray.reduce(function(sum, volume) {
+  return sum += volume;
+}, 0)
+return total;
 };
+
+PieChartView.prototype.getPercentagesForEachStock = function (userData) {
+  const totalInvestmentForEachShare = this.getTotalInvestment(userData);
+  const percentageOfInvestedValueByHolding = [];
+  const namesArray = [];
+
+  userData.forEach((holding) => {
+    namesArray.push(holding.stock);
+  })
+
+  userData.forEach((holding) => {
+    percentageOfInvestedValueByHolding.push(parseInt(holding.investedValue));
+});
+console.log(namesArray);
+
+const arrayOfPercentages = percentageOfInvestedValueByHolding.map(value => ((value/totalInvestmentForEachShare)*100).toFixed(2));
+parseInt(arrayOfPercentages);
+
+this.renderNewPieChart(namesArray, arrayOfPercentages);
+}
 
 module.exports = PieChartView;
