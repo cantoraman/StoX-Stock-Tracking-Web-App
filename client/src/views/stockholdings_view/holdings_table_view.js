@@ -11,6 +11,9 @@ const HoldingsTableView = function (container, pieContainer) {
 };
 
 HoldingsTableView.prototype.bindEvents = function () {
+  PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
+    console.log("HoldingsSubscribedData:",evt.detail);
+  });
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
@@ -182,11 +185,11 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     console.log(priceInput, this.stockToAdd);
 
     const updatedHolding = {};
-    updatedHolding.stock = ;
-    updatedHolding.investedValue = ;
-    updatedHolding.noOfSharesHeld = ;
+    updatedHolding.stock = this.stockToAdd;
+    updatedHolding.investedValue = priceInput;
+    updatedHolding.noOfSharesHeld = sharesBoughtInput;
     updatedHolding.profitLoss = "100";
-    PubSub.publish('HoldingsView:stock-submitted', updatedHolding);
+    PubSub.publish('StockHoldings:holding-submitted', updatedHolding);
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
