@@ -12,14 +12,20 @@ StockHoldings.prototype.bindEvents = function () {
   PubSub.subscribe('StockHoldings:holding-submitted', (evt) => {
     this.arrangeHoldingChange(evt.detail);
   });
+  PubSub.subscribe('StockHoldings:new-holding-submitted', (evt) => {
+    this.addNewHolding(evt.detail);
+  });
+};
+
+StockHoldings.prototype.addNewHolding = function (newHolding) {
+  this.userData[0].holdings.push(newHolding);
+  this.postChangedUserData();
 };
 
 StockHoldings.prototype.arrangeHoldingChange = function (updatedHolding) {
-  console.log("UserData:", this.userData);
-  console.log("Holding in arrange holding change:", updatedHolding);
+
   this.userData[0].holdings.forEach(function (holding){
     if(holding.stock === updatedHolding.stock){
-      console.log(holding, "asd", updatedHolding);
       let i =1;
       i = updatedHolding.investedValue<0 ? -1:1;
       // if(updatedHolding.investedValue<0){
@@ -28,9 +34,7 @@ StockHoldings.prototype.arrangeHoldingChange = function (updatedHolding) {
         holding.investedValue=parseInt(holding.investedValue)+updatedHolding.investedValue;
         holding.noOfSharesHeld=parseInt(holding.noOfSharesHeld)+(i*updatedHolding.noOfSharesHeld);
       };
-      console.log(holding, "asd", updatedHolding);
   });
-  console.log(this.userData[0].holdings);
   this.postChangedUserData();
 };
 
