@@ -18,7 +18,6 @@ HoldingsTableView.prototype.bindEvents = function () {
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
-  console.log("whole user data", userData);
   this.renderHoldings(userData[0].holdings, this.container, userData[0]);
 
 };
@@ -55,7 +54,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
 
 
   userData.forEach(function(stock) {
-      console.log(stock);
     stockValues.push(stock.investedValue);
     stockNames.push(stock.stock);
     sharesHeld.push(stock.noOfSharesHeld);
