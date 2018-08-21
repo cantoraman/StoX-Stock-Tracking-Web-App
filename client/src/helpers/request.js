@@ -27,9 +27,10 @@ Request.prototype.delete = function (id) {
 
 Request.prototype.put = function (payload) {
 console.log("Payload:", payload);
-  return fetch(`${this.url}/${payload._id}`, {
+
+  return fetch(`${this.url}/${payload[0]._id}`, {
     method: 'PUT',
-    body: JSON.stringify(payload),
+    body: JSON.stringify(payload[0]),
     headers: { 'Content-Type': 'application/json' }
   })
   .then((response) => response.json())
