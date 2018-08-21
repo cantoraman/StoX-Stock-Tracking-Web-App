@@ -1,5 +1,6 @@
 const Request = require('../helpers/request.js');
 const PubSub = require('../helpers/pub_sub.js');
+const AppData = require('./app_data.js');
 const API_KEY_STOCK_CHART = require('../api_key_stock_charts.js');
 
 const StockHoldings = function (userData) {
@@ -40,9 +41,11 @@ StockHoldings.prototype.arrangeHoldingChange = function (updatedHolding) {
 
 StockHoldings.prototype.postChangedUserData = function () {
   this.request.put(this.userData)
-  .then((holdings) => {
-    console.log("Holdings after Put:", holdings);
-    PubSub.publish('HoldingsTableView:data-loaded', holdings);
+  .then((userData) => {
+    let appData = new AppData('http://localhost:3000/api/user');
+    appData.getData();
+    //PubSub.publish('AppData:data-loaded', userData);
+  //  PubSub.publish('HoldingsTableView:data-loaded', userData);
   })
   .catch(console.error);
 };

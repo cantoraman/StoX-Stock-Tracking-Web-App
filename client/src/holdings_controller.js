@@ -14,10 +14,11 @@ const HoldingsController = function (){
 HoldingsController.prototype.initializePage = function () {
 
   PubSub.subscribe('AppData:data-loaded', (evt)=>{
-
+    
 
     const userData = evt.detail;
     const pageBody = document.querySelector('#pageBody');
+    pageBody.innerHTML="";
     const pieContainer = document.createElement('div');
     pieContainer.id = 'pie-chart';
     const holdingsTable = document.createElement('div');

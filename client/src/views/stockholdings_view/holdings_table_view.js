@@ -13,7 +13,7 @@ const HoldingsTableView = function (container, pieContainer) {
 
 HoldingsTableView.prototype.bindEvents = function () {
   PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
-    console.log("HoldingsSubscribedData:???? REMOVE THIS IF YOU SEE IT",evt.detail);
+    initializeTable(evt.detail);
   });
 };
 
