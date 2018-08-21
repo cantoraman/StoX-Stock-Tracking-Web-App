@@ -180,6 +180,13 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     if(this.isAdding === "false")
     priceInput = (-1 * priceInput);
     console.log(priceInput, this.stockToAdd);
+
+    const updatedHolding = {};
+    updatedHolding.stock = ;
+    updatedHolding.investedValue = ;
+    updatedHolding.noOfSharesHeld = ;
+    updatedHolding.profitLoss = "100";
+    PubSub.publish('HoldingsView:stock-submitted', updatedHolding);
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
