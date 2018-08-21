@@ -258,14 +258,18 @@ const finalDataArray = names.map((name, index) => {
   var pieChart = new Highcharts.Chart(
     {
       chart: {
-        backgroundColor: null,
-        plotBorderWidth: 600,
+        backgroundColor: 'transparent',
         plotShadow: false,
+        width: 300,
         renderTo: pieContainer,
         type: 'pie'
       },
       title: {
-        text: 'Total Shares %'
+        text: 'Total Shares %',
+        style: {
+         color: '#e8e8ff',
+         font: 'bold 32px "Trebuchet MS", Verdana, sans-serif'
+      }
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
