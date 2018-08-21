@@ -17,14 +17,15 @@ HoldingsTableView.prototype.bindEvents = function () {
   });
 };
 
-HoldingsTableView.prototype.initializeTable = function (userData) {
+HoldingsTableView.prototype.initializeTable = function (rawUserData) {
   PubSub.subscribe("HoldingsTableView:prices-array-loaded", (evt) => {
-    this.renderHoldings(userData[0].holdings, this.container, userData[0], evt.detail);
+    this.renderHoldings(rawUserData, this.container, rawUserData[0], evt.detail);
   });
 };
 
-HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, wholeUserObject, arrayOfNamesAndPrices) {
+HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wholeUserObject, arrayOfNamesAndPrices) {
 
+  const userData= rawUserData[0].holdings;
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
   this.container.appendChild(holdingsTable);
@@ -52,6 +53,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   const percentArray = [];
 
   this.generatePopupForm();
+
 
 
   userData.forEach(function(stock) {
@@ -96,7 +98,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       deleteCell.classList.add("indicator");
 
       deleteCell.addEventListener('click', (event) => {
-      this.deleteStock(userData, stock, wholeUserObject)
+        this.deleteStock(userData, stock, wholeUserObject)
       })
 
       addCell.addEventListener('click', (event) => {
@@ -136,13 +138,23 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   };
 
   HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
-    const stockId = userData.indexOf(stock);
-    userData.splice(stockId, 1);
-    wholeUserObject.holdings = userData;
-    request = new Request('http://localhost:3000/api/user');
-    request.update(wholeUserObject);
-    PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
-    location.reload();
+    // const stockId = userData.indexOf(stock);
+    // userData.splice(stockId, 1);
+    // wholeUserObject.holdings = userData;
+    // request = new Request('http://localhost:3000/api/user');
+    // request.update(wholeUserObject);
+    // PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
+    (priceInput, sharesBoughtInput)
+      if(this.isAdding === "false")
+      priceInput = (-1 * priceInput);
+
+      const updatedHolding = {};
+      updatedHolding.stock = this.stockToAdd;
+      updatedHolding.investedValue = priceInput;
+      updatedHolding.noOfSharesHeld = sharesBoughtInput;
+      updatedHolding.profitLoss = "100";
+      PubSub.publish('StockHoldings:holding-submitted', updatedHolding);
+
 
   };
 
@@ -153,7 +165,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
           result = arrayOfNamesAndPrices[0][index];
       };
     });
-    console.log(result);
+
     return result;
 };
 

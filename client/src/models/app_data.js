@@ -24,7 +24,6 @@ AppData.prototype.getData = function () {
 };
 
 AppData.prototype.initializeStocks = function (userData) {
-  console.log(userData);
   const stockNames = [];
 
   userData.holdings.forEach(function(stock) {
