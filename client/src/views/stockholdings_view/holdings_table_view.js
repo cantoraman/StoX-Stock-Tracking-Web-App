@@ -7,6 +7,7 @@ const HoldingsTableView = function (container, pieContainer) {
   this.container = container;
   this.pieContainer = pieContainer;
   this.isAdding= null;
+  this.stockToAdd = "";
 };
 
 HoldingsTableView.prototype.bindEvents = function () {
@@ -77,6 +78,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
 
       addCell.addEventListener('click', (event) => {
         this.isAdding = "true";
+        this.stockToAdd=stock.stock;
         togglePopup();
       });
       removeCell.addEventListener('click', (event) => {
@@ -177,7 +179,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
     if(this.isAdding === "false")
     priceInput = (-1 * priceInput);
-    console.log(priceInput);
+    console.log(priceInput, this.stockToAdd);
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
