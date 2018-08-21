@@ -12,6 +12,13 @@ StockHoldings.prototype.bindEvents = function () {
   PubSub.subscribe('StockHoldings:holding-submitted', (evt) => {
     this.arrangeHoldingChange(evt.detail);
   });
+  PubSub.subscribe('StockHoldings:new-holding-submitted', (evt) => {
+    this.addNewHolding(evt.detail);
+  });
+};
+
+StockHoldings.prototype.addNewHolding = function (newHolding) {
+  console.log(newHolding);
 };
 
 StockHoldings.prototype.arrangeHoldingChange = function (updatedHolding) {

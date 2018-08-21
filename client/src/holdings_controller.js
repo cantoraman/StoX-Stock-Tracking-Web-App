@@ -32,15 +32,12 @@ HoldingsController.prototype.initializePage = function () {
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
 
-<<<<<<< HEAD
-    const stockHoldings = new StockHoldings(userData);
-    stockHoldings.bindEvents();
-=======
     const searchFormView = new SearchFormView(searchForm);
     searchFormView.initializeSearchView();
     searchFormView.bindEvents();
 
->>>>>>> e6bb1de9644e16982eebae92bad28ee74a9e123b
+    const stockHoldings = new StockHoldings(userData);
+    stockHoldings.bindEvents();
     const search = new Search();
     search.bindEvents();
 
