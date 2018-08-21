@@ -182,8 +182,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
     if(this.isAdding === "false")
     priceInput = (-1 * priceInput);
-    console.log(priceInput, this.stockToAdd);
-
     const updatedHolding = {};
     updatedHolding.stock = this.stockToAdd;
     updatedHolding.investedValue = priceInput;
@@ -193,7 +191,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
-  console.log("rawData", rawData);
   const individualHoldings = rawData;
   const totalStockVolumeInArray = [];
 
@@ -203,18 +200,13 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const total = totalStockVolumeInArray.reduce(function(sum, volume) {
     return sum += volume;
   }, 0)
-  console.log(total);
   return total;
 };
 
 HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
-  console.log(pieContainer);
-
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })
-
-console.log(finalDataArray);
 
   var pieChart = new Highcharts.Chart(
     {
