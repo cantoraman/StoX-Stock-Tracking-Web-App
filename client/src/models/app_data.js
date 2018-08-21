@@ -3,13 +3,13 @@ const PubSub = require('../helpers/pub_sub.js');
 
 const AppData = function (url) {
   this.url = url;
-
+  this.data = null;
 };
 
 AppData.prototype.bindEvents = function () {
 
-  PubSub.subscribe('UserData:data-loaded', (event) => {
-    } );
+  // PubSub.subscribe('UserData:data-loaded', (event) => {
+  //   } );
 };
 
 AppData.prototype.getData = function () {
@@ -18,6 +18,7 @@ AppData.prototype.getData = function () {
     .then((userData) => {
       PubSub.publish('AppData:data-loaded', userData);
       this.initializeStocks(userData[0]);
+      this.data = userData;
     })
     .catch(console.error);
 };

@@ -7,9 +7,14 @@ const Request = require('../../helpers/request.js');
 const HoldingsTableView = function (container, pieContainer) {
   this.container = container;
   this.pieContainer = pieContainer;
+  this.isAdding= null;
+  this.stockToAdd = "";
 };
 
 HoldingsTableView.prototype.bindEvents = function () {
+  PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
+    console.log("HoldingsSubscribedData:",evt.detail);
+  });
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
@@ -47,6 +52,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   const percentArray = [];
 
   this.generatePopupForm();
+
 
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
@@ -86,28 +92,24 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       })
 
       addCell.addEventListener('click', (event) => {
-        console.log("add button pressed");
         this.isAdding = "true";
-        console.log(this.isAdding);
+        this.stockToAdd=stock.stock;
         togglePopup();
       });
       removeCell.addEventListener('click', (event) => {
-        console.log("remove button pressed");
         this.isAdding = "false";
-        console.log(this.isAdding);
+        this.stockToAdd=stock.stock;
         togglePopup();
       });
       function togglePopup(){
         const popup = document.getElementById("myPopup");
-        popup.classList.toggle("show")
+        popup.classList.toggle("show");
       };
       const calculatedpercentage = ((stock.noOfSharesHeld/totalVolume)*100).toFixed(2);
       percentageCell.innerHTML = calculatedpercentage;
       namesArray.push(stock.stock);
       percentArray.push(calculatedpercentage);
     }, this);
-
-
 
 
 
@@ -151,7 +153,6 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     return result;
 };
 
-
   HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
     const container = document.createElement('div');
@@ -174,12 +175,8 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const form = document.createElement('form');
 
     const sharesBoughtText = document.createElement('div');
-    sharesBoughtText.classList.add("input-text");
-    if(this.isAdding === "true")
-    sharesBoughtText.textContent = "Shares Bought";
-    else
-    sharesBoughtText.textContent = "Shares Sold";
-
+    sharesBoughtText.classList.add("shares-bought-text");
+    sharesBoughtText.textContent="Share Bought";
     form.appendChild(sharesBoughtText);
 
     const sharesBoughtInput = document.createElement('input');
@@ -222,10 +219,14 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
   };
 
   HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
-    console.log(this.isAdding);
     if(this.isAdding === "false")
     priceInput = (-1 * priceInput);
-    console.log(priceInput, sharesBoughtInput);
+    const updatedHolding = {};
+    updatedHolding.stock = this.stockToAdd;
+    updatedHolding.investedValue = priceInput;
+    updatedHolding.noOfSharesHeld = sharesBoughtInput;
+    updatedHolding.profitLoss = "100";
+    PubSub.publish('StockHoldings:holding-submitted', updatedHolding);
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
@@ -238,31 +239,22 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
   const total = totalStockVolumeInArray.reduce(function(sum, volume) {
     return sum += volume;
   }, 0)
-
   return total;
 };
 
 HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
-
-
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })
-
-
 
   var pieChart = new Highcharts.Chart(
     {
       chart: {
         plotBackgroundColor: 'transparent',
-        plotBorderWidth: null,
+        plotBorderWidth: 600,
         plotShadow: false,
         renderTo: pieContainer,
-        type: 'pie',
-        spacingBottom: 0,
-       spacingTop: 0,
-       spacingLeft: 0,
-       spacingRight: 0,
+        type: 'pie'
 
       },
       title: {
