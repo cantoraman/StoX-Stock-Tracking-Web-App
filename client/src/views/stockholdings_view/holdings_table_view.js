@@ -152,7 +152,7 @@ HoldingsTableView.prototype.deleteStock = function (rawUserData, stock) {
 
 
     rawUserData[0].holdings.forEach(function(holding, index){
-      if(holding.stock==stock){
+      if(holding.stock===stock){
         rawUserData[0].holdings.splice(index,1);
         PubSub.publish('StockHoldings:holding-deleted', rawUserData);
       };

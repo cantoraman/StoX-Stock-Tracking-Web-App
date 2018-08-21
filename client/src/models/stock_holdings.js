@@ -16,10 +16,19 @@ StockHoldings.prototype.bindEvents = function () {
   PubSub.subscribe('StockHoldings:new-holding-submitted', (evt) => {
     this.addNewHolding(evt.detail);
   });
+  PubSub.subscribe('StockHoldings:holding-deleted', (evt) => {
+    this.removeHolding(evt.detail);
+  });
+
 };
 
 StockHoldings.prototype.addNewHolding = function (newHolding) {
   this.userData[0].holdings.push(newHolding);
+  this.postChangedUserData();
+};
+
+StockHoldings.prototype.removeHolding = function (updatedUser) {
+  this.userData[0]=updatedUser[0];
   this.postChangedUserData();
 };
 
