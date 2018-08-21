@@ -25,12 +25,12 @@ AppData.prototype.getData = function () {
 
 AppData.prototype.initializeStocks = function (userData) {
   const stockNames = [];
-console.log(userData);
+
   userData.holdings.forEach(function(stock) {
     stockNames.push(stock.stock);
   });
   const names = stockNames.toString();
-  console.log(names);
+
   this.callPrices(names);
 
 };

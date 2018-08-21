@@ -13,7 +13,7 @@ const HoldingsTableView = function (container, pieContainer) {
 
 HoldingsTableView.prototype.bindEvents = function () {
   PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
-    console.log("HoldingsSubscribedData:",evt.detail);
+    console.log("HoldingsSubscribedData:???? REMOVE THIS IF YOU SEE IT",evt.detail);
   });
 };
 
@@ -147,14 +147,11 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
   };
 
 HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAndPrices) {
-    console.log(arrayOfNamesAndPrices[1]);
     var result=0;
     arrayOfNamesAndPrices[1].forEach(function(arraySymbol, index){
-      // console.log("symbol,", symbol);
+
       if(arraySymbol==symbol){
-        console.log("arraysymbol,", arraySymbol, "index:", index);
-        console.log(arrayOfNamesAndPrices[0][index]);
-        result = arrayOfNamesAndPrices[0][index];
+          result = arrayOfNamesAndPrices[0][index];
       };
     });
 

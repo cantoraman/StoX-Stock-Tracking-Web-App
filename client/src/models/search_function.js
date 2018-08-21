@@ -24,10 +24,11 @@ SearchModel.prototype.initializeSearch = function () {
 };
 
 SearchModel.prototype.verifySearch = function (data) {
-  if(Object.keys(data).length > 0){
-    console.log(data);
-    PubSub.publish('StockHoldings:new-holding-submitted', this.userData);
-};
+  console.log(data);
+  // if(Object.keys(data).length > 0){
+  //   console.log(data);
+  //   PubSub.publish('StockHoldings:new-holding-submitted', this.userData);
+//};
 };
 
 module.exports = SearchModel;
