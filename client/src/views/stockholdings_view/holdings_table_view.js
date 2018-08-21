@@ -82,6 +82,11 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       const totalSharesHeld = stock.noOfSharesHeld;
       sharesHeldCell.textContent = totalSharesHeld;
       profitLossCell.textContent = ((currentValue * totalSharesHeld) - investedValue).toFixed(2)
+
+      if (profitLossCell.textContent > 0){
+        profitLossCell.classList.add('positive')
+      } else { profitLossCell.classList.add('negative')}
+
       addCell.textContent = "Add";
       addCell.classList.add("indicator");
       removeCell.textContent = "Remove";
