@@ -24,7 +24,7 @@ HoldingsController.prototype.initializePage = function () {
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
 
-    const stockHoldings = new StockHoldings();
+    const stockHoldings = new StockHoldings(userData);
     stockHoldings.bindEvents();
 
 
