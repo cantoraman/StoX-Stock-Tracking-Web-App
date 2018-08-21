@@ -25,4 +25,17 @@ Request.prototype.delete = function (id) {
     .then((response) => response.json());
 };
 
+Request.prototype.update = function (payload) {
+  console.log(payload._id);
+  return fetch(`${this.url}/${payload._id}`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then((response) => response.json())
+  .catch((error)=>{
+    console.error(error);
+  });
+}
+
 module.exports = Request;
