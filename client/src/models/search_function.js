@@ -16,7 +16,7 @@ SearchModel.prototype.bindEvents = function () {
 };
 
 SearchModel.prototype.initializeSearch = function () {
-  
+
   const request = new Request(this.url);
   request.get().then((data) => {
     this.verifySearch(data);
@@ -25,6 +25,7 @@ SearchModel.prototype.initializeSearch = function () {
 
 SearchModel.prototype.verifySearch = function (data) {
   if(Object.keys(data).length > 0){
+    console.log(data);
     PubSub.publish('StockHoldings:new-holding-submitted', this.userData);
 };
 };
