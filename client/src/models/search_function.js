@@ -8,7 +8,7 @@ const SearchModel = function (url) {
 SearchModel.prototype.bindEvents = function () {
   PubSub.subscribe('Search:request-search-data', (evt) => {
     this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${evt.detail}&types=chart&range=1m&last=5`;
-    this.initializeGraph();
+    this.initializeSearch();
   });
 };
 
@@ -22,6 +22,7 @@ SearchModel.prototype.initializeSearch = function () {
 
 SearchModel.prototype.publishSearchData = function (data) {
   PubSub.publish('Search:publish-search-data', data);
+  console.log(data);
 };
 
 module.exports = SearchModel;
