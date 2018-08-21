@@ -75,10 +75,13 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       const removeCell = row.insertCell(7);
       const deleteCell = row.insertCell(8);
       stockNamesCell.textContent = stock.stock;
-      stockValuesCell.textContent = stock.investedValue;
-      stockCurrentValueCell.textContent = this.passCurrentValue(stock.stock, arrayOfNamesAndPrices);
-      sharesHeldCell.textContent = stock.noOfSharesHeld;
-      profitLossCell.textContent = stock.profitLoss;
+      const investedValue = stock.investedValue;
+      stockValuesCell.textContent = investedValue;
+      const currentValue = this.passCurrentValue(stock.stock, arrayOfNamesAndPrices);
+      stockCurrentValueCell.textContent = currentValue
+      const totalSharesHeld = stock.noOfSharesHeld;
+      sharesHeldCell.textContent = totalSharesHeld;
+      profitLossCell.textContent = ((currentValue * totalSharesHeld) - investedValue).toFixed(2)
       addCell.textContent = "Add";
       addCell.classList.add("indicator");
       removeCell.textContent = "Remove";
