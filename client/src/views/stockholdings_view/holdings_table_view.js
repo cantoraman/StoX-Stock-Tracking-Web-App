@@ -87,8 +87,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
 
       })
 
-
-
       addCell.addEventListener('click', (event) => {
         console.log("add button pressed");
         this.isAdding = "true";
@@ -114,12 +112,14 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
 
 
     HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
-      const stockId = userData.indexOf(stock)
+      const stockId = userData.indexOf(stock);
       userData.splice(stockId, 1);
       wholeUserObject.holdings = userData;
-      request = new Request('http://localhost:3000/api/user')
+      request = new Request('http://localhost:3000/api/user');
       request.update(wholeUserObject);
-      PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject)
+      PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
+      location.reload();
+
     };
 
       this.renderPieChart(namesArray, percentArray, this.pieContainer);
