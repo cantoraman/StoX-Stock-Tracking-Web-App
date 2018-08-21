@@ -98,7 +98,7 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
       deleteCell.classList.add("indicator");
 
       deleteCell.addEventListener('click', (event) => {
-        this.deleteStock(userData, stock, wholeUserObject)
+        this.deleteStock(rawUserData, stock.stock)
       })
 
       addCell.addEventListener('click', (event) => {
@@ -137,24 +137,26 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
     removeHeader.textContent = "Sold";
   };
 
-  HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
+HoldingsTableView.prototype.deleteStock = function (rawUserData, stock) {
     // const stockId = userData.indexOf(stock);
     // userData.splice(stockId, 1);
     // wholeUserObject.holdings = userData;
     // request = new Request('http://localhost:3000/api/user');
     // request.update(wholeUserObject);
     // PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
-    (priceInput, sharesBoughtInput)
-      if(this.isAdding === "false")
-      priceInput = (-1 * priceInput);
 
-      const updatedHolding = {};
-      updatedHolding.stock = this.stockToAdd;
-      updatedHolding.investedValue = priceInput;
-      updatedHolding.noOfSharesHeld = sharesBoughtInput;
-      updatedHolding.profitLoss = "100";
-      PubSub.publish('StockHoldings:holding-submitted', updatedHolding);
+      //search userData
+      //find the stock matching name
+      //remove the object from the array
+      // publish similarly to below... but something else
 
+
+    rawUserData[0].holdings.forEach(function(holding, index){
+      if(holding.stock==stock){
+        rawUserData[0].holdings.splice(index,1);
+        PubSub.publish('StockHoldings:holding-deleted', rawUserData);
+      };
+    });
 
   };
 
