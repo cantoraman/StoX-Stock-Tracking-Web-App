@@ -1,5 +1,7 @@
 const HoldingsTableView = require('./views/stockholdings_view/holdings_table_view.js');
+const StockHoldings = require('./models/stock_holdings.js');
 const PubSub = require('./helpers/pub_sub.js');
+
 
 const HoldingsController = function (){
 };
@@ -21,6 +23,8 @@ HoldingsController.prototype.initializePage = function () {
     const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
+
+
 
   });
 };

@@ -1,8 +1,13 @@
 
+
+
+
+
+
 // TODO: get user datan +
 // get user data from app.js so it will be visable to every other controller +
 // user data is currently in seeds +
-// create logic controller + 
+// create logic controller +
 // get api with all current prices.
 // then populate list of holdings.
 // create add button for holdings.
