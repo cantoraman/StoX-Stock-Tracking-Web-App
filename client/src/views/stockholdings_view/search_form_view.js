@@ -50,9 +50,9 @@ SearchView.prototype.arrangeSearchFormToRender = function (data) {
     newHolding.stock = symbolInput.value;
     newHolding.investedValue = priceInput.value;
     newHolding.noOfSharesHeld = sharesInput.value;
-    newHolding.profitLoss = “100”;
+    newHolding.profitLoss = 100;
+    console.log(newHolding);
     PubSub.publish('Search:request-search-data', newHolding);
-
   });
 
 };
