@@ -253,12 +253,11 @@ const finalDataArray = names.map((name, index) => {
   var pieChart = new Highcharts.Chart(
     {
       chart: {
-        plotBackgroundColor: 'transparent',
+        backgroundColor: null,
         plotBorderWidth: 600,
         plotShadow: false,
         renderTo: pieContainer,
         type: 'pie'
-
       },
       title: {
         text: 'Total Shares %'
