@@ -149,12 +149,11 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
 HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAndPrices) {
     var result=0;
     arrayOfNamesAndPrices[1].forEach(function(arraySymbol, index){
-
       if(arraySymbol==symbol){
           result = arrayOfNamesAndPrices[0][index];
       };
     });
-
+    console.log(result);
     return result;
 };
 

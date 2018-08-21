@@ -56,7 +56,7 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
     const newHolding = {};
-    newHolding.stock = symbolInput.value;
+    newHolding.stock = symbolInput.value.toUpperCase();
     newHolding.investedValue = priceInput.value;
     newHolding.noOfSharesHeld = sharesInput.value;
     newHolding.profitLoss = 100;

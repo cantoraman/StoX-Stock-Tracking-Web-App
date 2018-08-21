@@ -24,6 +24,7 @@ AppData.prototype.getData = function () {
 };
 
 AppData.prototype.initializeStocks = function (userData) {
+  console.log(userData);
   const stockNames = [];
 
   userData.holdings.forEach(function(stock) {
@@ -38,7 +39,7 @@ AppData.prototype.initializeStocks = function (userData) {
 AppData.prototype.callPrices = function (names) {
   const arrayOfPrices = [];
   const arrayOfNames = [];
-  const newURL = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${names}&types=quote,news,chart&range=1m&last=5`
+  const newURL = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${names}&types=quote&range=1m&last=5`
   const request = new Request(newURL);
   request.get().then((data) => {
     Object.keys(data).forEach(function(stock) {
