@@ -20,6 +20,8 @@ HoldingsController.prototype.initializePage = function () {
     const pageBody = document.querySelector('#pageBody');
     const pieContainer = document.createElement('div');
     pieContainer.id = 'pie-chart';
+    const totalsContainer = document.createElement('div');
+    totalsContainer.id = 'totals-container';
     const holdingsTable = document.createElement('div');
     holdingsTable.id = 'holdings-table';
     const searchForm = document.createElement('div');
@@ -31,11 +33,12 @@ HoldingsController.prototype.initializePage = function () {
     pageBody.appendChild(holdingsTable);
     holdingsTable.appendChild(newPieChartContainer);
     holdingsTable.appendChild(pieContainer);
+    pageBody.appendChild(totalsContainer);
 
     const pieChartView = new PieChartView(newPieChartContainer)
     pieChartView.initializePieChart(userData);
 
-    const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
+    const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer, totalsContainer);
     holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
 
