@@ -10,9 +10,10 @@ PieChartView.prototype.bindEvents = function () {
   });
 };
 
-PieChartView.prototype.initializePieChart = function (userData) {
-  this.getTotalInvestment(userData[0].holdings, this.container);
-  this.getPercentagesForEachStock(userData[0].holdings);
+PieChartView.prototype.initializePieChart = function (rawUserData) {
+  const userData = rawUserData[0];
+  this.getTotalInvestment(userData.holdings, this.container);
+  this.getPercentagesForEachStock(userData.holdings);
 };
 
 PieChartView.prototype.getTotalInvestment = function (userData) {

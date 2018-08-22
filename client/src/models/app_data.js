@@ -12,27 +12,25 @@ AppData.prototype.bindEvents = function () {
   //   } );
 };
 
-AppData.prototype.getData = function () {
+AppData.prototype.launchData = function () {
   this.request = new Request(this.url);
   this.request.get()
     .then((userData) => {
-      PubSub.publish('AppData:data-loaded', userData);
-      this.initializeStocks(userData[0]);
       this.data = userData;
+      PubSub.publish('AppData:data-loaded', this.data);
+      // this.initializeStocks(userData[0]);
+
     })
     .catch(console.error);
 };
 
 AppData.prototype.initializeStocks = function (userData) {
   const stockNames = [];
-
-  userData.holdings.forEach(function(stock) {
+  userData[0].holdings.forEach(function(stock) {
     stockNames.push(stock.stock);
   });
   const names = stockNames.toString();
-
   this.callPrices(names);
-
 };
 
 AppData.prototype.callPrices = function (names) {
@@ -46,6 +44,7 @@ AppData.prototype.callPrices = function (names) {
     arrayOfNames.push(stock);
     });
     var arrays = [arrayOfPrices, arrayOfNames];
+
     PubSub.publish('HoldingsTableView:prices-array-loaded', arrays)
   });
 };
@@ -105,5 +104,7 @@ AppData.prototype.putData = function (appData) {
 //   .catch(console.error);
 // };
 
-
+AppData.prototype.getUserData = function () {
+  return this.data;
+};
 module.exports = AppData;

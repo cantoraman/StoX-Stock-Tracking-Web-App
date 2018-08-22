@@ -52,9 +52,9 @@ StockHoldings.prototype.postChangedUserData = function () {
   this.request.put(this.userData)
   .then((userData) => {
     let appData = new AppData('http://localhost:3000/api/user');
-    appData.getData();
+    appData.launchData();
     //PubSub.publish('AppData:data-loaded', userData);
-  //  PubSub.publish('HoldingsTableView:data-loaded', userData);
+    //PubSub.publish('HoldingsTableView:data-loaded', userData);
   })
   .catch(console.error);
 };

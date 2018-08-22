@@ -12,8 +12,8 @@ const HoldingsTableView = function (container, pieContainer) {
 };
 
 HoldingsTableView.prototype.bindEvents = function () {
-  PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
-    initializeTable(evt.detail);
+  PubSub.subscribe('HoldingsController:data-loaded', (evt) => {
+    this.initializeTable(evt.detail);
   });
 };
 
@@ -21,11 +21,13 @@ HoldingsTableView.prototype.initializeTable = function (rawUserData) {
   PubSub.subscribe("HoldingsTableView:prices-array-loaded", (evt) => {
     this.renderHoldings(rawUserData, this.container, rawUserData[0], evt.detail);
   });
+  const appData = new AppData('http://localhost:3000/api/user');
+  appData.initializeStocks(rawUserData);
 };
 
 HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wholeUserObject, arrayOfNamesAndPrices) {
-
   const userData= rawUserData[0].holdings;
+  this.container.innerHTML="";
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
   this.container.appendChild(holdingsTable);

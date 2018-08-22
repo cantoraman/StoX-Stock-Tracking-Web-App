@@ -5,26 +5,27 @@ const SearchView = function (container){
 }
 
 SearchView.prototype.bindEvents = function () {
-  // PubSub.subscribe('Search:publish-search-data', (evt) => {
-  //   // this.arrangeSearchFormToRender(evt.detail);
-  // })
+  PubSub.subscribe('HoldingsController:data-loaded', (evt) => {
+    this.arrangeSearchFormToRender();
+  })
 };
 
-SearchView.prototype.initializeSearchView = function () {
-  this.arrangeSearchFormToRender();
-};
+// SearchView.prototype.initializeSearchView = function () {
+//   this.arrangeSearchFormToRender();
+// };
 
 SearchView.prototype.arrangeSearchFormToRender = function () {
+  this.container.innerHTML = "";
 
-  const container = document.createElement('div');
-  container.classList.add('search');
+  const frame = document.querySelector("#search-form");
 
-  const body = document.querySelector("#pageBody");
-  body.appendChild(container);
+  const innerframe = document.createElement('div');
+  innerframe.classList.add('search');
+  frame.appendChild(innerframe);
 
   const searchForm = document.createElement('form');
-  searchForm.classList.add('search-form')
-  container.appendChild(searchForm);
+  searchForm.classList.add('inner-search-form')
+  innerframe.appendChild(searchForm);
 
   const symbolInput = document.createElement('input');
   symbolInput.setAttribute("type", "text");

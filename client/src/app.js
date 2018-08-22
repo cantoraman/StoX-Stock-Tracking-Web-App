@@ -16,8 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const holdingsButton = document.querySelector('#holdings-button');
   const pageBody = document.querySelector('#pageBody');
 
-  appData.getData();
-  
+
+  appData.launchData();
+
 
   homeController.initializePage();
 
@@ -32,15 +33,17 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     pageBody.innerHTML = '';
     watchlistController.initializePage();
-    appData.getData();
+  //  appData.getData();
   });
 
 
   holdingsButton.addEventListener('click', (event) => {
     event.preventDefault();
     pageBody.innerHTML = '';
-    holdingsController.initializePage();
-    appData.getData();
+    holdingsController.initializePage(appData.getUserData());
+    holdingsController.bindEvents();
+  //  appData.getData();
   });
+
 
 });

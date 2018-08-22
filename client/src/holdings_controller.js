@@ -2,6 +2,7 @@ const HoldingsTableView = require('./views/stockholdings_view/holdings_table_vie
 const StockHoldings = require('./models/stock_holdings.js');
 const PubSub = require('./helpers/pub_sub.js');
 const Search = require('./models/search_function.js');
+const AppData = require('./models/app_data.js');
 const SearchFormView = require('./views/stockholdings_view/search_form_view.js')
 const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js');
 
@@ -9,16 +10,15 @@ const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js'
 
 
 const HoldingsController = function (){
+  this.userData = null;
 };
 
-HoldingsController.prototype.initializePage = function () {
-
-  PubSub.subscribe('AppData:data-loaded', (evt)=>{
-    
-
-    const userData = evt.detail;
+HoldingsController.prototype.initializePage = function (userLoader) {
+    this.userData = userLoader;
+    const userData = userLoader;
     const pageBody = document.querySelector('#pageBody');
-    pageBody.innerHTML="";
+    pageBody.innerHTML = "";
+
     const pieContainer = document.createElement('div');
     pieContainer.id = 'pie-chart';
     const holdingsTable = document.createElement('div');
@@ -27,7 +27,7 @@ HoldingsController.prototype.initializePage = function () {
     searchForm.id = 'search-form';
     const newPieChartContainer = document.createElement('div');
     newPieChartContainer.id = 'new-pie-chart';
-    pageBody.innerHTML = '';
+
     pageBody.appendChild(searchForm);
     pageBody.appendChild(holdingsTable);
     holdingsTable.appendChild(newPieChartContainer);
@@ -37,11 +37,9 @@ HoldingsController.prototype.initializePage = function () {
     pieChartView.initializePieChart(userData);
 
     const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
-    holdingsTableView.initializeTable(userData);
     holdingsTableView.bindEvents();
 
-    const searchFormView = new SearchFormView(searchForm);
-    searchFormView.initializeSearchView();
+    let searchFormView = new SearchFormView(searchForm);
     searchFormView.bindEvents();
 
     const stockHoldings = new StockHoldings(userData);
@@ -50,8 +48,28 @@ HoldingsController.prototype.initializePage = function () {
     const search = new Search();
     search.bindEvents();
 
-  });
+    this.publishUserData(userData);
+
+  //  holdingsTableView.initializeTable(userData);
+//    searchFormView.initializeSearchView();
+//  });
 };
 
+HoldingsController.prototype.publishUserData = function (userData) {
+  PubSub.publish('HoldingsController:data-loaded', userData);
+};
+
+HoldingsController.prototype.bindEvents = function () {
+   PubSub.subscribe('AppData:data-loaded', (evt)=>{
+     this.publishUserData(evt.detail);
+
+    // this.initializePage(this.userData);
+  //  this.renderPage(evt.detail);
+   });
+};
+
+HoldingsController.prototype.renderPage = function (userData) {
+
+};
 
 module.exports = HoldingsController;
