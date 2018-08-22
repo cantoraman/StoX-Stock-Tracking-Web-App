@@ -263,4 +263,10 @@ height: 1.5em;
   height:10em;
   position: absolute;
   top: 700px;
+  font-size: 1.2em;
+}
+
+.shares-bought, input {
+  font-size: 1em;
+  width: 10em;
 }
