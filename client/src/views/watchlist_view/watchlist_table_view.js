@@ -71,19 +71,18 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
 
 WatchlistTableView.prototype.deleteStock = function (rawUserData, stockInput) {
   rawUserData[0].watchList.forEach(function(stock, index){
-    console.log(stock);
     if(stock===stockInput){
-      rawUserData[0].holdings.splice(index,1);
-      console.log("silinen",stock);
-      this.updateDatabase();
+      rawUserData[0].watchList.splice(index,1);
+      this.updateDatabase(rawUserData);
     };
-  });
+  }, this);
 };
-WatchlistTableView.prototype.updateDatabase = function () {
 
-  this.url = 'http://localhost:3000/api/user';
-  this.request = new Request(this.url);
-    this.request.put(this.userData)
+WatchlistTableView.prototype.updateDatabase = function (userData) {
+
+    const request = new Request('http://localhost:3000/api/user');
+    console.log(userData);
+    request.put(userData)
     .then((userData) => {
       let appData = new AppData('http://localhost:3000/api/user');
       appData.launchData();
