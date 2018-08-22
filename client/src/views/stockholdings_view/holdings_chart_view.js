@@ -82,7 +82,8 @@ const finalDataArray = names.map((name, index) => {
             format: '<b>{point.name}</b>: {point.percentage:.1f} %',
             style: {
               color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
-              font: 'bold 50px "Trebuchet MS", Verdana, sans-serif'
+              lineHeight:'18px',
+              fontSize:'25px'
             }
           }
         }

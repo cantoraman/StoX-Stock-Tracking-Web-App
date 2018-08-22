@@ -300,7 +300,9 @@ const finalDataArray = names.map((name, index) => {
             enabled: true,
             format: '<b>{point.name}</b>: {point.percentage:.1f} %',
             style: {
-              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+              lineHeight:'18px',
+              fontSize:'25px'
             }
           }
         }
