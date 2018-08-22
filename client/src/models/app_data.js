@@ -7,9 +7,6 @@ const AppData = function (url) {
 };
 
 AppData.prototype.bindEvents = function () {
-
-  // PubSub.subscribe('UserData:data-loaded', (event) => {
-  //   } );
 };
 
 AppData.prototype.launchData = function () {
@@ -25,12 +22,34 @@ AppData.prototype.launchData = function () {
 };
 
 AppData.prototype.initializeStocks = function (userData) {
+  const watchListArray = []
   const stockNames = [];
   userData[0].holdings.forEach(function(stock) {
     stockNames.push(stock.stock);
   });
+  userData.watchList.forEach(function(stock) {
+    watchListArray.push(stock);
+  });
+  const watchListNames = watchListArray.toString();
   const names = stockNames.toString();
   this.callPrices(names);
+  this.callPricesWatchlist(watchListNames);
+};
+
+
+AppData.prototype.callPricesWatchlist = function (watchListNames) {
+  const arrayOfPrices = [];
+  const arrayOfNames = [];
+  const newURL = `https://api.iextrading.com/1.0/stock/market/batch?symbols=${watchListNames}&types=quote,news,chart&range=1m&last=5`
+  const request = new Request(newURL);
+  request.get().then((data) => {
+    Object.keys(data).forEach(function(stock) {
+    arrayOfPrices.push(data[stock].quote.latestPrice);
+    arrayOfNames.push(stock);
+    });
+    var arrays = [arrayOfPrices, arrayOfNames];
+    PubSub.publish('AppData:watchlist-prices-array-loaded', arrays)
+  });
 };
 
 AppData.prototype.callPrices = function (names) {

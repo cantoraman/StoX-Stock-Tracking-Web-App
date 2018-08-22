@@ -3,7 +3,7 @@ db.dropDatabase();
 
 db.user_data.insertOne(
   {
-    watchList: ["GOOGL","AAPL","BTC"],
+    watchList: ["GOOGL","AAPL","MSFT","FB","AMZN","NKI","SBUX"],
     holdings:
     [
       {
@@ -20,14 +20,40 @@ db.user_data.insertOne(
       stock: "AAPL",
       investedValue: "300",
       noOfSharesHeld: "20",
-      profitLoss:+25
+      profitLoss:+100
     },
 
     {
       stock: "MSFT",
       investedValue: "3000",
       noOfSharesHeld: "50",
-      profitLoss:+25
+      profitLoss:-20
+    },
+    {
+      stock: "FB",
+      investedValue: "600",
+      noOfSharesHeld: "20",
+      profitLoss:+567
+    },
+
+    {
+      stock: "AMZN",
+      investedValue: "4500",
+      noOfSharesHeld: "50",
+      profitLoss:+900
+    },
+    {
+      stock: "NKI",
+      investedValue: "250",
+      noOfSharesHeld: "20",
+      profitLoss:+58
+    },
+
+    {
+      stock: "SBUX",
+      investedValue: "4000",
+      noOfSharesHeld: "50",
+      profitLoss:+50
     }
   ]
   }

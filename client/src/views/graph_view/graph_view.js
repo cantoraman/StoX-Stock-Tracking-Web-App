@@ -59,6 +59,7 @@ GraphView.prototype.arrangeForexToRender = function (rawData) {
     listOfDates.push(key);
     listOfPrices.push(parseFloat(bulkData[key]["4. close"]));
   }
+  listOfPrices.reverse();
   const arrangedData = {
     "chartTitle": `${rawData["Meta Data"]["2. From Symbol"]}/${rawData["Meta Data"]["3. To Symbol"]}`,
     "listOfDates": listOfDates,
@@ -99,7 +100,7 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
       xAxis: {
         categories: [],
         title: {
-          text: "Time"
+          text: "Days --> Latest"
         }
       },
       yAxis: [{

@@ -4,9 +4,10 @@ const Highcharts = require('highcharts');
 const Request = require('../../helpers/request.js');
 
 
-const HoldingsTableView = function (container, pieContainer) {
+const HoldingsTableView = function (container, pieContainer, totalsContainer) {
   this.container = container;
   this.pieContainer = pieContainer;
+  this.totalsContainer = totalsContainer;
   this.isAdding= null;
   this.stockToAdd = "";
 };
@@ -53,6 +54,8 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
   const totalVolume = this.getTotalVolume(userData);
   const namesArray = [];
   const percentArray = [];
+  const totalInvestedValue = [];
+  const totalProfitLoss = [];
 
   this.generatePopupForm();
 
@@ -80,12 +83,16 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
       const deleteCell = row.insertCell(8);
       stockNamesCell.textContent = stock.stock;
       const investedValue = stock.investedValue;
+      totalInvestedValue.push(investedValue);
       stockValuesCell.textContent = investedValue;
       const currentValue = this.passCurrentValue(stock.stock, arrayOfNamesAndPrices);
       stockCurrentValueCell.textContent = currentValue
       const totalSharesHeld = stock.noOfSharesHeld;
       sharesHeldCell.textContent = totalSharesHeld;
-      profitLossCell.textContent = ((currentValue * totalSharesHeld) - investedValue).toFixed(2)
+      const individualProfitLoss = ((currentValue * totalSharesHeld) - investedValue).toFixed(2)
+      profitLossCell.textContent = individualProfitLoss;
+      totalProfitLoss.push(individualProfitLoss);
+
 
       if (profitLossCell.textContent > 0){
         profitLossCell.classList.add('positive')
@@ -124,7 +131,13 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
     }, this);
 
 
-  this.renderPieChart(namesArray, percentArray, this.pieContainer);
+    const totalInvested = this.getTotalValue(totalInvestedValue);
+    const totalPL = this.getTotalValue(totalProfitLoss);
+
+
+
+
+    this.renderPieChart(namesArray, percentArray, this.pieContainer, totalInvested, totalPL);
 
     nameHeader.textContent = "Stock";
     valueHeader.textContent = "Invested Value";
@@ -204,6 +217,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const sharesBoughtInput = document.createElement('input');
     sharesBoughtInput.setAttribute("type", "text");
     sharesBoughtInput.style.backgroundColor = "navy";
+    sharesBoughtInput.placeholder = "No of Shares";
     sharesBoughtText.appendChild(sharesBoughtInput);
 
     const pricePaid = document.createElement('div');
@@ -214,6 +228,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const priceInput = document.createElement('input');
     priceInput.setAttribute("type", "text");
     priceInput.style.backgroundColor = "navy";
+    priceInput.placeholder = "$ per Share";
     pricePaid.appendChild(priceInput);
 
     const submitButton = document.createElement('button');
@@ -264,8 +279,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
   return total;
 };
 
-HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
-  console.log(pieContainer);
+HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer, invested, profitLoss) {
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })
@@ -275,7 +289,7 @@ const finalDataArray = names.map((name, index) => {
       chart: {
         backgroundColor: 'transparent',
         plotShadow: false,
-        width: 300,
+        width: null,
         renderTo: pieContainer,
         type: 'pie'
       },
@@ -297,7 +311,9 @@ const finalDataArray = names.map((name, index) => {
             enabled: true,
             format: '<b>{point.name}</b>: {point.percentage:.1f} %',
             style: {
-              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+              lineHeight:'18px',
+              fontSize:'25px'
             }
           }
         }
@@ -308,8 +324,47 @@ const finalDataArray = names.map((name, index) => {
         data: finalDataArray
     }]
   });
+  const totalsTable = document.createElement('table');
+  this.totalsContainer.appendChild(totalsTable);
+
+  const totalsHeader = totalsTable.insertRow(0);
+  const valueRow = totalsTable.insertRow(1);
+
+  const totalsCell = totalsHeader.insertCell(0);
+  totalsCell.textContent = "Total Invested Value";
+  const plTotalsCell = totalsHeader.insertCell(1);
+  plTotalsCell.textContent = "Total Profit/Loss";
+  const investedCell = valueRow.insertCell(0);
+  investedCell.textContent = "£" + invested;
+  const profitLossCell = valueRow.insertCell(1);
+  profitLossCell.textContent = "£" + profitLoss;
+
+
+};
+
+
+// HoldingsTableView.prototype.getTotalValue = function (totalProfitLoss) {
+//   let total =  0
+//   console.log(totalProfitLoss);
+//   for(var i = 0; i < totalProfitLoss.length; i++) {
+//     let number = parseInt(totalProfitLoss[i])
+//     total += number
+//   }
+//   console.log(total)
+//   return total;
+// };
+
+HoldingsTableView.prototype.getTotalValue = function (arr) {
+  let total =  0
+
+  for(var i = 0; i < arr.length; i++) {
+    let number = parseInt(arr[i])
+    total += number
+  }
+console.log(total)
+  return total;
 };
 
 
 
-      module.exports = HoldingsTableView;
+module.exports = HoldingsTableView;

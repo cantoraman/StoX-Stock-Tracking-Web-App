@@ -3,7 +3,8 @@ const WatchlistTableView = require('./views/watchlist_view/watchlist_table_view.
 const GraphView = require('./views/graph_view/graph_view.js');
 const Graph = require('./models/graph.js');
 const PubSub = require('./helpers/pub_sub.js');
-
+const WatchlistAddView = require('./views/watchlist_view/watchlist_add_view.js');
+const Watchlist = require('./models/watchlist.js');
 
 const WatchlistController = function (){
 
@@ -31,18 +32,32 @@ WatchlistController.prototype.initializePage = function () {
     watchlistTableView.initializeTable(userData);
     watchlistTableView.bindEvents();
 
-    const graph = new Graph();
+    const watchlist = new Watchlist(userData);
+    watchlist.bindEvents();
+
+    const symbolToDisplay = this.symbolPicker(userData);
+
+    const graph = new Graph(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${symbolToDisplay}&types=chart&range=1m&last=5`);
     graph.initializeGraph();
 
-    const addToWatchButton = document.createElement('div');
-    addToWatchButton.textContent="Add New Stock";
-    addToWatchButton.classList.add("indicator");
-    watchlistNode.appendChild(addToWatchButton);
+    const addForm = document.createElement('div');
+    addForm.id = 'add-form';
+    pageBody.appendChild(addForm);
+    const watchlistAddView = new WatchlistAddView(addForm);
+
+    watchlistAddView.initializeWatchAddView();
+
+    // const addToWatchButton = document.createElement('div');
+    // addToWatchButton.textContent="Add New Stock";
+    // addToWatchButton.classList.add("indicator");
+    // watchlistNode.appendChild(addToWatchButton);
 
   });
 
 
-
+WatchlistController.prototype.symbolPicker = function (userData) {
+  return userData[0].watchList[0];
+};
 
 
 

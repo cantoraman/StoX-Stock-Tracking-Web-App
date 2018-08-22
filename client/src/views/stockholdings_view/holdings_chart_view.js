@@ -58,7 +58,7 @@ const finalDataArray = names.map((name, index) => {
       chart: {
         backgroundColor: 'transparent',
         plotShadow: false,
-        width: 300,
+        width: null,
         renderTo: container,
         type: 'pie'
 
@@ -68,6 +68,7 @@ const finalDataArray = names.map((name, index) => {
         style: {
          color: '#e8e8ff',
          font: 'bold 32px "Trebuchet MS", Verdana, sans-serif'
+
       }
       },
       tooltip: {
@@ -81,7 +82,9 @@ const finalDataArray = names.map((name, index) => {
             enabled: true,
             format: '<b>{point.name}</b>: {point.percentage:.1f} %',
             style: {
-              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
+              lineHeight:'18px',
+              fontSize:'25px'
             }
           }
         }
@@ -89,7 +92,7 @@ const finalDataArray = names.map((name, index) => {
       series: [{
         name: 'Stock Holdings',
         colorByPoint: true,
-        data: finalDataArray
+        data: finalDataArray,
     }]
   });
 };

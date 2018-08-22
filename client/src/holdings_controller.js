@@ -8,7 +8,6 @@ const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js'
 
 
 
-
 const HoldingsController = function (){
   this.userData = null;
 };
@@ -21,17 +20,22 @@ HoldingsController.prototype.initializePage = function (userLoader) {
 
     const pieContainer = document.createElement('div');
     pieContainer.id = 'pie-chart';
+    const totalsContainer = document.createElement('div');
+    totalsContainer.id = 'totals-container';
     const holdingsTable = document.createElement('div');
     holdingsTable.id = 'holdings-table';
     const searchForm = document.createElement('div');
     searchForm.id = 'search-form';
     const newPieChartContainer = document.createElement('div');
     newPieChartContainer.id = 'new-pie-chart';
-
-    pageBody.appendChild(searchForm);
-    pageBody.appendChild(holdingsTable);
+    pageBody.innerHTML = '';
+    //?
+    pageBody.appendChild(totalsContainer);
     pageBody.appendChild(newPieChartContainer);
     pageBody.appendChild(pieContainer);
+    pageBody.appendChild(holdingsTable);
+    holdingsTable.appendChild(searchForm);
+
 
     const pieChartView = new PieChartView(newPieChartContainer)
     pieChartView.initializePieChart(userData);
