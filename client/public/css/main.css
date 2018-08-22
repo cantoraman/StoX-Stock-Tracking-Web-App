@@ -236,3 +236,7 @@ font-family: 'Pontano Sans', sans-serif; */
 #sector-name {
   text-align: left;
 }
+
+.search-form{
+  justify-content: center;
+}

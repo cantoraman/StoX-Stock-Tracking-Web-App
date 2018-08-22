@@ -57,7 +57,7 @@ const finalDataArray = names.map((name, index) => {
       chart: {
         backgroundColor: 'transparent',
         plotShadow: false,
-        width: 300,
+        width: null,
         renderTo: container,
         type: 'pie'
 

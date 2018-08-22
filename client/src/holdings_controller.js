@@ -28,11 +28,12 @@ HoldingsController.prototype.initializePage = function () {
     const newPieChartContainer = document.createElement('div');
     newPieChartContainer.id = 'new-pie-chart';
     pageBody.innerHTML = '';
-    pageBody.appendChild(searchForm);
-    pageBody.appendChild(holdingsTable);
-    holdingsTable.appendChild(newPieChartContainer);
-    holdingsTable.appendChild(pieContainer);
     pageBody.appendChild(totalsContainer);
+    pageBody.appendChild(newPieChartContainer);
+    pageBody.appendChild(pieContainer);
+    pageBody.appendChild(holdingsTable);
+    holdingsTable.appendChild(searchForm);
+
 
     const pieChartView = new PieChartView(newPieChartContainer)
     pieChartView.initializePieChart(userData);
