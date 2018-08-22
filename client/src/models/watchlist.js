@@ -17,8 +17,6 @@ PubSub.subscribe('Watchlist:request-search-data', (evt) => {
 
 Watchlist.prototype.addNewItem = function (newItem) {
   this.userData[0].watchList.push(newItem);
-  console.log(newItem);
-  console.log(userData[0].watchList);
   this.postChangedUserData();
 };
 

@@ -53,7 +53,7 @@ HomeController.prototype.initializePage = function () {
    const sectorTableView = new SectorTableView(sectorTable);
    sectorTableView.bindEvents();
 
-   const graph = new Graph();
+   const graph = new Graph('https://api.iextrading.com/1.0/stock/market/batch?symbols=MSFT&types=chart&range=1m&last=5');
    graph.initializeGraph();
 
    const crypto = new Crypto();

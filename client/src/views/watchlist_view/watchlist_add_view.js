@@ -43,8 +43,6 @@ WatchAddView.prototype.arrangeFindSymbolFormToRender = function () {
     const newHolding = symbolInput.value;
     PubSub.publish('Watchlist:request-search-data', newHolding);
     symbolInput.textContent="";
-    console.log(newHolding);
-
   });
 
 };

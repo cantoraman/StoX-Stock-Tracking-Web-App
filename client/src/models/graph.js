@@ -3,7 +3,7 @@ const PubSub = require('../helpers/pub_sub.js');
 const API_KEY_STOCK_CHART = require('../api_key_stock_charts.js');
 
 const Graph = function (url) {
-  this.url = `https://api.iextrading.com/1.0/stock/market/batch?symbols=MSFT&types=chart&range=1m&last=5`;
+  this.url = url;
 };
 
 Graph.prototype.bindEvents = function () {

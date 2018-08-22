@@ -3,7 +3,7 @@ db.dropDatabase();
 
 db.user_data.insertOne(
   {
-    watchList: ["GOOGL","AAPL","BTC"],
+    watchList: ["GOOGL","AAPL","FB","AMZN"],
     holdings:
     [
       {

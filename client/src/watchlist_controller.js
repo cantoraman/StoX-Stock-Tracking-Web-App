@@ -35,7 +35,9 @@ WatchlistController.prototype.initializePage = function () {
     const watchlist = new Watchlist(userData);
     watchlist.bindEvents();
 
-    const graph = new Graph();
+    const symbolToDisplay = this.symbolPicker(userData);
+
+    const graph = new Graph(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${symbolToDisplay}&types=chart&range=1m&last=5`);
     graph.initializeGraph();
 
     const addForm = document.createElement('div');
@@ -53,7 +55,9 @@ WatchlistController.prototype.initializePage = function () {
   });
 
 
-
+WatchlistController.prototype.symbolPicker = function (userData) {
+  return userData[0].watchList[0];
+};
 
 
 

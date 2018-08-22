@@ -25,6 +25,7 @@ WatchlistTableView.prototype.renderWatchlist = function (userData, pageBody) {
   const nameHeader = tableHeader.insertCell(0);
 
   const stockNames = [];
+  console.log(userData);
 
 userData.forEach(function(stock) {
   stockNames.push(stock);
