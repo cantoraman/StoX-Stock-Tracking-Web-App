@@ -15,8 +15,8 @@ GraphView.prototype.bindEvents = function () {
   PubSub.subscribe('Graph:publish-forex', (evt) => {
     this.arrangeForexToRender(evt.detail);
   });
-
 };
+
 GraphView.prototype.arrangeStockToRender = function (rawData) {
   const listOfDates = [];
   const listOfPrices = [];

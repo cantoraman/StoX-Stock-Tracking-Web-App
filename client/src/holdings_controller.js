@@ -9,16 +9,16 @@ const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js'
 const HoldingsController = function (){
   this.userData = null;
 };
+HoldingsController.prototype.bindEvents = function () {
+  PubSub.subscribe('AppData:data-loaded', (evt)=>{
+    this.publishUserData(evt.detail);
+  });
+};
 
 HoldingsController.prototype.publishUserData = function (userData) {
   PubSub.publish('HoldingsController:data-loaded', userData);
 };
 
-HoldingsController.prototype.bindEvents = function () {
-   PubSub.subscribe('AppData:data-loaded', (evt)=>{
-     this.publishUserData(evt.detail);
-   });
-};
 
 HoldingsController.prototype.initializePage = function (userLoader) {
     this.userData = userLoader;

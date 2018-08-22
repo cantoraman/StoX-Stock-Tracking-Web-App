@@ -6,24 +6,24 @@ const WatchlistTableView = function (container) {
 }
 
 WatchlistTableView.prototype.bindEvents = function () {
-
+  PubSub.subscribe('WatchlistController:data-loaded', (evt) => {
+    this.initializeTable(evt.detail);
+  });
 
 };
 
-WatchlistTableView.prototype.initializeTable = function () {
-
-  PubSub.subscribe('AppData:watchlist-prices-array-loaded', (prices) => {
+WatchlistTableView.prototype.initializeTable = function (rawUserData) {
+  PubSub.subscribe("HoldingsTableView:prices-array-loaded", (prices) => {
     const watchListPrices = prices.detail[0];
     const watchListNames = prices.detail[1];
-    this.renderWatchlist(watchListPrices, watchListNames)
+    this.renderWatchlist(watchListPrices, watchListNames, rawUserData)
   });
+  const appData = new AppData('http://localhost:3000/api/user');
+  appData.initializeStocks(rawUserData);
 };
 
-
-
-WatchlistTableView.prototype.renderWatchlist = function (prices, names) {
-
-console.log(names);
+WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserData) {
+  this.container.innerHTML="";
   const watchlistTable = document.createElement('table');
   watchlistTable.classList.add('watchlist-table');
   this.container.appendChild(watchlistTable);
@@ -32,7 +32,6 @@ console.log(names);
   nameHeader.textContent = "Watching";
   const priceHeader = tableHeader.insertCell(1);
   priceHeader.textContent = "Latest Price";
-
 
   const stockNames = [];
   const stockPrices = [];
@@ -52,10 +51,7 @@ console.log(names);
     stockPrices.push(price);
     const priceCell = row.insertCell(1);
     priceCell.textContent = price;
-
-
-
-
+    
   });
 
 

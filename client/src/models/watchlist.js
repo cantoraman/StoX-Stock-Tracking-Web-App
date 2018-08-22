@@ -1,5 +1,6 @@
 const Request = require('../helpers/request.js');
 const PubSub = require('../helpers/pub_sub.js');
+const AppData = require('./app_data.js');
 
 const Watchlist = function (userData) {
   this.url = 'http://localhost:3000/api/user';
@@ -21,8 +22,8 @@ Watchlist.prototype.addNewItem = function (newItem) {
 Watchlist.prototype.postChangedUserData = function () {
   this.request.put(this.userData)
   .then((watchlist) => {
-
-    PubSub.publish('WatchlistTableView:data-loaded', watchlist);
+    let appData = new AppData('http://localhost:3000/api/user');
+    appData.launchData();
   })
   .catch(console.error);
 };

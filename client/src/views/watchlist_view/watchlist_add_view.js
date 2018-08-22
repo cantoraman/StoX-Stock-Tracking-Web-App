@@ -5,30 +5,28 @@ const WatchAddView = function (container){
 }
 
 WatchAddView.prototype.bindEvents = function () {
-  // PubSub.subscribe('WatchlistTableView:data-loaded', (evt) => {
-  //   this.arrangeFindSymbolFormToRender(evt);
-  // });
-};
-
-WatchAddView.prototype.initializeWatchAddView = function () {
-  this.arrangeFindSymbolFormToRender();
+  PubSub.subscribe('WatchlistController:data-loaded', (evt) => {
+    this.arrangeFindSymbolFormToRender(evt);
+  })
 };
 
 WatchAddView.prototype.arrangeFindSymbolFormToRender = function () {
-  const container = document.createElement('div');
-  container.classList.add('search');
+  this.container.innerHTML = "";
 
-  const body = document.querySelector("#pageBody");
-  body.appendChild(container);
+  // const container = document.createElement('div');
+  // container.classList.add('search');
+  //
+  // const body = document.querySelector("#pageBody");
+  // body.appendChild(container);
 
 
   const searchHeader = document.createElement('div')
   searchHeader.textContent = "Please enter a Stock Symbol to add"
-  body.appendChild(searchHeader)
+  this.container.appendChild(searchHeader)
 
   const searchForm = document.createElement('form');
   searchForm.classList.add('search-form')
-  searchHeader.appendChild(searchForm);
+  this.container.appendChild(searchForm);
 
   const symbolInput = document.createElement('input');
   symbolInput.setAttribute("type", "text");
