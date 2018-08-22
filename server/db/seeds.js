@@ -12,48 +12,48 @@ db.user_data.insertOne(
       // now shares are worth (Y)  5 x £15 = £75
 
       stock: "GOOGL",
-      investedValue: "50",
-      noOfSharesHeld: "25",
-      profitLoss:+25 //This is X-Y
+      investedValue: "40627",
+      noOfSharesHeld: "30",
+      profitLoss:-4000 //This is X-Y
     },
     {
       stock: "AAPL",
-      investedValue: "300",
-      noOfSharesHeld: "20",
-      profitLoss:+100
+      investedValue: "9880.4",
+      noOfSharesHeld: "50",
+      profitLoss:+890
     },
 
     {
       stock: "MSFT",
       investedValue: "3000",
-      noOfSharesHeld: "50",
-      profitLoss:-20
+      noOfSharesHeld: "30",
+      profitLoss:+200
     },
     {
       stock: "FB",
-      investedValue: "600",
-      noOfSharesHeld: "20",
-      profitLoss:+567
+      investedValue: "15000",
+      noOfSharesHeld: "100",
+      profitLoss:+3300
     },
 
     {
       stock: "AMZN",
-      investedValue: "4500",
-      noOfSharesHeld: "50",
-      profitLoss:+900
+      investedValue: "75500",
+      noOfSharesHeld: "40",
+      profitLoss:+464
     },
     {
-      stock: "NKI",
-      investedValue: "250",
-      noOfSharesHeld: "20",
-      profitLoss:+58
+      stock: "NKE",
+      investedValue: "4750.5",
+      noOfSharesHeld: "60",
+      profitLoss:-223.5
     },
 
     {
       stock: "SBUX",
-      investedValue: "4000",
-      noOfSharesHeld: "50",
-      profitLoss:+50
+      investedValue: "5000",
+      noOfSharesHeld: "100",
+      profitLoss:+303
     }
   ]
   }
