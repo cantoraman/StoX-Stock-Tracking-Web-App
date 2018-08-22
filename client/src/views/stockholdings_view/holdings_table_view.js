@@ -119,10 +119,6 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       percentArray.push(calculatedpercentage);
     }, this);
 
-
-
-
-
     this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
     nameHeader.textContent = "Stock";
@@ -190,6 +186,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const sharesBoughtInput = document.createElement('input');
     sharesBoughtInput.setAttribute("type", "text");
     sharesBoughtInput.style.backgroundColor = "navy";
+    sharesBoughtInput.placeholder = "No of Shares";
     sharesBoughtText.appendChild(sharesBoughtInput);
 
     const pricePaid = document.createElement('div');
@@ -200,6 +197,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const priceInput = document.createElement('input');
     priceInput.setAttribute("type", "text");
     priceInput.style.backgroundColor = "navy";
+    priceInput.placeholder = "$ per Share";
     pricePaid.appendChild(priceInput);
 
     const submitButton = document.createElement('button');
