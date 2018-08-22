@@ -237,6 +237,10 @@ font-family: 'Pontano Sans', sans-serif; */
   text-align: left;
 }
 
-.search-form{
+#pageBody {
   justify-content: center;
+}
+
+#news-feed {
+  float:right;
 }

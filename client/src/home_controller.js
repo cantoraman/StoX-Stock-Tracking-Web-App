@@ -17,7 +17,7 @@ const HomeController = function (){
 HomeController.prototype.initializePage = function () {
 
    const pageBody = document.querySelector('#pageBody');
-
+   const newsFeed = document.querySelector('#news-feed')
 
    const graphNode = document.createElement('div');
    pageBody.appendChild(graphNode);
@@ -25,31 +25,34 @@ HomeController.prototype.initializePage = function () {
    const graphView = new GraphView(graphNode);
    graphView.bindEvents();
 
-   const forexList = document.createElement('div');
-   forexList.id = 'forex-list';
-   pageBody.appendChild(forexList);
-
-   const forexListView = new ForexView(forexList);
-   forexListView.bindEvents();
-
    const cryptoList = document.createElement('div');
    cryptoList.id = 'crypto-list';
    pageBody.appendChild(cryptoList);
-   const cryptoListView = new CryptoView(cryptoList);
-   cryptoListView.bindEvents();
 
    const newsfeedList = document.createElement('div');
    newsfeedList.id = 'newsfeed-list';
-   pageBody.appendChild(newsfeedList);
    const newsfeedView = new NewsfeedView(newsfeedList);
    newsfeedView.bindEvents();
 
    const newsfeedModel = new NewsfeedModel();
    newsfeedModel.initializeList();
+   newsFeed.appendChild(newsfeedList);
 
    const sectorTable = document.createElement('div');
    sectorTable.id = 'sector-list'
    pageBody.appendChild(sectorTable);
+   const forexList = document.createElement('div');
+   forexList.id = 'forex-list';
+   pageBody.appendChild(forexList);
+
+
+   const forexListView = new ForexView(forexList);
+   forexListView.bindEvents();
+
+   const cryptoListView = new CryptoView(cryptoList);
+   cryptoListView.bindEvents();
+
+
    const sectorTableView = new SectorTableView(sectorTable);
    sectorTableView.bindEvents();
 

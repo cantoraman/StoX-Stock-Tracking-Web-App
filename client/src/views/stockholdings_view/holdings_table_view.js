@@ -132,12 +132,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, whole
       percentArray.push(calculatedpercentage);
     }, this);
 
-
     const totalInvested = this.getTotalValue(totalInvestedValue);
     const totalPL = this.getTotalValue(totalProfitLoss);
-
-
-
 
     this.renderPieChart(namesArray, percentArray, this.pieContainer, totalInvested, totalPL);
 
