@@ -30,26 +30,23 @@ WatchlistController.prototype.initializePage = function (userLoader) {
     pageBody.appendChild(graphNode);
     graphNode.id = 'graph';
 
-    const watchlistNode = document.createElement('div');
-    watchlistNode.id = 'watchlist';
-    pageBody.appendChild(watchlistNode);
-
     const addForm = document.createElement('div');
     addForm.id = 'add-form';
     pageBody.appendChild(addForm);
 
+    const watchlistNode = document.createElement('div');
+    watchlistNode.id = 'watchlist';
+    pageBody.appendChild(watchlistNode);
 
     const watchlistTableView = new WatchlistTableView(watchlistNode);
     watchlistTableView.bindEvents();
-
     const graphView = new GraphView(graphNode);
     graphView.bindEvents();
-
     const watchlist = new Watchlist(userData);
     watchlist.bindEvents();
-
     const watchlistAddView = new WatchlistAddView(addForm);
     watchlistAddView.bindEvents();
+
 
     const symbolToDisplay = this.symbolPicker(userData);
     const graph = new Graph(`https://api.iextrading.com/1.0/stock/market/batch?symbols=${symbolToDisplay}&types=chart&range=1m&last=5`);
