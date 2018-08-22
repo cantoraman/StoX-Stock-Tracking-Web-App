@@ -32,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   watchlistButton.addEventListener('click', (event) => {
     event.preventDefault();
     pageBody.innerHTML = '';
-    watchlistController.initializePage();
+    watchlistController.initializePage(appData.getUserData());
+    watchlistController.bindEvents();
   //  appData.getData();
   });
 

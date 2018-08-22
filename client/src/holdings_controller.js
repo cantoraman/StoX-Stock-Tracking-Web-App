@@ -6,10 +6,18 @@ const AppData = require('./models/app_data.js');
 const SearchFormView = require('./views/stockholdings_view/search_form_view.js')
 const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js');
 
-
-
 const HoldingsController = function (){
   this.userData = null;
+};
+
+HoldingsController.prototype.publishUserData = function (userData) {
+  PubSub.publish('HoldingsController:data-loaded', userData);
+};
+
+HoldingsController.prototype.bindEvents = function () {
+   PubSub.subscribe('AppData:data-loaded', (evt)=>{
+     this.publishUserData(evt.detail);
+   });
 };
 
 HoldingsController.prototype.initializePage = function (userLoader) {
@@ -57,16 +65,6 @@ HoldingsController.prototype.initializePage = function (userLoader) {
   //  holdingsTableView.initializeTable(userData);
 //    searchFormView.initializeSearchView();
 //  });
-};
-
-HoldingsController.prototype.publishUserData = function (userData) {
-  PubSub.publish('HoldingsController:data-loaded', userData);
-};
-
-HoldingsController.prototype.bindEvents = function () {
-   PubSub.subscribe('AppData:data-loaded', (evt)=>{
-     this.publishUserData(evt.detail);
-   });
 };
 
 module.exports = HoldingsController;

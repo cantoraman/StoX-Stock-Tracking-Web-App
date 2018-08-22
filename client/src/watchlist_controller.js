@@ -7,14 +7,21 @@ const WatchlistAddView = require('./views/watchlist_view/watchlist_add_view.js')
 const Watchlist = require('./models/watchlist.js');
 
 const WatchlistController = function (){
-
+  this.userData = null;
 };
 
-WatchlistController.prototype.initializePage = function () {
-
+WatchlistController.prototype.bindEvents = function () {
   PubSub.subscribe('AppData:data-loaded', (evt)=>{
+    this.publishUserData(evt.detail);
+  });
+};
+WatchlistController.prototype.publishUserData = function (userData) {
+  PubSub.publish('WatchlistController:data-loaded', userData);
+};
 
-    const userData = evt.detail;
+WatchlistController.prototype.initializePage = function (userLoader) {
+    this.userData = userLoader;
+    const userData = userLoader;
     const pageBody = document.querySelector('#pageBody');
     pageBody.innerHTML = '';
 
@@ -52,26 +59,12 @@ WatchlistController.prototype.initializePage = function () {
     // addToWatchButton.classList.add("indicator");
     // watchlistNode.appendChild(addToWatchButton);
 
-  });
+  };
 
 
 WatchlistController.prototype.symbolPicker = function (userData) {
   return userData[0].watchList[0];
 };
-
-
-
-
-
-
-
-
-
-
-
-
-};
-
 
 
 module.exports = WatchlistController;
