@@ -28,10 +28,11 @@ NewsfeedView.prototype.bindEvents = function () {
       headlineLink.appendChild(headline);
       headlineLink.title = article.title;
       headlineLink.href = article.url;
+      headlineLink.setAttribute('target', '_blank');
       newsImages.push(article.urlToImage);
       const row = newsTable.insertRow(1);
       tableHeader.classList.add('news-header');
-
+``
       const headlineCell = row.insertCell(0);
       const imageCell = row.insertCell(1);
       // headlineCell.innerHTML = article.title;

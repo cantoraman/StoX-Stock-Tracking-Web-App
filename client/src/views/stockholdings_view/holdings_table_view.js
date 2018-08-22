@@ -1,21 +1,29 @@
 const PubSub = require('../../helpers/pub_sub.js');
 const AppData = require('../../models/app_data.js');
 const Highcharts = require('highcharts');
+const Request = require('../../helpers/request.js');
 
 
 const HoldingsTableView = function (container, pieContainer) {
   this.container = container;
   this.pieContainer = pieContainer;
+  this.isAdding= null;
+  this.stockToAdd = "";
 };
 
 HoldingsTableView.prototype.bindEvents = function () {
+  PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
+    console.log("HoldingsSubscribedData:",evt.detail);
+  });
 };
 
 HoldingsTableView.prototype.initializeTable = function (userData) {
-  this.renderHoldings(userData[0].holdings, this.container);
+  PubSub.subscribe("HoldingsTableView:prices-array-loaded", (evt) => {
+    this.renderHoldings(userData[0].holdings, this.container, userData[0], evt.detail);
+  });
 };
 
-HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
+HoldingsTableView.prototype.renderHoldings = function (userData, pageBody, wholeUserObject, arrayOfNamesAndPrices) {
 
   const holdingsTable = document.createElement('table');
   holdingsTable.classList.add('holdings-table');
@@ -30,6 +38,7 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const holdingsPercentHeader = tableHeader.insertCell(5);
   const addHeader = tableHeader.insertCell(6);
   const removeHeader = tableHeader.insertCell(7);
+  const deleteHeader = tableHeader.insertCell(8);
 
   const stockNames = [];
   const stockValues = [];
@@ -41,6 +50,9 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const totalVolume = this.getTotalVolume(userData);
   const namesArray = [];
   const percentArray = [];
+
+  this.generatePopupForm();
+
 
   userData.forEach(function(stock) {
     stockValues.push(stock.investedValue);
@@ -61,40 +73,57 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
       const percentageCell = row.insertCell(5);
       const addCell = row.insertCell(6);
       const removeCell = row.insertCell(7);
+      const deleteCell = row.insertCell(8);
       stockNamesCell.textContent = stock.stock;
-      stockValuesCell.textContent = stock.investedValue;
-      stockCurrentValueCell.textContent = 100;
-      sharesHeldCell.textContent = stock.noOfSharesHeld;
-      profitLossCell.textContent = stock.profitLoss;
+      const investedValue = stock.investedValue;
+      stockValuesCell.textContent = investedValue;
+      const currentValue = this.passCurrentValue(stock.stock, arrayOfNamesAndPrices);
+      stockCurrentValueCell.textContent = currentValue
+      const totalSharesHeld = stock.noOfSharesHeld;
+      sharesHeldCell.textContent = totalSharesHeld;
+      profitLossCell.textContent = ((currentValue * totalSharesHeld) - investedValue).toFixed(2)
+
+      if (profitLossCell.textContent > 0){
+        profitLossCell.classList.add('positive')
+      } else { profitLossCell.classList.add('negative')}
+
       addCell.textContent = "Add";
       addCell.classList.add("indicator");
       removeCell.textContent = "Remove";
       removeCell.classList.add("indicator");
+      deleteCell.textContent = "Delete";
+      deleteCell.id = "delete-button";
+      deleteCell.classList.add("indicator");
+
+      deleteCell.addEventListener('click', (event) => {
+      this.deleteStock(userData, stock, wholeUserObject)
+      })
 
       addCell.addEventListener('click', (event) => {
-        console.log("add button pressed");
         this.isAdding = "true";
-        console.log(this.isAdding);
+        this.stockToAdd=stock.stock;
         togglePopup();
       });
       removeCell.addEventListener('click', (event) => {
-        console.log("remove button pressed");
         this.isAdding = "false";
-        console.log(this.isAdding);
+        this.stockToAdd=stock.stock;
         togglePopup();
       });
       function togglePopup(){
         const popup = document.getElementById("myPopup");
-        popup.classList.toggle("show")
+        popup.classList.toggle("show");
       };
       const calculatedpercentage = ((stock.noOfSharesHeld/totalVolume)*100).toFixed(2);
       percentageCell.innerHTML = calculatedpercentage;
       namesArray.push(stock.stock);
       percentArray.push(calculatedpercentage);
-    });
+    }, this);
 
 
-      this.renderPieChart(namesArray, percentArray, this.pieContainer);
+
+
+
+    this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
     nameHeader.textContent = "Stock";
     valueHeader.textContent = "Invested Value";
@@ -106,7 +135,31 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     removeHeader.textContent = "Sold";
   };
 
+  HoldingsTableView.prototype.deleteStock = function (userData, stock, wholeUserObject) {
+    const stockId = userData.indexOf(stock);
+    userData.splice(stockId, 1);
+    wholeUserObject.holdings = userData;
+    request = new Request('http://localhost:3000/api/user');
+    request.update(wholeUserObject);
+    PubSub.publish('HoldingsTableView:data-loaded', wholeUserObject);
+    location.reload();
 
+  };
+
+HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAndPrices) {
+    console.log(arrayOfNamesAndPrices[1]);
+    var result=0;
+    arrayOfNamesAndPrices[1].forEach(function(arraySymbol, index){
+      // console.log("symbol,", symbol);
+      if(arraySymbol==symbol){
+        console.log("arraysymbol,", arraySymbol, "index:", index);
+        console.log(arrayOfNamesAndPrices[0][index]);
+        result = arrayOfNamesAndPrices[0][index];
+      };
+    });
+
+    return result;
+};
 
   HoldingsTableView.prototype.generatePopupForm = function (isAdding) {
 
@@ -130,12 +183,8 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
     const form = document.createElement('form');
 
     const sharesBoughtText = document.createElement('div');
-    sharesBoughtText.classList.add("input-text");
-    if(this.isAdding === "true")
-    sharesBoughtText.textContent = "Shares Bought";
-    else
-    sharesBoughtText.textContent = "Shares Sold";
-
+    sharesBoughtText.classList.add("shares-bought-text");
+    sharesBoughtText.textContent="Share Bought";
     form.appendChild(sharesBoughtText);
 
     const sharesBoughtInput = document.createElement('input');
@@ -178,14 +227,17 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   };
 
   HoldingsTableView.prototype.submitNewStock = function (priceInput, sharesBoughtInput) {
-    console.log(this.isAdding);
     if(this.isAdding === "false")
     priceInput = (-1 * priceInput);
-    console.log(priceInput, sharesBoughtInput);
+    const updatedHolding = {};
+    updatedHolding.stock = this.stockToAdd;
+    updatedHolding.investedValue = priceInput;
+    updatedHolding.noOfSharesHeld = sharesBoughtInput;
+    updatedHolding.profitLoss = "100";
+    PubSub.publish('StockHoldings:holding-submitted', updatedHolding);
   };
 
   HoldingsTableView.prototype.getTotalVolume = function (rawData) {
-  console.log("rawData", rawData);
   const individualHoldings = rawData;
   const totalStockVolumeInArray = [];
 
@@ -195,35 +247,29 @@ HoldingsTableView.prototype.renderHoldings = function (userData, pageBody) {
   const total = totalStockVolumeInArray.reduce(function(sum, volume) {
     return sum += volume;
   }, 0)
-  console.log(total);
   return total;
 };
 
 HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
-  console.log(pieContainer);
-
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })
 
-console.log(finalDataArray);
-
   var pieChart = new Highcharts.Chart(
     {
       chart: {
-        plotBackgroundColor: 'transparent',
-        plotBorderWidth: null,
+        backgroundColor: 'transparent',
         plotShadow: false,
+        width: 300,
         renderTo: pieContainer,
-        type: 'pie',
-        spacingBottom: 0,
-       spacingTop: 0,
-       spacingLeft: 0,
-       spacingRight: 0,
-
+        type: 'pie'
       },
       title: {
-        text: 'Total Shares %'
+        text: 'Total Shares %',
+        style: {
+         color: '#e8e8ff',
+         font: 'bold 32px "Trebuchet MS", Verdana, sans-serif'
+      }
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

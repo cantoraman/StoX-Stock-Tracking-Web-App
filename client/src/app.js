@@ -2,6 +2,7 @@ const AppData = require('./models/app_data.js');
 const HomeController = require('./home_controller.js');
 const WatchlistController = require('./watchlist_controller.js');
 const HoldingsController = require('./holdings_controller.js');
+const HoldingsTableView = require('./views/stockholdings_view/holdings_table_view.js');
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageBody = document.querySelector('#pageBody');
 
   appData.getData();
+  
 
   homeController.initializePage();
 

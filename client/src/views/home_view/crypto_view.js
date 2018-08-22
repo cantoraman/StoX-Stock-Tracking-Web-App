@@ -36,9 +36,10 @@ CryptoView.prototype.renderList = function (cryptoData) {
     });
     const nameCell = row.insertCell(0);
     nameCell.classList.add("indicator");
+    nameCell.id = ('crypto-name');
     const priceCell = row.insertCell(1);
     nameCell.innerHTML = cryptoData[i]['companyName'];
-    priceCell.innerHTML = cryptoData[i]['close'];
+    priceCell.innerHTML = cryptoData[i]['close'].toFixed(2);
   });
 
 
@@ -51,6 +52,7 @@ CryptoView.prototype.renderCryptoGraph = function (graphdata) {
   const listOfDates = [];
   const listOfPrices = [];
   const priceData = graphdata["Time Series (Digital Currency Daily)"];
+  console.log("priceData", priceData);
   Object.keys(priceData).forEach(function(day) {
     // closingPriceData[day];
     // console.log(priceData[day]["4. close"]);

@@ -30,10 +30,15 @@ SectorTableView.prototype.createSectorTable = function (data) {
     sectorName.push(data[i].name);
     sectorPerformance.push(data[i].performance);
   const nameCell = row.insertCell(0);
+  nameCell.id = 'sector-name'
   nameCell.classList.add("indicator");
   nameCell.textContent = data[i].name;
   const priceCell = row.insertCell(1);
-  priceCell.innerHTML = data[i].performance;
+  priceCell.id = 'price-cell';
+  priceCell.textContent = data[i].performance;
+  if (priceCell.textContent > 0) {
+    priceCell.classList.add('positive')
+  } else { priceCell.classList.add('negative')}
     });
   nameHeader.innerHTML = "Sector";
   performanceHeader.innerHTML = "Performance";

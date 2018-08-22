@@ -17,7 +17,7 @@ db.user_data.insertOne(
       profitLoss:+25 //This is X-Y
     },
     {
-      stock: "APPL",
+      stock: "AAPL",
       investedValue: "300",
       noOfSharesHeld: "20",
       profitLoss:+25
