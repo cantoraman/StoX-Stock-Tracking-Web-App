@@ -99,7 +99,7 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
       xAxis: {
         categories: [],
         title: {
-          text: "Time"
+          text: "Days"
         }
       },
       yAxis: [{

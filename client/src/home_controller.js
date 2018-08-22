@@ -7,6 +7,8 @@ const NewsfeedModel = require('./models/newsfeed_model.js');
 const Graph = require('./models/graph.js');
 const Crypto = require('./models/crypto.js');
 const Forex = require('./models/forex.js');
+const SectorTableView = require('./views/home_view/sector_table_view.js')
+const SectorTable = require('./models/sector_table.js');
 
 const HomeController = function (){
 
@@ -15,7 +17,7 @@ const HomeController = function (){
 HomeController.prototype.initializePage = function () {
 
    const pageBody = document.querySelector('#pageBody');
-   
+
 
    const graphNode = document.createElement('div');
    pageBody.appendChild(graphNode);
@@ -45,7 +47,13 @@ HomeController.prototype.initializePage = function () {
    const newsfeedModel = new NewsfeedModel();
    newsfeedModel.initializeList();
 
-   const graph = new Graph();
+   const sectorTable = document.createElement('div');
+   sectorTable.id = 'sector-list'
+   pageBody.appendChild(sectorTable);
+   const sectorTableView = new SectorTableView(sectorTable);
+   sectorTableView.bindEvents();
+
+   const graph = new Graph('https://api.iextrading.com/1.0/stock/market/batch?symbols=MSFT&types=chart&range=1m&last=5');
    graph.initializeGraph();
 
    const crypto = new Crypto();
@@ -53,6 +61,9 @@ HomeController.prototype.initializePage = function () {
 
    const forex = new Forex();
    forex.initialize();
+
+   const sectors = new SectorTable()
+   sectors.initialize();
  };
 
 
