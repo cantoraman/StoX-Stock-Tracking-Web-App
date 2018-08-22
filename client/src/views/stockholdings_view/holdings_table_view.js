@@ -326,8 +326,6 @@ const finalDataArray = names.map((name, index) => {
   const profitLossCell = valueRow.insertCell(1);
   profitLossCell.textContent = "£" + profitLoss;
   profitLossCell.classList.add('positive')
-
-
 };
 
 
