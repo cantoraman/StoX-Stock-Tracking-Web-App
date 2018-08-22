@@ -40,7 +40,7 @@ HoldingsController.prototype.initializePage = function (userLoader) {
     const pieChartView = new PieChartView(newPieChartContainer)
     pieChartView.initializePieChart(userData);
 
-    const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer);
+    const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer, totalsContainer);
     holdingsTableView.bindEvents();
 
     let searchFormView = new SearchFormView(searchForm);
