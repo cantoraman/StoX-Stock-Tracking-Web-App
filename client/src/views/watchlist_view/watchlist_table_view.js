@@ -1,5 +1,6 @@
 const PubSub = require('../../helpers/pub_sub.js');
 const AppData = require('../../models/app_data.js');
+const Request = require('../../helpers/request.js');
 
 const WatchlistTableView = function (container) {
   this.container = container;
@@ -53,10 +54,56 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
     const priceCell = row.insertCell(1);
     priceCell.textContent = price;
 
-  });
+    const deleteCell = row.insertCell(2);
+    deleteCell.textContent = "Delete";
+    deleteCell.id = "delete-button";
+    deleteCell.classList.add("indicator");
+
+    deleteCell.addEventListener('click', (event) => {
+      this.deleteStock(rawUserData, stock)
+    });
+
+  }, this);
 
 
 
 };
+
+WatchlistTableView.prototype.deleteStock = function (rawUserData, stockInput) {
+  rawUserData[0].watchList.forEach(function(stock, index){
+    console.log(stock);
+    if(stock===stockInput){
+      rawUserData[0].holdings.splice(index,1);
+      console.log("silinen",stock);
+      this.updateDatabase();
+    };
+  });
+};
+WatchlistTableView.prototype.updateDatabase = function () {
+
+  this.url = 'http://localhost:3000/api/user';
+  this.request = new Request(this.url);
+    this.request.put(this.userData)
+    .then((userData) => {
+      let appData = new AppData('http://localhost:3000/api/user');
+      appData.launchData();
+      //PubSub.publish('AppData:data-loaded', userData);
+      //PubSub.publish('HoldingsTableView:data-loaded', userData);
+    })
+    .catch(console.error);
+
+
+
+
+
+
+
+
+
+
+
+
+};
+
 
 module.exports = WatchlistTableView;

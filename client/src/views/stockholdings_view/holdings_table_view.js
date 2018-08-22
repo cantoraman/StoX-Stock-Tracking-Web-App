@@ -108,7 +108,7 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
 
       deleteCell.addEventListener('click', (event) => {
         this.deleteStock(rawUserData, stock.stock)
-      })
+      });
 
       addCell.addEventListener('click', (event) => {
         this.isAdding = "true";

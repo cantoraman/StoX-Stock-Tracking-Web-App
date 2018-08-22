@@ -43,7 +43,7 @@ WatchAddView.prototype.arrangeFindSymbolFormToRender = function () {
 
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    const newHolding = symbolInput.value;
+    const newHolding = symbolInput.value.toUpperCase();
     PubSub.publish('Watchlist:request-search-data', newHolding);
     symbolInput.textContent="";
   });
