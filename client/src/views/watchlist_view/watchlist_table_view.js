@@ -7,7 +7,6 @@ const WatchlistTableView = function (container) {
 
 WatchlistTableView.prototype.bindEvents = function () {
   PubSub.subscribe('WatchlistTableView:data-loaded', (evt) => {
-    console.log(evt);
     this.renderWatchlist(evt);
   });
 };
@@ -38,11 +37,6 @@ userData.forEach(function(stock) {
   stockNamesCell.textContent = stock;
   stockNamesCell.classList.add("indicator");
 });
-
-WatchListTableView.prototype.submitNewStock = function () {
-  updatedHolding.stock = this.stockToAdd;
-  PubSub.publish('Watchlist:holding-submitted', updatedHolding);
-};
 
 
 

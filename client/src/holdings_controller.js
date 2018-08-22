@@ -7,7 +7,6 @@ const PieChartView = require('./views/stockholdings_view/holdings_chart_view.js'
 
 
 
-
 const HoldingsController = function (){
 };
 

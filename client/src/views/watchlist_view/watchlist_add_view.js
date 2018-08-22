@@ -5,17 +5,16 @@ const WatchAddView = function (container){
 }
 
 WatchAddView.prototype.bindEvents = function () {
-  // PubSub.subscribe('Search:publish-search-data', (evt) => {
-  //   // this.arrangeSearchFormToRender(evt.detail);
-  // })
+  // PubSub.subscribe('WatchlistTableView:data-loaded', (evt) => {
+  //   this.arrangeFindSymbolFormToRender(evt);
+  // });
 };
 
 WatchAddView.prototype.initializeWatchAddView = function () {
-  this.arrangeSearchFormToRender();
+  this.arrangeFindSymbolFormToRender();
 };
 
-WatchAddView.prototype.arrangeSearchFormToRender = function () {
-
+WatchAddView.prototype.arrangeFindSymbolFormToRender = function () {
   const container = document.createElement('div');
   container.classList.add('search');
 
@@ -41,11 +40,10 @@ WatchAddView.prototype.arrangeSearchFormToRender = function () {
 
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
-    const newHolding = {};
-    newHolding.stock = symbolInput.value;
+    const newHolding = symbolInput.value;
     PubSub.publish('Watchlist:request-search-data', newHolding);
-
     symbolInput.textContent="";
+    console.log(newHolding);
 
   });
 

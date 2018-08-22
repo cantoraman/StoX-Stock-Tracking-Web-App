@@ -1,22 +1,24 @@
 const Request = require('../helpers/request.js');
 const PubSub = require('../helpers/pub_sub.js');
-const API_KEY_STOCK_CHART = require('../api_key_stock_charts.js');
 
-const  = function (userData) {
+const Watchlist = function (userData) {
   this.url = 'http://localhost:3000/api/user';
   this.request = new Request(this.url);
   this.userData = userData;
+  console.log(userData);
 };
 
 Watchlist.prototype.bindEvents = function () {
-  PubSub.subscribe('Watchlist:request-search-data', (evt) => {
-    this.addNewHolding(evt.detail);
-  });
+PubSub.subscribe('Watchlist:request-search-data', (evt) => {
+  console.log(evt.detail);
+  this.addNewItem(evt.detail);
+});
 };
 
-Watchlist.prototype.addNewHolding = function (newHolding) {
-  this.userData[0].watchList.push(newHolding);
-  console.log();
+Watchlist.prototype.addNewItem = function (newItem) {
+  this.userData[0].watchList.push(newItem);
+  console.log(newItem);
+  console.log(userData[0].watchList);
   this.postChangedUserData();
 };
 

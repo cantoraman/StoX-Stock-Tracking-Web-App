@@ -4,6 +4,7 @@ const GraphView = require('./views/graph_view/graph_view.js');
 const Graph = require('./models/graph.js');
 const PubSub = require('./helpers/pub_sub.js');
 const WatchlistAddView = require('./views/watchlist_view/watchlist_add_view.js');
+const Watchlist = require('./models/watchlist.js');
 
 const WatchlistController = function (){
 
@@ -31,6 +32,9 @@ WatchlistController.prototype.initializePage = function () {
     watchlistTableView.initializeTable(userData);
     watchlistTableView.bindEvents();
 
+    const watchlist = new Watchlist(userData);
+    watchlist.bindEvents();
+
     const graph = new Graph();
     graph.initializeGraph();
 
@@ -38,6 +42,7 @@ WatchlistController.prototype.initializePage = function () {
     addForm.id = 'add-form';
     pageBody.appendChild(addForm);
     const watchlistAddView = new WatchlistAddView(addForm);
+
     watchlistAddView.initializeWatchAddView();
 
     const addToWatchButton = document.createElement('div');
