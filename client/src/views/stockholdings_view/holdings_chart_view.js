@@ -63,7 +63,7 @@ const finalDataArray = names.map((name, index) => {
 
       },
       title: {
-        text: 'Total Value %',
+        text: 'Total Cash Invested %',
         style: {
          color: '#e8e8ff',
          font: 'bold 32px "Trebuchet MS", Verdana, sans-serif'

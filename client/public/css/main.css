@@ -244,3 +244,23 @@ font-family: 'Pontano Sans', sans-serif; */
   height: auto;
   width: auto;
 }
+
+#profit-loss-cell {
+  font-size: 2.5em;
+}
+
+input {
+  width:  20em;
+  height: 2.5em;
+}
+#submit-button {
+width: 6em;
+height: 1.5em;
+}
+
+#myPopup {
+  width: 20em;
+  height:10em;
+  position: absolute;
+  top: 700px;
+}

@@ -22,14 +22,19 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
   const body = document.querySelector("#pageBody");
   body.appendChild(container);
 
+  const searchHeader = document.createElement('div')
+  searchHeader.textContent = "Add a stock to watch:"
+  body.appendChild(searchHeader)
+
   const searchForm = document.createElement('form');
   searchForm.classList.add('search-form')
-  container.appendChild(searchForm);
+  searchHeader.appendChild(searchForm);
 
   const symbolInput = document.createElement('input');
   symbolInput.setAttribute("type", "text");
   symbolInput.style.backgroundColor = "white";
   symbolInput.style.color = "black";
+
   symbolInput.placeholder = "Enter Symbol";
   searchForm.appendChild(symbolInput);
 
@@ -56,7 +61,7 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
   submitButton.addEventListener('click', (event) => {
     event.preventDefault();
     const newHolding = {};
-    newHolding.stock = symbolInput.value;
+    newHolding.stock = symbolInput.value.toUpperCase();
     newHolding.investedValue = priceInput.value;
     newHolding.noOfSharesHeld = sharesInput.value;
     newHolding.profitLoss = 100;
