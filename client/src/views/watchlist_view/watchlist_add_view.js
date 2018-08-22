@@ -21,9 +21,14 @@ WatchAddView.prototype.arrangeFindSymbolFormToRender = function () {
   const body = document.querySelector("#pageBody");
   body.appendChild(container);
 
+
+  const searchHeader = document.createElement('div')
+  searchHeader.textContent = "Please enter a Stock Symbol to add"
+  body.appendChild(searchHeader)
+
   const searchForm = document.createElement('form');
   searchForm.classList.add('search-form')
-  container.appendChild(searchForm);
+  searchHeader.appendChild(searchForm);
 
   const symbolInput = document.createElement('input');
   symbolInput.setAttribute("type", "text");

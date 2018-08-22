@@ -40,7 +40,6 @@ userData.forEach(function(stock) {
 });
 
 
-
 };
 
 module.exports = WatchlistTableView;

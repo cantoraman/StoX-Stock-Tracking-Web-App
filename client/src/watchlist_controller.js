@@ -47,10 +47,10 @@ WatchlistController.prototype.initializePage = function () {
 
     watchlistAddView.initializeWatchAddView();
 
-    const addToWatchButton = document.createElement('div');
-    addToWatchButton.textContent="Add New Stock";
-    addToWatchButton.classList.add("indicator");
-    watchlistNode.appendChild(addToWatchButton);
+    // const addToWatchButton = document.createElement('div');
+    // addToWatchButton.textContent="Add New Stock";
+    // addToWatchButton.classList.add("indicator");
+    // watchlistNode.appendChild(addToWatchButton);
 
   });
 
