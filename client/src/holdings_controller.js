@@ -28,22 +28,22 @@ HoldingsController.prototype.initializePage = function (userLoader) {
     searchForm.id = 'search-form';
     const newPieChartContainer = document.createElement('div');
     newPieChartContainer.id = 'new-pie-chart';
-    pageBody.innerHTML = '';
     //?
-    pageBody.appendChild(totalsContainer);
     pageBody.appendChild(newPieChartContainer);
     pageBody.appendChild(pieContainer);
     pageBody.appendChild(holdingsTable);
-    holdingsTable.appendChild(searchForm);
+    pageBody.appendChild(totalsContainer);
+    pageBody.appendChild(searchForm)
+  //  holdingsTable.appendChild(searchForm);
 
 
-    const pieChartView = new PieChartView(newPieChartContainer)
-    pieChartView.initializePieChart(userData);
+    const pieChartView = new PieChartView(newPieChartContainer);
+    pieChartView.bindEvents();
 
     const holdingsTableView = new HoldingsTableView(holdingsTable, pieContainer, totalsContainer);
     holdingsTableView.bindEvents();
 
-    let searchFormView = new SearchFormView(searchForm);
+    const searchFormView = new SearchFormView(searchForm);
     searchFormView.bindEvents();
 
     const stockHoldings = new StockHoldings(userData);

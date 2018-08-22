@@ -17,11 +17,9 @@ SearchView.prototype.bindEvents = function () {
 SearchView.prototype.arrangeSearchFormToRender = function () {
   this.container.innerHTML = "";
 
-  const frame = document.querySelector("#search-form");
-
   const innerframe = document.createElement('div');
   innerframe.classList.add('search');
-  frame.appendChild(innerframe);
+  this.container.appendChild(innerframe);
 
   const searchForm = document.createElement('form');
   searchForm.classList.add('inner-search-form')

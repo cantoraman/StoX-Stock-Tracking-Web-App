@@ -26,7 +26,7 @@ Request.prototype.delete = function (id) {
 };
 
 Request.prototype.put = function (payload) {
-console.log("Payload:", payload);
+
 
   return fetch(`${this.url}/${payload[0]._id}`, {
     method: 'PUT',

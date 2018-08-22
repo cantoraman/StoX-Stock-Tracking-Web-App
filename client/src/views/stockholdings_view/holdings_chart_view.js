@@ -6,14 +6,18 @@ const PieChartView = function (container) {
 }
 
 PieChartView.prototype.bindEvents = function () {
-  PubSub.subscribe('HoldingsTableView:data-loaded', (evt) => {
+  PubSub.subscribe('HoldingsController:data-loaded', (evt) => {
+    this.initializePieChart(evt.detail);
   });
 };
 
 PieChartView.prototype.initializePieChart = function (rawUserData) {
+
   const userData = rawUserData[0];
-  this.getTotalInvestment(userData.holdings, this.container);
+  this.getTotalInvestment(userData.holdings);
   this.getPercentagesForEachStock(userData.holdings);
+
+
 };
 
 PieChartView.prototype.getTotalInvestment = function (userData) {

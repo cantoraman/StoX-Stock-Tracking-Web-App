@@ -324,6 +324,7 @@ const finalDataArray = names.map((name, index) => {
         data: finalDataArray
     }]
   });
+  this.totalsContainer.innerHTML="";
   const totalsTable = document.createElement('table');
   this.totalsContainer.appendChild(totalsTable);
 
@@ -361,7 +362,6 @@ HoldingsTableView.prototype.getTotalValue = function (arr) {
     let number = parseInt(arr[i])
     total += number
   }
-console.log(total)
   return total;
 };
 

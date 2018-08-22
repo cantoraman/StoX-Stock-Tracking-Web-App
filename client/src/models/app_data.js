@@ -23,7 +23,7 @@ AppData.prototype.launchData = function () {
 AppData.prototype.initializeStocks = function (userData) {
   const watchListArray = []
   const stockNames = [];
-  console.log(userData);
+  
   userData[0].holdings.forEach(function(stock) {
     stockNames.push(stock.stock);
   });
