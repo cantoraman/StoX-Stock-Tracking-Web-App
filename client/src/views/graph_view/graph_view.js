@@ -8,6 +8,7 @@ const GraphView = function (container) {
 GraphView.prototype.bindEvents = function () {
   PubSub.subscribe('Graph:publish-graphdata', (evt) => {
     this.arrangeStockToRender(evt.detail);
+    console.log(evt.detail);
   });
   PubSub.subscribe('Graph:publish-crypto', (evt) => {
     this.arrangeCryptoToRender(evt.detail);
@@ -99,7 +100,7 @@ GraphView.prototype.summonChart = function (container, chartTitle, listOfDates, 
       xAxis: {
         categories: [],
         title: {
-          text: "Time"
+          text: "Days"
         }
       },
       yAxis: [{
