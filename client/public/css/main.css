@@ -227,6 +227,7 @@ font-family: 'Pontano Sans', sans-serif; */
 
 #pie-chart {
   justify-content: center;
+  /* font-size: 25; */
 }
 
 #holdings-table {
@@ -237,6 +238,9 @@ font-family: 'Pontano Sans', sans-serif; */
   text-align: left;
 }
 
-.search-form{
-  justify-content: center;
+#logo-image {
+  max-width: 25%;
+  max-height: 25%;
+  height: auto;
+  width: auto;
 }
