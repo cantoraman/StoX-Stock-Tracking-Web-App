@@ -124,10 +124,7 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
     }, this);
 
 
-
-
-
-    this.renderPieChart(namesArray, percentArray, this.pieContainer);
+  this.renderPieChart(namesArray, percentArray, this.pieContainer);
 
     nameHeader.textContent = "Stock";
     valueHeader.textContent = "Invested Value";
@@ -183,8 +180,8 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const span = document.createElement('span');
     span.id = "myPopup";
     span.classList.add("popuptext");
-    span.textContent = "Please Register Your Stock Transaction";
     container.appendChild(span);
+
 
     const closeButton = document.createElement('button');
     closeButton.id = "close-button";
@@ -192,11 +189,16 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     closeButton.style.backgroundColor = "black";
     span.appendChild(closeButton);
 
+    const explanation = document.createElement('div');
+    explanation.textContent = "Please Register Your Stock Transaction";
+    span.appendChild(explanation);
+
     const form = document.createElement('form');
+    span.appendChild(form);
 
     const sharesBoughtText = document.createElement('div');
     sharesBoughtText.classList.add("shares-bought-text");
-    sharesBoughtText.textContent="Share Bought";
+    sharesBoughtText.textContent="Share Bought/Sold";
     form.appendChild(sharesBoughtText);
 
     const sharesBoughtInput = document.createElement('input');
@@ -234,7 +236,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
       sharesBoughtInput.value = "";
     });
 
-    span.appendChild(form);
+
 
   };
 
@@ -263,6 +265,7 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
 };
 
 HoldingsTableView.prototype.renderPieChart = function (names,percentages,pieContainer) {
+  console.log(pieContainer);
 const finalDataArray = names.map((name, index) => {
   return {name: name, y: (parseInt(percentages[index]))}
 })

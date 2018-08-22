@@ -148,14 +148,18 @@ font-family: 'Pontano Sans', sans-serif; */
    bottom: 0; */
    /* left: 0;
    right: 0; */
-   margin:auto;
-   position:absolute;
-   width: 200px;
-   height: 100px;
+   /* margin:auto; */
+   /* position:absolute; */
+   position: absolute;
+    left: 50%;
+
+    margin-left: -450px;
+   width: 1px;
+   height: 1px;
   /*
    top: 50%;
    left: 50%; */
-   transform: translate(-50%, -50%);
+   /* transform: translate(-50%, -50%); */
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -164,7 +168,7 @@ font-family: 'Pontano Sans', sans-serif; */
 
 }
 
-.popup .popuptext {
+.popup {
 
     visibility: hidden;
     background-color: #555;
@@ -174,6 +178,21 @@ font-family: 'Pontano Sans', sans-serif; */
     /* padding: 8px 0; */
     position: absolute;
     z-index: 1;
+    /* bottom: 125%; */
+    /* left: 50%; */
+    /* margin-left: -80px; */
+}
+.popuptext {
+
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 9px;
+    /* padding: 8px 0; */
+    position: absolute;
+    z-index: 1;
+    padding-top: 50px;
     /* bottom: 125%; */
     /* left: 50%; */
     /* margin-left: -80px; */
@@ -193,8 +212,8 @@ font-family: 'Pontano Sans', sans-serif; */
 
 /* Toggle this class - hide and show the popup */
 .popup .show {
-  width: 500px;
-  height: 400px;
+  width: 400px;
+  height: 200px;
 
     visibility: visible;
     -webkit-animation: fadeIn 1s;

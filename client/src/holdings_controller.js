@@ -30,8 +30,8 @@ HoldingsController.prototype.initializePage = function (userLoader) {
 
     pageBody.appendChild(searchForm);
     pageBody.appendChild(holdingsTable);
-    holdingsTable.appendChild(newPieChartContainer);
-    holdingsTable.appendChild(pieContainer);
+    pageBody.appendChild(newPieChartContainer);
+    pageBody.appendChild(pieContainer);
 
     const pieChartView = new PieChartView(newPieChartContainer)
     pieChartView.initializePieChart(userData);
@@ -62,14 +62,7 @@ HoldingsController.prototype.publishUserData = function (userData) {
 HoldingsController.prototype.bindEvents = function () {
    PubSub.subscribe('AppData:data-loaded', (evt)=>{
      this.publishUserData(evt.detail);
-
-    // this.initializePage(this.userData);
-  //  this.renderPage(evt.detail);
    });
-};
-
-HoldingsController.prototype.renderPage = function (userData) {
-
 };
 
 module.exports = HoldingsController;
