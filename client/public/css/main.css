@@ -223,3 +223,12 @@ font-family: 'Pontano Sans', sans-serif; */
 #crypto-name {
   text-align: left;
 }
+
+
+#pie-chart {
+  justify-content: center;
+}
+
+#holdings-table {
+  justify-content: center;
+}
