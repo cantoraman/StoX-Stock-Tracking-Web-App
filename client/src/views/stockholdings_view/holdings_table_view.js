@@ -140,11 +140,11 @@ HoldingsTableView.prototype.renderHoldings = function (rawUserData, pageBody, wh
     this.renderPieChart(namesArray, percentArray, this.pieContainer, totalInvested, totalPL);
 
     nameHeader.textContent = "Stock";
-    valueHeader.textContent = "Invested Value";
-    currentValueHeader.textContent = "Current Price";
+    valueHeader.textContent = "Invested Value (£)";
+    currentValueHeader.textContent = "Current Price (£)";
     sharesHeldHeader.textContent = "Volume";
-    profitLossHeader.textContent = "Profit/Loss";
-    holdingsPercentHeader.textContent = "% of total holdings"
+    profitLossHeader.textContent = "Profit/Loss (£)";
+    holdingsPercentHeader.textContent = "% of Total holdings"
     addHeader.textContent = "Bought";
     removeHeader.textContent = "Sold";
   };
@@ -216,18 +216,18 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
 
     const sharesBoughtInput = document.createElement('input');
     sharesBoughtInput.setAttribute("type", "text");
-    sharesBoughtInput.style.backgroundColor = "navy";
+    sharesBoughtInput.style.backgroundColor = "black";
     sharesBoughtInput.placeholder = "No of Shares";
     sharesBoughtText.appendChild(sharesBoughtInput);
 
     const pricePaid = document.createElement('div');
     pricePaid.classList.add("input-text");
-    pricePaid.textContent = "Stock Price";
+    pricePaid.textContent = "Stock Price $";
     form.appendChild(pricePaid);
 
     const priceInput = document.createElement('input');
     priceInput.setAttribute("type", "text");
-    priceInput.style.backgroundColor = "navy";
+    priceInput.style.backgroundColor = "black";
     priceInput.placeholder = "$ per Share";
     pricePaid.appendChild(priceInput);
 
@@ -294,7 +294,7 @@ const finalDataArray = names.map((name, index) => {
         type: 'pie'
       },
       title: {
-        text: 'Total Shares %',
+        text: 'Your Total Shares Distribution %',
         style: {
          color: '#e8e8ff',
          font: 'bold 32px "Trebuchet MS", Verdana, sans-serif'
@@ -321,7 +321,8 @@ const finalDataArray = names.map((name, index) => {
       series: [{
         name: 'Stock Holdings',
         colorByPoint: true,
-        data: finalDataArray
+        data: finalDataArray,
+
     }]
   });
   this.totalsContainer.innerHTML="";
@@ -333,27 +334,19 @@ const finalDataArray = names.map((name, index) => {
 
   const totalsCell = totalsHeader.insertCell(0);
   totalsCell.textContent = "Total Invested Value";
+  totalsCell.id = 'profit-loss-cell'
   const plTotalsCell = totalsHeader.insertCell(1);
   plTotalsCell.textContent = "Total Profit/Loss";
+  plTotalsCell.id = 'profit-loss-cell'
   const investedCell = valueRow.insertCell(0);
   investedCell.textContent = "£" + invested;
+  investedCell.id = 'profit-loss-cell'
   const profitLossCell = valueRow.insertCell(1);
   profitLossCell.textContent = "£" + profitLoss;
-
-
+  profitLossCell.classList.add('positive')
+  profitLossCell.id = 'profit-loss-cell'
 };
 
-
-// HoldingsTableView.prototype.getTotalValue = function (totalProfitLoss) {
-//   let total =  0
-//   console.log(totalProfitLoss);
-//   for(var i = 0; i < totalProfitLoss.length; i++) {
-//     let number = parseInt(totalProfitLoss[i])
-//     total += number
-//   }
-//   console.log(total)
-//   return total;
-// };
 
 HoldingsTableView.prototype.getTotalValue = function (arr) {
   let total =  0

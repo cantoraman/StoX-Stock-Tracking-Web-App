@@ -21,14 +21,19 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
   innerframe.classList.add('search');
   this.container.appendChild(innerframe);
 
+  const searchHeader = document.createElement('div')
+  searchHeader.textContent = "Add a stock to watch:"
+  this.container.appendChild(searchHeader)
+
   const searchForm = document.createElement('form');
-  searchForm.classList.add('inner-search-form')
-  innerframe.appendChild(searchForm);
+  searchForm.classList.add('search-form')
+  this.container.appendChild(searchForm);
 
   const symbolInput = document.createElement('input');
   symbolInput.setAttribute("type", "text");
   symbolInput.style.backgroundColor = "white";
   symbolInput.style.color = "black";
+
   symbolInput.placeholder = "Enter Symbol";
   searchForm.appendChild(symbolInput);
 
