@@ -325,21 +325,11 @@ const finalDataArray = names.map((name, index) => {
   investedCell.textContent = "£" + invested;
   const profitLossCell = valueRow.insertCell(1);
   profitLossCell.textContent = "£" + profitLoss;
+  profitLossCell.classList.add('positive')
 
 
 };
 
-
-// HoldingsTableView.prototype.getTotalValue = function (totalProfitLoss) {
-//   let total =  0
-//   console.log(totalProfitLoss);
-//   for(var i = 0; i < totalProfitLoss.length; i++) {
-//     let number = parseInt(totalProfitLoss[i])
-//     total += number
-//   }
-//   console.log(total)
-//   return total;
-// };
 
 HoldingsTableView.prototype.getTotalValue = function (arr) {
   let total =  0
@@ -348,7 +338,6 @@ HoldingsTableView.prototype.getTotalValue = function (arr) {
     let number = parseInt(arr[i])
     total += number
   }
-console.log(total)
   return total;
 };
 
