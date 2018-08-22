@@ -16,7 +16,6 @@ AppData.prototype.launchData = function () {
       this.data = userData;
       PubSub.publish('AppData:data-loaded', this.data);
       // this.initializeStocks(userData[0]);
-
     })
     .catch(console.error);
 };
@@ -24,10 +23,11 @@ AppData.prototype.launchData = function () {
 AppData.prototype.initializeStocks = function (userData) {
   const watchListArray = []
   const stockNames = [];
+  console.log(userData);
   userData[0].holdings.forEach(function(stock) {
     stockNames.push(stock.stock);
   });
-  userData.watchList.forEach(function(stock) {
+  userData[0].watchList.forEach(function(stock) {
     watchListArray.push(stock);
   });
   const watchListNames = watchListArray.toString();
