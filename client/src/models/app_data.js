@@ -23,7 +23,7 @@ AppData.prototype.launchData = function () {
 AppData.prototype.initializeStocks = function (userData) {
   const watchListArray = []
   const stockNames = [];
-  
+
   userData[0].holdings.forEach(function(stock) {
     stockNames.push(stock.stock);
   });
@@ -48,7 +48,7 @@ AppData.prototype.callPricesWatchlist = function (watchListNames) {
     arrayOfNames.push(stock);
     });
     var arrays = [arrayOfPrices, arrayOfNames];
-    PubSub.publish('AppData:watchlist-prices-array-loaded', arrays)
+    PubSub.publish('Watchlist:prices-array-loaded', arrays)
   });
 };
 

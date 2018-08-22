@@ -45,7 +45,7 @@ WatchlistController.prototype.initializePage = function (userLoader) {
     const graphView = new GraphView(graphNode);
     graphView.bindEvents();
 
-    const watchlist = new Watchlist(watchlistNode);
+    const watchlist = new Watchlist(userData);
     watchlist.bindEvents();
 
     const watchlistAddView = new WatchlistAddView(addForm);

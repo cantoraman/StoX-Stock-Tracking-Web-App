@@ -13,7 +13,7 @@ WatchlistTableView.prototype.bindEvents = function () {
 };
 
 WatchlistTableView.prototype.initializeTable = function (rawUserData) {
-  PubSub.subscribe("HoldingsTableView:prices-array-loaded", (prices) => {
+  PubSub.subscribe("Watchlist:prices-array-loaded", (prices) => {
     const watchListPrices = prices.detail[0];
     const watchListNames = prices.detail[1];
     this.renderWatchlist(watchListPrices, watchListNames, rawUserData)
@@ -24,6 +24,7 @@ WatchlistTableView.prototype.initializeTable = function (rawUserData) {
 
 WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserData) {
   this.container.innerHTML="";
+
   const watchlistTable = document.createElement('table');
   watchlistTable.classList.add('watchlist-table');
   this.container.appendChild(watchlistTable);
@@ -51,7 +52,7 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
     stockPrices.push(price);
     const priceCell = row.insertCell(1);
     priceCell.textContent = price;
-    
+
   });
 
 
