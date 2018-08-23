@@ -18,6 +18,9 @@ HomeController.prototype.initializePage = function () {
 
    const pageBody = document.querySelector('#pageBody');
 
+   const tableDiv = document.createElement('tableDiv');
+   pageBody.appendChild(tableDiv);
+
 
    const graphNode = document.createElement('div');
    pageBody.appendChild(graphNode);
@@ -27,14 +30,14 @@ HomeController.prototype.initializePage = function () {
 
    const forexList = document.createElement('div');
    forexList.id = 'forex-list';
-   pageBody.appendChild(forexList);
+   tableDiv.appendChild(forexList);
 
    const forexListView = new ForexView(forexList);
    forexListView.bindEvents();
 
    const cryptoList = document.createElement('div');
    cryptoList.id = 'crypto-list';
-   pageBody.appendChild(cryptoList);
+   tableDiv.appendChild(cryptoList);
    const cryptoListView = new CryptoView(cryptoList);
    cryptoListView.bindEvents();
 
@@ -49,7 +52,7 @@ HomeController.prototype.initializePage = function () {
 
    const sectorTable = document.createElement('div');
    sectorTable.id = 'sector-list'
-   pageBody.appendChild(sectorTable);
+   tableDiv.appendChild(sectorTable);
    const sectorTableView = new SectorTableView(sectorTable);
    sectorTableView.bindEvents();
 
