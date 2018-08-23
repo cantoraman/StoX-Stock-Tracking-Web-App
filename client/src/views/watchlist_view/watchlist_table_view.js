@@ -41,13 +41,14 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
   names.forEach(function(stock, index) {
     stockNames.push(stock);
     const row = watchlistTable.insertRow(1);
-    row.addEventListener('click', (event) => {
-      PubSub.publish('Graph:request-graphdata', stock);
-    });
     tableHeader.classList.add('watchlist-header');
     const stockNamesCell = row.insertCell(0);
     stockNamesCell.textContent = stock;
     stockNamesCell.classList.add("indicator");
+    stockNamesCell.addEventListener('click', (event) => {
+      console.log("crazy but... row makes a graph request");
+      PubSub.publish('Graph:request-graphdata', stock);
+    });
 
     const price = prices[index]
     stockPrices.push(price);
@@ -83,7 +84,7 @@ WatchlistTableView.prototype.deleteStock = function (rawUserData, stockInput) {
 WatchlistTableView.prototype.updateDatabase = function (userData) {
 
     const request = new Request('http://localhost:3000/api/user');
-    console.log(userData);
+    console.log("WatchlistUpdate:",userData);
     request.put(userData)
     .then((userData) => {
       let appData = new AppData('http://localhost:3000/api/user');
