@@ -3,7 +3,7 @@ db.dropDatabase();
 
 db.user_data.insertOne(
   {
-    watchList: ["GOOGL","AAPL","MSFT","FB","AMZN","NKI","SBUX"],
+    watchList: ["GOOGL","AAPL","MSFT","AMZN","NKI","SBUX"],
     holdings:
     [
       {
@@ -47,13 +47,6 @@ db.user_data.insertOne(
       investedValue: "4750.5",
       noOfSharesHeld: "60",
       profitLoss:-223.5
-    },
-
-    {
-      stock: "SBUX",
-      investedValue: "5000",
-      noOfSharesHeld: "100",
-      profitLoss:+303
     }
   ]
   }

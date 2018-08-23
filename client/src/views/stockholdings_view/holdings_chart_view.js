@@ -88,7 +88,8 @@ const finalDataArray = names.map((name, index) => {
             style: {
               color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black',
               lineHeight:'18px',
-              fontSize:'25px'
+              fontSize:'25px',
+              fontFamily: "Arial"
             }
           }
         }
