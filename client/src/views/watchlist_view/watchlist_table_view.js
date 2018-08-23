@@ -70,8 +70,10 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
 };
 
 WatchlistTableView.prototype.deleteStock = function (rawUserData, stockInput) {
+  var x=0;
   rawUserData[0].watchList.forEach(function(stock, index){
-    if(stock===stockInput){
+    if(stock===stockInput && x===0){
+      x++;
       rawUserData[0].watchList.splice(index,1);
       this.updateDatabase(rawUserData);
     };

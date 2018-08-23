@@ -10,17 +10,21 @@ const HoldingsController = function (){
   this.userData = null;
 };
 HoldingsController.prototype.bindEvents = function () {
+  console.log("h4-Bind events subscribes to AppData:Data-loaded");
   PubSub.subscribe('AppData:data-loaded', (evt)=>{
+    console.log("hx-HoldingBindEvents:someone fired AppData:data-loaded, I am making a call to publishuserdata");
     this.publishUserData(evt.detail);
   });
 };
 
 HoldingsController.prototype.publishUserData = function (userData) {
+  console.log("h3-HoldingsControl publishes user data !!on the function!! thruHoldController");
   PubSub.publish('HoldingsController:data-loaded', userData);
 };
 
 
 HoldingsController.prototype.initializePage = function (userLoader) {
+    console.log("h1-Initilize Page is loaded");
     this.userData = userLoader;
     const userData = userLoader;
     const pageBody = document.querySelector('#pageBody');
@@ -60,6 +64,7 @@ HoldingsController.prototype.initializePage = function (userLoader) {
     const search = new Search();
     search.bindEvents();
 
+    console.log("h2-holdingController:initializePage makes a request to publish user data**");
     this.publishUserData(userData);
 
   //  holdingsTableView.initializeTable(userData);

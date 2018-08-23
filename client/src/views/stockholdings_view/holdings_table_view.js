@@ -162,10 +162,11 @@ HoldingsTableView.prototype.deleteStock = function (rawUserData, stock) {
       //remove the object from the array
       // publish similarly to below... but something else
 
-
+    var x=0;
     rawUserData[0].holdings.forEach(function(holding, index){
-      if(holding.stock===stock){
+      if(holding.stock===stock && x === 0){
         rawUserData[0].holdings.splice(index,1);
+        x++;
         PubSub.publish('StockHoldings:holding-deleted', rawUserData);
       };
     });

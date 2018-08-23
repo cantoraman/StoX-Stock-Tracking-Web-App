@@ -4,6 +4,8 @@ const WatchlistController = require('./watchlist_controller.js');
 const HoldingsController = require('./holdings_controller.js');
 const HoldingsTableView = require('./views/stockholdings_view/holdings_table_view.js');
 
+p=0;
+
 document.addEventListener('DOMContentLoaded', () => {
 
   const holdingsController = new HoldingsController();
@@ -17,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const pageBody = document.querySelector('#pageBody');
 
 
+  console.log("First LaunchData in app.js");
   appData.launchData();
-
 
   homeController.initializePage();
 
@@ -41,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   holdingsButton.addEventListener('click', (event) => {
     event.preventDefault();
     pageBody.innerHTML = '';
+    console.log("Holding button calls: initializePage and bind events");
     holdingsController.initializePage(appData.getUserData());
     holdingsController.bindEvents();
   //  appData.getData();
