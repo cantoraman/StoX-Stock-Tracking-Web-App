@@ -22,7 +22,7 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
   this.container.appendChild(innerframe);
 
   const searchHeader = document.createElement('div')
-  searchHeader.textContent = "Add a stock to watch:"
+  searchHeader.textContent = "Add a stock to your portfolio:"
   this.container.appendChild(searchHeader)
 
   const searchForm = document.createElement('form');

@@ -16,7 +16,8 @@ NewsfeedView.prototype.bindEvents = function () {
     this.container.appendChild(newsTable);
 
     const tableHeader = newsTable.insertRow(0);
-    tableHeader.innerHTML = "Latest Financial News";
+    tableHeader.textContent = "Latest Financial News";
+    tableHeader.id = 'news-header'
 
     const newsHeadlines = [];
     const newsImages = [];
