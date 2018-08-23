@@ -41,7 +41,7 @@ SearchView.prototype.arrangeSearchFormToRender = function () {
   priceInput.setAttribute("type", "text");
   priceInput.style.backgroundColor = "white";
   priceInput.style.color = "black";
-  priceInput.placeholder = "Enter Price Paid"
+  priceInput.placeholder = "Enter Invested Value"
   searchForm.appendChild(priceInput);
 
   const sharesInput = document.createElement('input');

@@ -217,18 +217,18 @@ HoldingsTableView.prototype.passCurrentValue = function (symbol, arrayOfNamesAnd
     const sharesBoughtInput = document.createElement('input');
     sharesBoughtInput.setAttribute("type", "text");
     sharesBoughtInput.style.backgroundColor = "black";
-    sharesBoughtInput.placeholder = "No of Shares";
+    sharesBoughtInput.placeholder = "Enter No of Shares";
     sharesBoughtText.appendChild(sharesBoughtInput);
 
     const pricePaid = document.createElement('div');
     pricePaid.classList.add("input-text");
-    pricePaid.textContent = "Stock Price $";
+    pricePaid.textContent = "Total Invested Value";
     form.appendChild(pricePaid);
 
     const priceInput = document.createElement('input');
     priceInput.setAttribute("type", "text");
     priceInput.style.backgroundColor = "black";
-    priceInput.placeholder = "$ per Share";
+    priceInput.placeholder = "Enter Invested Value";
     pricePaid.appendChild(priceInput);
 
     const submitButton = document.createElement('button');
