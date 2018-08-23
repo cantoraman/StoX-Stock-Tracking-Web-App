@@ -17,8 +17,8 @@ StockHoldings.prototype.bindEvents = function () {
     this.addNewHolding(evt.detail);
   });
   PubSub.subscribe('StockHoldings:holding-deleted', (evt) => {
-    p++;
-    console.log(`StockHoldings:holding-deleted ${p}`);
+  //  p++;
+  //  console.log(`StockHoldings:holding-deleted ${p}`);
     this.removeHolding(evt.detail);
   });
 
@@ -54,7 +54,7 @@ StockHoldings.prototype.postChangedUserData = function () {
   this.request.put(this.userData)
   .then((userData) => {
     let appData = new AppData('http://localhost:3000/api/user');
-    console.log("stockholdings' postChangedUserData fires appData.launchData");
+  //  console.log("stockholdings' postChangedUserData fires appData.launchData");
     appData.launchData();
     //PubSub.publish('AppData:data-loaded', userData);
     //PubSub.publish('HoldingsTableView:data-loaded', userData);
