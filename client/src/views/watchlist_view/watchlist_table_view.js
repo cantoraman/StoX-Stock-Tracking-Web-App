@@ -4,6 +4,7 @@ const Request = require('../../helpers/request.js');
 
 const WatchlistTableView = function (container) {
   this.container = container;
+  this.userData = null;
 }
 
 WatchlistTableView.prototype.bindEvents = function () {
@@ -25,7 +26,7 @@ WatchlistTableView.prototype.initializeTable = function (rawUserData) {
 
 WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserData) {
   this.container.innerHTML="";
-
+  this.userData=rawUserData;
   const watchlistTable = document.createElement('table');
   watchlistTable.classList.add('watchlist-table');
   this.container.appendChild(watchlistTable);
@@ -37,7 +38,7 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
 
   const stockNames = [];
   const stockPrices = [];
-
+console.log("renderedlist:", this.userData);
   names.forEach(function(stock, index) {
     stockNames.push(stock);
     const row = watchlistTable.insertRow(1);
@@ -46,7 +47,6 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
     stockNamesCell.textContent = stock;
     stockNamesCell.classList.add("indicator");
     stockNamesCell.addEventListener('click', (event) => {
-      console.log("crazy but... row makes a graph request");
       PubSub.publish('Graph:request-graphdata', stock);
     });
 
@@ -61,7 +61,8 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
     deleteCell.classList.add("indicator");
 
     deleteCell.addEventListener('click', (event) => {
-      this.deleteStock(rawUserData, stock)
+      console.log("delete clicked,", this.userData, "and", stock);
+      this.deleteStock(this.userData, stock)
     });
 
   }, this);
@@ -70,42 +71,30 @@ WatchlistTableView.prototype.renderWatchlist = function (prices, names, rawUserD
 
 };
 
-WatchlistTableView.prototype.deleteStock = function (rawUserData, stockInput) {
+WatchlistTableView.prototype.deleteStock = function (userData, stockInput) {
   var x=0;
-  rawUserData[0].watchList.forEach(function(stock, index){
+  userData[0].watchList.forEach(function(stock, index){
     if(stock===stockInput && x===0){
       x++;
-      rawUserData[0].watchList.splice(index,1);
-      this.updateDatabase(rawUserData);
+      // userData[0].watchList.splice(index,1);
+      PubSub.publish('Watchlist:watch-item-deleted', index);
+    //  this.updateDatabase(userData);
     };
   }, this);
 };
 
-WatchlistTableView.prototype.updateDatabase = function (userData) {
-
-    const request = new Request('http://localhost:3000/api/user');
-    console.log("WatchlistUpdate:",userData);
-    request.put(userData)
-    .then((userData) => {
-      let appData = new AppData('http://localhost:3000/api/user');
-      appData.launchData();
-      //PubSub.publish('AppData:data-loaded', userData);
-      //PubSub.publish('HoldingsTableView:data-loaded', userData);
-    })
-    .catch(console.error);
-
-
-
-
-
-
-
-
-
-
-
-
-};
+// WatchlistTableView.prototype.updateDatabase = function (userData) {
+//     const request = new Request('http://localhost:3000/api/user');
+//     console.log("WatchlistUpdatexxx:", userData);
+//     request.put(userData)
+//     .then((userData) => {
+//       let appData = new AppData('http://localhost:3000/api/user');
+//       appData.launchData();
+//       //PubSub.publish('AppData:data-loaded', userData);
+//       //PubSub.publish('HoldingsTableView:data-loaded', userData);
+//     })
+//     .catch(console.error);
+// };
 
 
 module.exports = WatchlistTableView;

@@ -12,10 +12,22 @@ Watchlist.prototype.bindEvents = function () {
 PubSub.subscribe('Watchlist:request-search-data', (evt) => {
   this.addNewItem(evt.detail);
 });
+
+PubSub.subscribe('Watchlist:watch-item-deleted', (evt) => {
+  this.deleteWatchItem(evt.detail);
+});
+
+
+
 };
 
 Watchlist.prototype.addNewItem = function (newItem) {
   this.userData[0].watchList.push(newItem);
+  this.postChangedUserData();
+};
+
+Watchlist.prototype.deleteWatchItem = function (itemIndex) {
+  this.userData[0].watchList.splice(itemIndex,1);
   this.postChangedUserData();
 };
 
@@ -27,7 +39,5 @@ Watchlist.prototype.postChangedUserData = function () {
   })
   .catch(console.error);
 };
-
-
 
 module.exports = Watchlist;
