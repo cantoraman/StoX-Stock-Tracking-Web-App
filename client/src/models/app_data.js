@@ -10,9 +10,12 @@ AppData.prototype.bindEvents = function () {
 };
 
 AppData.prototype.launchData = function () {
+  p++;
+  console.log(`Launch Data in App Data being called ${p}`);
   this.request = new Request(this.url);
   this.request.get()
     .then((userData) => {
+      console.log("just got user data from DB, now publishing this on AppData:data-loaded");
       this.data = userData;
       PubSub.publish('AppData:data-loaded', this.data);
       // this.initializeStocks(userData[0]);
