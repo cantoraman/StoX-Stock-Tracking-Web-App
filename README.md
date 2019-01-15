@@ -25,11 +25,14 @@ Collaboration with Magdalena Magdat, Can Toraman, Lee Burges & Daniel Warren.
 ## Installing
 Download & unpack folder
 
+CD into folder
 In different terminal instances
--CD into folder
--npm run build
--mongod
--npm run server:dev
-  
+
+```
+npm run build
+mongod
+npm run server:dev
+```
+
 Browser
 -http://localhost:3000  
