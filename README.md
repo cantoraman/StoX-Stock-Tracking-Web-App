@@ -25,12 +25,11 @@ Collaboration with Magdalena Magdat, Can Toraman, Lee Burges & Daniel Warren.
 ## Installing
 Download & unpack folder
 
-Terminal
-  CD into folder
-  npm init-y
-  npm i
-  npm run build
-  npm run server:dev
+In different terminal instances
+-CD into folder
+-npm run build
+-mongod
+-npm run server:dev
   
 Browser
-  http://localhost:3000  
+-http://localhost:3000  
