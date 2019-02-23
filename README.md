@@ -29,7 +29,6 @@ CD into folder
 In different terminal instances
 
 ```
-npm run build
 mongod
 npm run server:dev
 ```
